@@ -26,7 +26,7 @@ export default function AdminDashboardPage() {
       activeTeams: teams.filter(t => t.isActive).length,
       quizSubmissions: teams.filter(t => t.quizStatus === 'COMPLETED').length,
       proctoringAlerts: proctoringEvents.filter((e: any) => e.status === 'UNREVIEWED').length,
-      totalCreditsUsed: teams.reduce((acc, t) => acc + (50 - t.credits), 0)
+      totalCreditsUsed: DB.getCreditTx().filter(tx => tx.amount < 0).reduce((sum, tx) => sum + Math.abs(tx.amount), 0)
     });
   }, []);
 
@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
              <div className="space-y-4">
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-300">Database Connection</span>
-                  <span className="px-2 py-1 bg-success/10 text-success rounded-md font-medium text-xs">STABLE (Local Mock)</span>
+                  <span className="px-2 py-1 bg-success/10 text-success rounded-md font-medium text-xs">STABLE (Supabase Sync)</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-300">Proctoring AI Engine</span>
