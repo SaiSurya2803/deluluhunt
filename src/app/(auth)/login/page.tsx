@@ -18,15 +18,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isSyncing, setIsSyncing] = useState(true);
   
   const [step, setStep] = useState<'CREDENTIALS' | 'MEMBER_SELECTION'>('CREDENTIALS');
   const [authenticatedTeam, setAuthenticatedTeam] = useState<Team | null>(null);
-
-  useEffect(() => {
-    // Initialize DB and sync with Supabase Cloud
-    DB.init().then(() => setIsSyncing(false));
-  }, []);
 
   const handleCredentialsSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,8 +93,8 @@ export default function LoginPage() {
                 </div>
               )}
 
-              <Button type="submit" className="w-full text-white" disabled={isSyncing}>
-                {isSyncing ? "Syncing with Cloud Database..." : "Access System"}
+              <Button type="submit" className="w-full text-white">
+                Access System
               </Button>
             </form>
           )}

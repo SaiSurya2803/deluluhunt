@@ -14,6 +14,8 @@ const vt323 = VT323({
   variable: '--font-vt323',
 });
 
+import { DatabaseSyncProvider } from '@/components/DatabaseSyncProvider';
+
 export default function RootLayout({
   children,
 }: {
@@ -22,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`min-h-screen bg-background text-foreground antialiased selection:bg-primary/30 ${vt323.variable}`}>
-        {children}
+        <DatabaseSyncProvider>
+          {children}
+        </DatabaseSyncProvider>
       </body>
     </html>
   );
