@@ -106,6 +106,24 @@ export default function AdminTeamsPage() {
     document.body.removeChild(link);
   };
 
+  const handleSetGlobalCredits = () => {
+    const amountStr = prompt("Enter the starting credits amount for ALL teams:");
+    if (amountStr === null) return;
+    
+    const amount = parseInt(amountStr);
+    if (isNaN(amount) || amount < 0) {
+      alert("Invalid credit amount");
+      return;
+    }
+    
+    if (confirm(`Are you sure you want to reset ALL teams to ${amount} credits?`)) {
+      const updatedTeams = teams.map(t => ({ ...t, credits: amount }));
+      DB.setTeams(updatedTeams);
+      setTeams(updatedTeams);
+      alert(`All teams have been updated to ${amount} credits.`);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -114,7 +132,14 @@ export default function AdminTeamsPage() {
           <p className="text-slate-500 mt-1">Manage registered teams and their access.</p>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <button 
+            onClick={handleSetGlobalCredits}
+            className="bg-amber-100 hover:bg-amber-200 text-amber-700 border border-amber-300 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+            Initialize Credits
+          </button>
           <button 
             onClick={downloadTemplate}
             className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
@@ -145,6 +170,7 @@ export default function AdminTeamsPage() {
                 <th className="px-6 py-4">Members</th>
                 <th className="px-6 py-4">Total Score</th>
                 <th className="px-6 py-4">Quiz Score</th>
+                <th className="px-6 py-4">Credits</th>
                 <th className="px-6 py-4">AI Trust Score</th>
                 <th className="px-6 py-4">Status</th>
                 <th className="px-6 py-4 text-right">Actions</th>
@@ -158,6 +184,7 @@ export default function AdminTeamsPage() {
                   <td className="px-6 py-4">{team.members.length} / 4</td>
                   <td className="px-6 py-4 text-primary font-bold">{team.score + (team.quizScore || 0)}</td>
                   <td className="px-6 py-4 text-primary">{team.quizScore !== undefined ? team.quizScore : 'N/A'}</td>
+                  <td className="px-6 py-4 text-slate-900 font-mono">{team.credits}</td>
                   <td className="px-6 py-4">
                     {team.quizTrustScore !== undefined ? (
                       <Badge variant={team.quizTrustScore > 70 ? 'success' : team.quizTrustScore > 40 ? 'warning' : 'destructive'}>
