@@ -52,19 +52,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Top Navbar Simulation */}
-      <div className="z-10 w-full flex justify-between items-center p-6 text-xl tracking-widest text-[#B3B4CD]">
-        <div className="text-[#FF2A5F] font-bold">INNOVATEX</div>
-        <div className="hidden md:flex gap-8">
-          <span className="hover:text-white cursor-pointer">SCHEDULE</span>
-          <span className="hover:text-white cursor-pointer">TRACKS</span>
-          <span className="hover:text-white cursor-pointer">PRIZE</span>
-          <span className="hover:text-white cursor-pointer">MORE</span>
-        </div>
-        <div className="text-xs uppercase tracking-widest text-right">
-          Powered by<br/><span className="text-white text-lg">DELULU</span>
-        </div>
-      </div>
+
 
       <div className="z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center mt-12 flex-1">
         {/* Main Title */}
