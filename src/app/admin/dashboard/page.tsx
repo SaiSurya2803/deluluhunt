@@ -149,6 +149,38 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+        {/* Database Debugger */}
+        <Card className="mt-8 border-warning/50 bg-warning/5">
+          <CardHeader>
+            <CardTitle className="text-warning flex items-center gap-2">
+              <Database className="w-5 h-5" /> Database Sync Diagnostics
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-foreground/70 mb-4">
+              If mobile sync is failing, it's likely because Supabase is blocking writes. Click the button below to send a test write to the cloud database.
+            </p>
+            <Button 
+              onClick={async () => {
+                try {
+                  const { supabase } = await import('@/services/supabaseClient');
+                  const { error } = await supabase.from('app_state').upsert({ key: 'test_sync', data: { timestamp: Date.now() } }, { onConflict: 'key' });
+                  if (error) {
+                    alert('SYNC FAILED! Error from Supabase: ' + error.message + '\n\nPlease run the SQL policy commands in Supabase.');
+                  } else {
+                    alert('SYNC SUCCESSFUL! The database is unlocked and working perfectly.');
+                  }
+                } catch (e: any) {
+                  alert('SYNC ERROR: ' + e.message);
+                }
+              }}
+              className="bg-warning text-black hover:bg-warning/80"
+            >
+              Test Cloud Database Connection
+            </Button>
+          </CardContent>
+        </Card>
     </div>
   );
 }
