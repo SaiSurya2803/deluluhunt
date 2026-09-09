@@ -12,17 +12,23 @@ export default function CreditsPage() {
   const { team } = useAuthStore();
   const [transactions, setTransactions] = useState<CreditTransaction[]>([]);
 
+  const [creditsUsed, setCreditsUsed] = useState(0);
+
   useEffect(() => {
     if (team) {
-      const allTx = DB.getCreditTx();
-      setTransactions(allTx.filter(tx => tx.teamId === team.id).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
+      const allTx = DB.getCreditTx().filter(tx => tx.teamId === team.id);
+      setTransactions(allTx.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
+      
+      const used = allTx
+        .filter(tx => tx.amount < 0)
+        .reduce((sum, tx) => sum + Math.abs(tx.amount), 0);
+      setCreditsUsed(used);
     }
   }, [team]);
 
   if (!team) return null;
 
-  const startingCredits = 50; // In a real app this might be configurable
-  const creditsUsed = startingCredits - team.credits;
+  const startingCredits = team.credits + creditsUsed;
 
   return (
     <div className="space-y-6">
