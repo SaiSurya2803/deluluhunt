@@ -57,13 +57,13 @@ export default function AdminQuizPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">QUIZ MANAGEMENT</h1>
-          <p className="text-slate-500 mt-1">Configure questions, set point values, and assign per-question timers.</p>
+          <p className="text-slate-400 mt-1">Configure questions, set point values, and assign per-question timers.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addQuestion} className="bg-white text-slate-700 hover:bg-slate-50">
+          <Button variant="outline" onClick={addQuestion} className="bg-slate-900 text-slate-300 hover:bg-slate-800">
             <Plus className="w-4 h-4 mr-2" /> Add Question
           </Button>
           <Button onClick={saveQuestions} className="bg-success text-white hover:bg-success/90">
@@ -74,14 +74,14 @@ export default function AdminQuizPage() {
 
       <div className="space-y-6">
         {questions.length === 0 ? (
-          <div className="text-center p-12 bg-white border border-slate-200 rounded-xl text-slate-500">
+          <div className="text-center p-12 bg-slate-900 border border-slate-700 rounded-xl text-slate-400">
             No questions available. Click "Add Question" to start building the quiz.
           </div>
         ) : (
           questions.map((q, index) => (
-            <Card key={q.id} className="border-slate-200 shadow-sm bg-white overflow-visible">
-              <CardHeader className="bg-slate-50 border-b border-slate-100 flex flex-row items-center justify-between pb-4">
-                <CardTitle className="text-lg text-slate-800">Question {index + 1}</CardTitle>
+            <Card key={q.id} className="border-slate-700 shadow-sm bg-slate-900 overflow-visible">
+              <CardHeader className="bg-slate-800 border-b border-slate-800 flex flex-row items-center justify-between pb-4">
+                <CardTitle className="text-lg text-slate-200">Question {index + 1}</CardTitle>
                 <Button variant="ghost" size="sm" onClick={() => removeQuestion(q.id)} className="text-danger hover:bg-danger/10">
                   <Trash2 className="w-4 h-4" />
                 </Button>
@@ -89,41 +89,41 @@ export default function AdminQuizPage() {
               <CardContent className="p-6 space-y-6">
                 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700">Question Text</label>
+                  <label className="text-sm font-semibold text-slate-300">Question Text</label>
                   <Input 
                     value={q.text} 
                     onChange={(e) => updateQuestion(q.id, 'text', e.target.value)} 
-                    className="bg-white border-slate-300 text-slate-900"
+                    className="bg-slate-900 border-slate-600 text-white"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 flex items-center">
+                    <label className="text-sm font-semibold text-slate-300 flex items-center">
                       <Clock className="w-4 h-4 mr-1 text-slate-400" /> Timer (Seconds)
                     </label>
                     <Input 
                       type="number" 
                       value={q.timer || 60} 
                       onChange={(e) => updateQuestion(q.id, 'timer', parseInt(e.target.value) || 0)}
-                      className="bg-white border-slate-300 text-slate-900"
+                      className="bg-slate-900 border-slate-600 text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 flex items-center">
+                    <label className="text-sm font-semibold text-slate-300 flex items-center">
                       <Trophy className="w-4 h-4 mr-1 text-slate-400" /> Points Awarded
                     </label>
                     <Input 
                       type="number" 
                       value={q.points || 10} 
                       onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
-                      className="bg-white border-slate-300 text-slate-900"
+                      className="bg-slate-900 border-slate-600 text-white"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-3 pt-2">
-                  <label className="text-sm font-semibold text-slate-700">Options & Correct Answer</label>
+                  <label className="text-sm font-semibold text-slate-300">Options & Correct Answer</label>
                   {q.options.map((opt, oIndex) => (
                     <div key={oIndex} className="flex items-center gap-3">
                       <input 
@@ -131,12 +131,12 @@ export default function AdminQuizPage() {
                         name={`correct-${q.id}`} 
                         checked={q.correctOptionIndex === oIndex}
                         onChange={() => updateQuestion(q.id, 'correctOptionIndex', oIndex)}
-                        className="w-5 h-5 text-primary border-slate-300 cursor-pointer"
+                        className="w-5 h-5 text-primary border-slate-600 cursor-pointer"
                       />
                       <Input 
                         value={opt} 
                         onChange={(e) => updateOption(q.id, oIndex, e.target.value)}
-                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-slate-900" : "bg-white border-slate-300 text-slate-900"}
+                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-white" : "bg-slate-900 border-slate-600 text-white"}
                       />
                     </div>
                   ))}

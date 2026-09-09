@@ -82,7 +82,7 @@ export default function SystemCheckPage() {
     <div className="flex items-center justify-between p-4 border-b border-glass-border last:border-0">
       <div className="flex items-center gap-3">
         <Icon className="w-5 h-5 text-foreground/60" />
-        <span className="font-medium text-slate-900">{title}</span>
+        <span className="font-medium text-white">{title}</span>
       </div>
       <div>
         {status === 'PENDING' && <span className="text-foreground/40 text-sm">Pending...</span>}
@@ -96,11 +96,11 @@ export default function SystemCheckPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6 mt-8">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">SYSTEM CHECK</h1>
+        <h1 className="text-3xl font-bold text-white mb-2">SYSTEM CHECK</h1>
         <p className="text-foreground/60">Verifying your environment before starting the proctored assessment.</p>
       </div>
 
-      <Card className="border-slate-200 shadow-sm mt-8">
+      <Card className="border-slate-700 shadow-sm mt-8">
         <CardContent className="p-0">
           <CheckItem icon={Globe} title="Internet Connection" status={checks.internet} />
           <CheckItem icon={Monitor} title="Browser Compatibility" status={checks.browser} />
@@ -115,7 +115,7 @@ export default function SystemCheckPage() {
             <label className="flex items-start gap-3 cursor-pointer">
               <input 
                 type="checkbox" 
-                className="mt-1 w-5 h-5 rounded border-glass-border bg-white/80 text-primary focus:ring-primary"
+                className="mt-1 w-5 h-5 rounded border-glass-border bg-slate-900/80 text-primary focus:ring-primary"
                 checked={consent}
                 onChange={e => setConsent(e.target.checked)}
               />

@@ -27,7 +27,7 @@ export default function CreditsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-slate-900 text-glow">CREDIT CENTER</h1>
+        <h1 className="text-3xl font-bold text-white text-glow">CREDIT CENTER</h1>
         <p className="text-foreground/60 mt-1">Manage your team's credits and view transaction history.</p>
       </div>
 
@@ -48,7 +48,7 @@ export default function CreditsPage() {
             <CardTitle className="text-foreground/70 text-sm uppercase tracking-wider">Starting Balance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-slate-900">{startingCredits}</div>
+            <div className="text-4xl font-bold text-white">{startingCredits}</div>
             <p className="text-foreground/50 mt-2 text-sm">Initial allocation</p>
           </CardContent>
         </Card>
@@ -76,13 +76,13 @@ export default function CreditsPage() {
           ) : (
             <div className="divide-y divide-glass-border">
               {transactions.map(tx => (
-                <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-white/20 transition-colors">
+                <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-slate-900/20 transition-colors">
                   <div className="flex items-center gap-4">
                     <div className={`p-2 rounded-full ${tx.amount > 0 ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger'}`}>
                       {tx.amount > 0 ? <ArrowUpRight className="w-5 h-5" /> : <ArrowDownRight className="w-5 h-5" />}
                     </div>
                     <div>
-                      <p className="font-medium text-slate-900">{tx.reason}</p>
+                      <p className="font-medium text-white">{tx.reason}</p>
                       <p className="text-xs text-foreground/50">{new Date(tx.timestamp).toLocaleString()}</p>
                     </div>
                   </div>

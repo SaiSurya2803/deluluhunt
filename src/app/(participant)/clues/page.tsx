@@ -115,7 +115,7 @@ export default function CluesPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-end border-b border-glass-border pb-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 text-glow">CLUES & HINTS</h1>
+          <h1 className="text-3xl font-bold text-white text-glow">CLUES & HINTS</h1>
           <p className="text-foreground/60 mt-1">Unlock hints to help solve complex challenges.</p>
         </div>
         <div className="bg-glass-bg border border-glass-border px-4 py-2 rounded-lg flex items-center gap-3">
@@ -154,7 +154,7 @@ export default function CluesPage() {
                   {groupedClues[roundId].map((clue, idx) => (
                     <Card key={clue.id} className={clue.isUnlocked ? 'border-success/30 bg-success/5' : 'border-glass-border'}>
                       <CardHeader className="pb-2 flex flex-row items-center justify-between">
-                        <CardTitle className="text-sm font-bold text-slate-900">Clue {idx + 1}</CardTitle>
+                        <CardTitle className="text-sm font-bold text-white">Clue {idx + 1}</CardTitle>
                         {clue.isUnlocked ? (
                           <Unlock className="w-4 h-4 text-success" />
                         ) : (

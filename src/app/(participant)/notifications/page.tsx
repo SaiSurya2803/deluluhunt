@@ -70,7 +70,7 @@ export default function NotificationsPage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="flex justify-between items-end border-b border-glass-border pb-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
             <Bell className="w-8 h-8 text-primary" /> NOTIFICATIONS
           </h1>
           <p className="text-foreground/60 mt-1">Stay updated with event announcements and alerts.</p>
@@ -89,18 +89,18 @@ export default function NotificationsPage() {
           </div>
         ) : (
           notifications.map(notif => (
-            <Card key={notif.id} className={cn("transition-colors", notif.isRead ? "opacity-70 border-transparent bg-white/20" : "border-primary/20 bg-primary/5")}>
+            <Card key={notif.id} className={cn("transition-colors", notif.isRead ? "opacity-70 border-transparent bg-slate-900/20" : "border-primary/20 bg-primary/5")}>
               <CardContent className="p-4 flex gap-4 items-start">
                 <div className="mt-1 shrink-0">{getIcon(notif.type)}</div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
-                    <h3 className={cn("font-bold", notif.isRead ? "text-foreground/80" : "text-slate-900")}>{notif.title}</h3>
+                    <h3 className={cn("font-bold", notif.isRead ? "text-foreground/80" : "text-white")}>{notif.title}</h3>
                     <span className="text-xs text-foreground/50">{new Date(notif.createdAt).toLocaleDateString()}</span>
                   </div>
                   <p className="text-sm text-foreground/70 mt-1">{notif.message}</p>
                 </div>
                 {!notif.isRead && (
-                  <Button variant="ghost" size="icon" onClick={() => markAsRead(notif.id)} className="shrink-0 h-8 w-8 text-foreground/50 hover:text-slate-900">
+                  <Button variant="ghost" size="icon" onClick={() => markAsRead(notif.id)} className="shrink-0 h-8 w-8 text-foreground/50 hover:text-white">
                     <Check className="w-4 h-4" />
                   </Button>
                 )}

@@ -13,7 +13,7 @@ export default function QuizIntroPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
         <ShieldAlert className="w-24 h-24 text-success" />
-        <h1 className="text-3xl font-bold text-slate-900">QUIZ COMPLETED</h1>
+        <h1 className="text-3xl font-bold text-white">QUIZ COMPLETED</h1>
         <p className="text-foreground/60 text-center max-w-md">
           Your team has successfully submitted the proctored quiz. Results will be available on the leaderboard or after admin review.
         </p>
@@ -28,7 +28,7 @@ export default function QuizIntroPage() {
         <div className="inline-flex items-center justify-center p-4 bg-secondary/10 rounded-full border border-secondary/30 text-secondary mb-4">
           <ShieldAlert className="w-12 h-12" />
         </div>
-        <h1 className="text-4xl font-black text-slate-900 tracking-widest text-glow">QUIZ ROUND</h1>
+        <h1 className="text-4xl font-black text-white tracking-widest text-glow">QUIZ ROUND</h1>
         <p className="text-xl text-foreground/60">Proctored Assessment</p>
       </div>
 
@@ -38,7 +38,7 @@ export default function QuizIntroPage() {
             <ListOrdered className="w-8 h-8 text-primary" />
             <div>
               <p className="text-sm uppercase tracking-widest text-foreground/50">Questions</p>
-              <p className="text-2xl font-bold text-slate-900">Custom Length</p>
+              <p className="text-2xl font-bold text-white">Custom Length</p>
             </div>
           </CardContent>
         </Card>
@@ -47,7 +47,7 @@ export default function QuizIntroPage() {
             <Clock className="w-8 h-8 text-warning" />
             <div>
               <p className="text-sm uppercase tracking-widest text-foreground/50">Duration</p>
-              <p className="text-2xl font-bold text-slate-900">Per-Question Timers</p>
+              <p className="text-2xl font-bold text-white">Per-Question Timers</p>
             </div>
           </CardContent>
         </Card>

@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #0A0B1A;
+  --foreground: #B3B4CD;
   
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --secondary: #7c3aed;
-  --accent: #e11d48;
+  --primary: #FF2A5F;
+  --primary-hover: #e02251;
+  --secondary: #3B82F6;
+  --accent: #FF2A5F;
   
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
   
-  --success: #16a34a;
-  --warning: #ea580c;
-  --danger: #dc2626;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
 }
 
 @theme inline {
@@ -33,8 +33,8 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Fira Code', ui-monospace, monospace;
+  --font-sans: var(--font-vt323), 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-vt323), 'Fira Code', ui-monospace, monospace;
 }
 
 body {
@@ -42,11 +42,15 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.05), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.05), transparent 25%),
-    radial-gradient(circle at 50% 80%, rgba(225, 29, 72, 0.03), transparent 25%);
+    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
   background-attachment: fixed;
   min-height: 100vh;
+  font-size: 1.25rem; /* Slightly larger base font for pixel font readability */
 }
 
 /* Custom Scrollbar */
@@ -54,11 +58,11 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
@@ -67,17 +71,45 @@ body {
 /* Glass panel utility */
 @utility glass-panel {
   background-color: var(--glass-bg);
-  backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 0; /* Boxy aesthetic */
 }
 
-/* Glowing text utility for light mode - adapted to soft shadow */
+/* Glowing text utility */
 @utility text-glow {
-  text-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  text-shadow: 0 0 10px rgba(255, 42, 95, 0.6);
+  color: white;
 }
 
-/* 3D specific utilities */
+/* Buttons and Inputs overrides for retro feel */
+input, textarea, select {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 0 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+table th {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 2px solid var(--primary) !important;
+}
+
+table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
 @utility preserve-3d {
   transform-style: preserve-3d;
 }

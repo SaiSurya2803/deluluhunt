@@ -18,7 +18,7 @@ export default function RoundsPage() {
 
   const getStatusConfig = (status: Round['status']) => {
     switch (status) {
-      case 'LOCKED': return { icon: Lock, color: 'text-foreground/40', badge: 'default' as const, bg: 'bg-white/60 opacity-70' };
+      case 'LOCKED': return { icon: Lock, color: 'text-foreground/40', badge: 'default' as const, bg: 'bg-slate-900/60 opacity-70' };
       case 'UNLOCKED': return { icon: Unlock, color: 'text-primary', badge: 'outline' as const, bg: 'bg-primary/5 border-primary/30' };
       case 'IN_PROGRESS': return { icon: PlayCircle, color: 'text-warning', badge: 'warning' as const, bg: 'bg-warning/5 border-warning/30' };
       case 'COMPLETED': return { icon: CheckCircle, color: 'text-success', badge: 'success' as const, bg: 'bg-success/5 border-success/30' };
@@ -28,7 +28,7 @@ export default function RoundsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-slate-900 text-glow">CHALLENGE ROUNDS</h1>
+        <h1 className="text-3xl font-bold text-white text-glow">CHALLENGE ROUNDS</h1>
         <p className="text-foreground/60 mt-1">Complete rounds sequentially or as unlocked by the admin.</p>
       </div>
 
@@ -55,7 +55,7 @@ export default function RoundsPage() {
               </CardContent>
               <CardFooter>
                 {round.status === 'LOCKED' ? (
-                  <Button variant="ghost" disabled className="w-full bg-white/60 text-foreground/40 border border-glass-border">
+                  <Button variant="ghost" disabled className="w-full bg-slate-900/60 text-foreground/40 border border-glass-border">
                     <Lock className="w-4 h-4 mr-2" /> LOCKED
                   </Button>
                 ) : (

@@ -34,16 +34,16 @@ export default function AdminQuizSubmissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">QUIZ SUBMISSIONS</h1>
-          <p className="text-slate-500 mt-1">Detailed breakdown of answers and time taken per team.</p>
+          <p className="text-slate-400 mt-1">Detailed breakdown of answers and time taken per team.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
         {submissions.length === 0 && (
-          <div className="text-center p-12 bg-white border border-slate-200 rounded-xl text-slate-500">
+          <div className="text-center p-12 bg-slate-900 border border-slate-700 rounded-xl text-slate-400">
             No quiz submissions yet.
           </div>
         )}
@@ -56,20 +56,20 @@ export default function AdminQuizSubmissionsPage() {
           const totalTime = Object.values(sub.timeTaken || {}).reduce((acc, curr) => acc + curr, 0);
 
           return (
-            <Card key={sub.id} className="border-slate-200 shadow-sm bg-white overflow-hidden">
-              <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+            <Card key={sub.id} className="border-slate-700 shadow-sm bg-slate-900 overflow-hidden">
+              <CardHeader className="bg-slate-800 border-b border-slate-800 pb-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-xl text-slate-800">{team.name}</CardTitle>
-                    <p className="text-sm text-slate-500">Submitted at: {new Date(sub.submittedAt).toLocaleString()}</p>
+                    <CardTitle className="text-xl text-slate-200">{team.name}</CardTitle>
+                    <p className="text-sm text-slate-400">Submitted at: {new Date(sub.submittedAt).toLocaleString()}</p>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="text-center">
-                      <p className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Time Taken</p>
-                      <Badge variant="outline" className="font-mono bg-white">{formatTime(totalTime)}</Badge>
+                      <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Time Taken</p>
+                      <Badge variant="outline" className="font-mono bg-slate-900">{formatTime(totalTime)}</Badge>
                     </div>
                     <div className="text-center">
-                      <p className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Score</p>
+                      <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Score</p>
                       <Badge variant="success" className="font-mono text-base px-3 py-1">{sub.totalScore} pts</Badge>
                     </div>
                   </div>
@@ -78,7 +78,7 @@ export default function AdminQuizSubmissionsPage() {
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left">
-                    <thead className="text-xs text-slate-500 bg-slate-50/50 border-b border-slate-100">
+                    <thead className="text-xs text-slate-400 bg-slate-800/50 border-b border-slate-800">
                       <tr>
                         <th className="px-6 py-3 font-medium">Question</th>
                         <th className="px-6 py-3 font-medium">Team's Answer</th>
@@ -100,17 +100,17 @@ export default function AdminQuizSubmissionsPage() {
                         const correctAnswerText = question.options[question.correctOptionIndex];
 
                         return (
-                          <tr key={qId} className="hover:bg-slate-50/50">
-                            <td className="px-6 py-4 max-w-xs truncate font-medium text-slate-700" title={question.text}>
+                          <tr key={qId} className="hover:bg-slate-800/50">
+                            <td className="px-6 py-4 max-w-xs truncate font-medium text-slate-300" title={question.text}>
                               {question.text}
                             </td>
                             <td className={`px-6 py-4 max-w-xs truncate ${isCorrect ? 'text-success font-medium' : 'text-danger'}`} title={teamAnswerText}>
                               {teamAnswerText !== undefined ? teamAnswerText : 'No Answer'}
                             </td>
-                            <td className="px-6 py-4 max-w-xs truncate text-slate-600" title={correctAnswerText}>
+                            <td className="px-6 py-4 max-w-xs truncate text-slate-300" title={correctAnswerText}>
                               {correctAnswerText}
                             </td>
-                            <td className="px-6 py-4 font-mono text-slate-500">
+                            <td className="px-6 py-4 font-mono text-slate-400">
                               <span className="flex items-center gap-1"><Clock className="w-3 h-3"/> {formatTime(timeForQ)}</span>
                             </td>
                             <td className="px-6 py-4 flex justify-center">

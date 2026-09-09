@@ -50,7 +50,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Mobile Menu Toggle */}
       <div className="md:hidden fixed top-0 left-0 w-full h-16 glass-panel z-50 flex items-center justify-between px-4 border-b-0">
         <div className="font-bold text-xl text-glow tracking-widest text-danger">GLEC ADMIN</div>
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-900">
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white">
           {isMobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
@@ -72,7 +72,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)}>
                 <div className={cn(
                   "flex items-center gap-3 px-3 py-3 rounded-lg transition-all",
-                  isActive ? "bg-danger/20 text-danger border border-danger/30" : "text-foreground/70 hover:bg-white/5 hover:text-slate-900"
+                  isActive ? "bg-danger/20 text-danger border border-danger/30" : "text-foreground/70 hover:bg-slate-900/5 hover:text-white"
                 )}>
                   <item.icon className="w-5 h-5" />
                   <span className="text-sm font-medium">{item.name}</span>
@@ -83,7 +83,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         <div className="p-4 border-t border-glass-border">
-          <Button variant="ghost" className="w-full justify-start text-foreground/50 hover:text-slate-900 hover:bg-white/5" onClick={handleLogout}>
+          <Button variant="ghost" className="w-full justify-start text-foreground/50 hover:text-white hover:bg-slate-900/5" onClick={handleLogout}>
             <LogOut className="w-5 h-5 mr-3" />
             Exit Admin
           </Button>

@@ -48,13 +48,13 @@ export default function AdminCluesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">CLUES MANAGEMENT</h1>
-          <p className="text-slate-500 mt-1">Add hints, configure costs, and assign them to specific rounds.</p>
+          <p className="text-slate-400 mt-1">Add hints, configure costs, and assign them to specific rounds.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addClue} className="bg-white text-slate-700 hover:bg-slate-50">
+          <Button variant="outline" onClick={addClue} className="bg-slate-900 text-slate-300 hover:bg-slate-800">
             <Plus className="w-4 h-4 mr-2" /> Add Clue
           </Button>
           <Button onClick={saveClues} className="bg-success text-white hover:bg-success/90">
@@ -65,9 +65,9 @@ export default function AdminCluesPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {clues.map((clue, index) => (
-          <Card key={clue.id} className="border-slate-200 shadow-sm bg-white overflow-visible">
-            <CardHeader className="bg-slate-50 border-b border-slate-100 flex flex-row items-center justify-between pb-4">
-              <CardTitle className="text-lg text-slate-800 flex items-center">
+          <Card key={clue.id} className="border-slate-700 shadow-sm bg-slate-900 overflow-visible">
+            <CardHeader className="bg-slate-800 border-b border-slate-800 flex flex-row items-center justify-between pb-4">
+              <CardTitle className="text-lg text-slate-200 flex items-center">
                 <Key className="w-4 h-4 mr-2 text-warning" /> Clue {index + 1}
               </CardTitle>
               <Button variant="ghost" size="sm" onClick={() => removeClue(clue.id)} className="text-danger hover:bg-danger/10">
@@ -77,11 +77,11 @@ export default function AdminCluesPage() {
             <CardContent className="p-6 space-y-4">
               
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Assigned Round</label>
+                <label className="text-sm font-semibold text-slate-300">Assigned Round</label>
                 <select 
                   value={clue.roundId}
                   onChange={(e) => updateClue(clue.id, 'roundId', e.target.value)}
-                  className="w-full bg-white border border-slate-300 text-sm rounded-md px-3 py-2 text-slate-900"
+                  className="w-full bg-slate-900 border border-slate-600 text-sm rounded-md px-3 py-2 text-white"
                 >
                   {rounds.map(r => (
                     <option key={r.id} value={r.id}>Round {r.roundNumber}: {r.title}</option>
@@ -90,22 +90,22 @@ export default function AdminCluesPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-700">Clue Content</label>
+                <label className="text-sm font-semibold text-slate-300">Clue Content</label>
                 <textarea 
                   value={clue.content} 
                   onChange={(e) => updateClue(clue.id, 'content', e.target.value)} 
-                  className="w-full bg-white border border-slate-300 text-slate-900 rounded-md p-3 text-sm min-h-[100px]"
+                  className="w-full bg-slate-900 border border-slate-600 text-white rounded-md p-3 text-sm min-h-[100px]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700">Cost (Credits)</label>
+                  <label className="text-sm font-semibold text-slate-300">Cost (Credits)</label>
                   <Input 
                     type="number"
                     value={clue.cost} 
                     onChange={(e) => updateClue(clue.id, 'cost', parseInt(e.target.value) || 0)} 
-                    className="bg-white border-slate-300 text-slate-900"
+                    className="bg-slate-900 border-slate-600 text-white"
                     disabled={clue.isFree}
                   />
                 </div>
@@ -117,7 +117,7 @@ export default function AdminCluesPage() {
                       onChange={(e) => updateClue(clue.id, 'isFree', e.target.checked)}
                       className="w-4 h-4 text-primary"
                     />
-                    <span className="text-sm text-slate-700">Is Free</span>
+                    <span className="text-sm text-slate-300">Is Free</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input 
@@ -126,7 +126,7 @@ export default function AdminCluesPage() {
                       onChange={(e) => updateClue(clue.id, 'isUnlocked', e.target.checked)}
                       className="w-4 h-4 text-primary"
                     />
-                    <span className="text-sm text-slate-700">Unlocked Globally</span>
+                    <span className="text-sm text-slate-300">Unlocked Globally</span>
                   </label>
                 </div>
               </div>

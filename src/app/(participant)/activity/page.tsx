@@ -26,7 +26,7 @@ export default function ActivityPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div>
-        <h1 className="text-3xl font-bold text-slate-900 text-glow">TEAM ACTIVITY</h1>
+        <h1 className="text-3xl font-bold text-white text-glow">TEAM ACTIVITY</h1>
         <p className="text-foreground/60 mt-1">A chronological log of all your team's actions.</p>
       </div>
 
@@ -47,15 +47,15 @@ export default function ActivityPage() {
                 
                 return (
                   <div key={log.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-primary/30 bg-white text-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-primary/30 bg-slate-900 text-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
                       <Clock className="w-4 h-4" />
                     </div>
                     
-                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-glass-border bg-white/60 hover:bg-white/60 transition-colors">
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-glass-border bg-slate-900/60 hover:bg-slate-900/60 transition-colors">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-xs font-bold text-primary uppercase tracking-wider">{date.toLocaleDateString()} {date.toLocaleTimeString()}</span>
                       </div>
-                      <p className="text-slate-900 font-medium">{log.action}</p>
+                      <p className="text-white font-medium">{log.action}</p>
                       {member && <p className="text-xs text-foreground/50 mt-2 flex items-center">Performed by: <span className="text-foreground/80 ml-1">{member.name}</span></p>}
                     </div>
                   </div>

@@ -72,18 +72,18 @@ export default function AdminLeaderboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">ADMIN LEADERBOARD</h1>
-          <p className="text-slate-500 mt-1">Live rankings with score override capabilities.</p>
+          <p className="text-slate-400 mt-1">Live rankings with score override capabilities.</p>
         </div>
       </div>
 
-      <Card className="border-slate-200 shadow-sm bg-white overflow-hidden">
+      <Card className="border-slate-700 shadow-sm bg-slate-900 overflow-hidden">
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+              <thead className="text-xs text-slate-400 uppercase bg-slate-800 border-b border-slate-700">
                 <tr>
                   <th className="px-6 py-4">Rank</th>
                   <th className="px-6 py-4">Team</th>
@@ -99,10 +99,10 @@ export default function AdminLeaderboardPage() {
                   return (
                     <tr 
                       key={entry.teamId} 
-                      className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors"
+                      className="border-b border-slate-800 last:border-0 hover:bg-slate-800 transition-colors"
                     >
                       <td className="px-6 py-4">{getRankIcon(entry.rank)}</td>
-                      <td className="px-6 py-4 font-bold text-slate-900">
+                      <td className="px-6 py-4 font-bold text-white">
                         {entry.teamName}
                       </td>
                       <td className="px-6 py-4 font-mono text-primary text-lg">
@@ -111,21 +111,21 @@ export default function AdminLeaderboardPage() {
                             type="number" 
                             value={editScore} 
                             onChange={(e) => setEditScore(parseInt(e.target.value) || 0)}
-                            className="w-24 h-8 text-center bg-white border-primary"
+                            className="w-24 h-8 text-center bg-slate-900 border-primary"
                             autoFocus
                           />
                         ) : (
                           entry.score
                         )}
                       </td>
-                      <td className="px-6 py-4 text-slate-600">{entry.roundsCompleted} / 6</td>
+                      <td className="px-6 py-4 text-slate-300">{entry.roundsCompleted} / 6</td>
                       <td className="px-6 py-4 text-success">
                         {isEditing ? (
                           <Input 
                             type="number" 
                             value={editQuizScore} 
                             onChange={(e) => setEditQuizScore(parseInt(e.target.value) || 0)}
-                            className="w-24 h-8 text-center bg-white border-success"
+                            className="w-24 h-8 text-center bg-slate-900 border-success"
                           />
                         ) : (
                           entry.quizScore
@@ -134,7 +134,7 @@ export default function AdminLeaderboardPage() {
                       <td className="px-6 py-4 text-right">
                         {isEditing ? (
                           <div className="flex items-center justify-end gap-2">
-                            <Button size="sm" variant="ghost" onClick={() => setEditingId(null)} className="h-8 w-8 p-0 text-slate-500">
+                            <Button size="sm" variant="ghost" onClick={() => setEditingId(null)} className="h-8 w-8 p-0 text-slate-400">
                               <X className="w-4 h-4" />
                             </Button>
                             <Button size="sm" onClick={() => handleSaveScore(entry.teamId)} className="h-8 w-8 p-0 bg-success hover:bg-success/90 text-white">

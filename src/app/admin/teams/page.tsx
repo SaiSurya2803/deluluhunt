@@ -129,7 +129,7 @@ export default function AdminTeamsPage() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-danger text-glow tracking-tight">TEAM MANAGEMENT</h1>
-          <p className="text-slate-500 mt-1">Manage registered teams and their access.</p>
+          <p className="text-slate-400 mt-1">Manage registered teams and their access.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-2">
@@ -142,7 +142,7 @@ export default function AdminTeamsPage() {
           </button>
           <button 
             onClick={downloadTemplate}
-            className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
+            className="bg-slate-900 border border-slate-600 hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Template
@@ -160,10 +160,10 @@ export default function AdminTeamsPage() {
         </div>
       </div>
 
-      <Card className="border-slate-200 shadow-sm bg-white overflow-hidden">
+      <Card className="border-slate-700 shadow-sm bg-slate-900 overflow-hidden">
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+            <thead className="text-xs text-slate-400 uppercase bg-slate-800 border-b border-slate-700">
               <tr>
                 <th className="px-6 py-4">Team Name</th>
                 <th className="px-6 py-4">Email</th>
@@ -178,13 +178,13 @@ export default function AdminTeamsPage() {
             </thead>
             <tbody>
               {teams.map(team => (
-                <tr key={team.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4 font-bold text-slate-900">{team.name}</td>
-                  <td className="px-6 py-4 text-slate-600">{team.email}</td>
+                <tr key={team.id} className="border-b border-slate-800 hover:bg-slate-800 transition-colors">
+                  <td className="px-6 py-4 font-bold text-white">{team.name}</td>
+                  <td className="px-6 py-4 text-slate-300">{team.email}</td>
                   <td className="px-6 py-4">{team.members.length} / 4</td>
                   <td className="px-6 py-4 text-primary font-bold">{team.score + (team.quizScore || 0)}</td>
                   <td className="px-6 py-4 text-primary">{team.quizScore !== undefined ? team.quizScore : 'N/A'}</td>
-                  <td className="px-6 py-4 text-slate-900 font-mono">{team.credits}</td>
+                  <td className="px-6 py-4 text-white font-mono">{team.credits}</td>
                   <td className="px-6 py-4">
                     {team.quizTrustScore !== undefined ? (
                       <Badge variant={team.quizTrustScore > 70 ? 'success' : team.quizTrustScore > 40 ? 'warning' : 'destructive'}>

@@ -65,7 +65,7 @@ export default function RoundOverviewPage() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-glass-border pb-6">
         <div>
           <Badge variant="outline" className="mb-2 text-primary border-primary">ROUND {round.roundNumber}</Badge>
-          <h1 className="text-4xl font-bold text-slate-900 text-glow">{round.title}</h1>
+          <h1 className="text-4xl font-bold text-white text-glow">{round.title}</h1>
           <p className="text-foreground/60 mt-2 text-lg">{round.description}</p>
         </div>
         <Badge variant={round.status === 'COMPLETED' ? 'success' : 'warning'} className="text-sm px-3 py-1">
@@ -107,7 +107,7 @@ export default function RoundOverviewPage() {
               </div>
               <div className="flex justify-between items-center border-b border-glass-border pb-3">
                 <span className="text-foreground/60 text-sm flex items-center"><Clock className="w-4 h-4 mr-2" /> Time Limit</span>
-                <span className="font-bold text-slate-900">{round.timeLimit ? `${round.timeLimit} mins` : 'None'}</span>
+                <span className="font-bold text-white">{round.timeLimit ? `${round.timeLimit} mins` : 'None'}</span>
               </div>
             </CardContent>
           </Card>

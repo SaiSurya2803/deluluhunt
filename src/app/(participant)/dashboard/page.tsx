@@ -31,7 +31,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Welcome, {team.name}</h1>
+          <h1 className="text-3xl font-bold text-white">Welcome, {team.name}</h1>
           <p className="text-foreground/60 mt-1">Ready for your next challenge?</p>
         </div>
         <div className="flex gap-2">
@@ -78,7 +78,7 @@ export default function DashboardPage() {
             <div className="text-sm font-semibold uppercase tracking-wider text-primary">Round Progress</div>
             <div className="text-xl font-bold">{progressPercent}%</div>
           </div>
-          <div className="w-full bg-white/80 h-4 rounded-full overflow-hidden border border-glass-border">
+          <div className="w-full bg-slate-900/80 h-4 rounded-full overflow-hidden border border-glass-border">
             <div 
               className="bg-primary h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(0,240,255,0.8)]"
               style={{ width: `${progressPercent}%` }}
@@ -99,7 +99,7 @@ export default function DashboardPage() {
                   <div key={log.id} className="flex gap-3 text-sm">
                     <div className="w-2 h-2 mt-1.5 rounded-full bg-primary shrink-0"></div>
                     <div>
-                      <p className="text-slate-900">{log.action}</p>
+                      <p className="text-white">{log.action}</p>
                       <p className="text-foreground/50 text-xs">{new Date(log.timestamp).toLocaleTimeString()}</p>
                     </div>
                   </div>

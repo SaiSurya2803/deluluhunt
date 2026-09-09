@@ -100,7 +100,7 @@ export default function LoginPage() {
             <div className="space-y-4">
               <div className="text-center mb-6">
                 <p className="text-primary font-mono text-sm">Welcome back,</p>
-                <p className="text-xl font-bold text-slate-900">{authenticatedTeam.name}</p>
+                <p className="text-xl font-bold text-white">{authenticatedTeam.name}</p>
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {authenticatedTeam.members.map(member => (

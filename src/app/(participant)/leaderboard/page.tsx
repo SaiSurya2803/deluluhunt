@@ -43,7 +43,7 @@ export default function LeaderboardPage() {
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-black text-slate-900 text-glow">GLOBAL LEADERBOARD</h1>
+        <h1 className="text-4xl font-black text-white text-glow">GLOBAL LEADERBOARD</h1>
         <p className="text-foreground/60 mt-2">Live rankings based on score and completion time.</p>
       </div>
 
@@ -51,7 +51,7 @@ export default function LeaderboardPage() {
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs text-foreground/50 uppercase bg-white/60 border-b border-glass-border">
+              <thead className="text-xs text-foreground/50 uppercase bg-slate-900/60 border-b border-glass-border">
                 <tr>
                   <th className="px-6 py-4">Rank</th>
                   <th className="px-6 py-4">Team</th>
@@ -67,12 +67,12 @@ export default function LeaderboardPage() {
                     <tr 
                       key={entry.teamId} 
                       className={cn(
-                        "border-b border-glass-border/50 last:border-0 hover:bg-white/5 transition-colors",
+                        "border-b border-glass-border/50 last:border-0 hover:bg-slate-900/5 transition-colors",
                         isCurrentTeam && "bg-primary/10 border-primary/30"
                       )}
                     >
                       <td className="px-6 py-4">{getRankIcon(entry.rank)}</td>
-                      <td className="px-6 py-4 font-bold text-slate-900 flex items-center gap-2">
+                      <td className="px-6 py-4 font-bold text-white flex items-center gap-2">
                         {entry.teamName}
                         {isCurrentTeam && <span className="px-2 py-0.5 rounded text-[10px] bg-primary text-black ml-2 uppercase tracking-wider">You</span>}
                       </td>

@@ -51,16 +51,16 @@ export default function AdminSubmissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-200">
+      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">GRADING & SUBMISSIONS</h1>
-          <p className="text-slate-500 mt-1">Review team workspace answers and assign scores manually.</p>
+          <p className="text-slate-400 mt-1">Review team workspace answers and assign scores manually.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {submissions.length === 0 && (
-          <div className="col-span-full text-center p-12 bg-white border border-slate-200 rounded-xl text-slate-500">
+          <div className="col-span-full text-center p-12 bg-slate-900 border border-slate-700 rounded-xl text-slate-400">
             No submissions pending review.
           </div>
         )}
@@ -71,12 +71,12 @@ export default function AdminSubmissionsPage() {
           if (!team || !round) return null;
 
           return (
-            <Card key={sub.id} className="border-slate-200 shadow-sm bg-white overflow-hidden flex flex-col">
-              <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+            <Card key={sub.id} className="border-slate-700 shadow-sm bg-slate-900 overflow-hidden flex flex-col">
+              <CardHeader className="bg-slate-800 border-b border-slate-800 pb-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg text-slate-800">{team.name}</CardTitle>
-                    <p className="text-sm text-slate-500">Round {round.roundNumber}: {round.title}</p>
+                    <CardTitle className="text-lg text-slate-200">{team.name}</CardTitle>
+                    <p className="text-sm text-slate-400">Round {round.roundNumber}: {round.title}</p>
                   </div>
                   {sub.status === 'GRADED' ? (
                     <span className="flex items-center text-xs font-bold text-success bg-success/10 px-2 py-1 rounded">
@@ -93,14 +93,14 @@ export default function AdminSubmissionsPage() {
                 <div className="flex-1">
                   <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Submitted Answer</label>
                   <div className="mt-1 w-full bg-slate-900 text-slate-300 rounded-md p-4 text-sm font-mono whitespace-pre-wrap overflow-y-auto max-h-[200px] custom-scrollbar">
-                    {sub.answer || <span className="italic text-slate-500">No answer provided.</span>}
+                    {sub.answer || <span className="italic text-slate-400">No answer provided.</span>}
                   </div>
                 </div>
 
                 {sub.status === 'PENDING_REVIEW' && (
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+                  <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-4">
                     <div className="flex-1">
-                      <p className="text-xs text-slate-500">Max Score: {round.maxScore}</p>
+                      <p className="text-xs text-slate-400">Max Score: {round.maxScore}</p>
                     </div>
                     <form 
                       className="flex items-center gap-2"
@@ -117,7 +117,7 @@ export default function AdminSubmissionsPage() {
                         max={round.maxScore}
                         min={0}
                         placeholder="Points" 
-                        className="w-24 text-center bg-white border-slate-300"
+                        className="w-24 text-center bg-slate-900 border-slate-600"
                         required
                       />
                       <Button type="submit" className="bg-success hover:bg-success/90">
