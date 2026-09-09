@@ -18,12 +18,14 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSyncing, setIsSyncing] = useState(true);
   
   const [step, setStep] = useState<'CREDENTIALS' | 'MEMBER_SELECTION'>('CREDENTIALS');
   const [authenticatedTeam, setAuthenticatedTeam] = useState<Team | null>(null);
 
   useEffect(() => {
-    DB.init();
+    // Initialize DB and sync with Supabase Cloud
+    DB.init().then(() => setIsSyncing(false));
   }, []);
 
   const handleCredentialsSubmit = (e: React.FormEvent) => {
@@ -91,8 +93,15 @@ export default function LoginPage() {
             <form onSubmit={handleCredentialsSubmit} className="space-y-4">
               <Input required type="email" placeholder="Team Email ID" value={email} onChange={e => setEmail(e.target.value)} />
               <Input required type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-              {error && <p className="text-danger text-sm text-center">{error}</p>}
-              <Button type="submit" className="w-full">VERIFY TEAM</Button>
+              {error && (
+                <div className="bg-danger/10 border border-danger/30 text-danger text-sm p-3 rounded-md text-center">
+                  {error}
+                </div>
+              )}
+
+              <Button type="submit" className="w-full text-white" disabled={isSyncing}>
+                {isSyncing ? "Syncing with Cloud Database..." : "Access System"}
+              </Button>
             </form>
           )}
 

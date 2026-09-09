@@ -1,5 +1,6 @@
 import { Team, Round, Clue, Asset, QuizQuestion, ActivityLog, CreditTransaction, Notification, ProctoringEvent, RoundSubmission, QuizSubmission } from '@/types';
 import { mockTeams, mockRounds, mockClues, mockAssets, mockQuizQuestions } from '@/lib/mockData';
+import { supabase } from './supabaseClient';
 
 // Keys for localStorage
 const KEYS = {
@@ -16,55 +17,64 @@ const KEYS = {
   QUIZ_SUBMISSIONS: 'glec_quiz_submissions',
 };
 
-// Initialize DB if empty
-export const initDB = () => {
+const seedInitialData = () => {
+  // Populate local if empty
+  if (!localStorage.getItem(KEYS.TEAMS)) DB.setTeams(mockTeams);
+  if (!localStorage.getItem(KEYS.ROUNDS)) DB.setRounds(mockRounds);
+  if (!localStorage.getItem(KEYS.CLUES)) DB.setClues(mockClues);
+  if (!localStorage.getItem(KEYS.ASSETS)) DB.setAssets(mockAssets);
+  if (!localStorage.getItem(KEYS.QUIZ_QUESTIONS)) DB.setItem(KEYS.QUIZ_QUESTIONS, mockQuizQuestions);
+  if (!localStorage.getItem(KEYS.ACTIVITY_LOGS)) DB.setActivityLogs([]);
+  if (!localStorage.getItem(KEYS.CREDIT_TX)) DB.setCreditTx([]);
+  if (!localStorage.getItem(KEYS.NOTIFICATIONS)) DB.setNotifications([]);
+  if (!localStorage.getItem(KEYS.PROCTORING_EVENTS)) DB.setProctoringEvents([]);
+  if (!localStorage.getItem(KEYS.SUBMISSIONS)) DB.setSubmissions([]);
+  if (!localStorage.getItem(KEYS.QUIZ_SUBMISSIONS)) DB.setQuizSubmissions([]);
+};
+
+// Initialize DB and sync from Supabase
+export const initDB = async () => {
   if (typeof window === 'undefined') return;
   
-  if (!localStorage.getItem(KEYS.TEAMS)) {
-    localStorage.setItem(KEYS.TEAMS, JSON.stringify(mockTeams));
-  }
-  if (!localStorage.getItem(KEYS.ROUNDS)) {
-    localStorage.setItem(KEYS.ROUNDS, JSON.stringify(mockRounds));
-  }
-  if (!localStorage.getItem(KEYS.CLUES)) {
-    localStorage.setItem(KEYS.CLUES, JSON.stringify(mockClues));
-  }
-  if (!localStorage.getItem(KEYS.ASSETS)) {
-    localStorage.setItem(KEYS.ASSETS, JSON.stringify(mockAssets));
-  }
-  if (!localStorage.getItem(KEYS.QUIZ_QUESTIONS)) {
-    localStorage.setItem(KEYS.QUIZ_QUESTIONS, JSON.stringify(mockQuizQuestions));
-  }
-  if (!localStorage.getItem(KEYS.ACTIVITY_LOGS)) {
-    localStorage.setItem(KEYS.ACTIVITY_LOGS, JSON.stringify([]));
-  }
-  if (!localStorage.getItem(KEYS.CREDIT_TX)) {
-    localStorage.setItem(KEYS.CREDIT_TX, JSON.stringify([]));
-  }
-  if (!localStorage.getItem(KEYS.NOTIFICATIONS)) {
-    localStorage.setItem(KEYS.NOTIFICATIONS, JSON.stringify([]));
-  }
-  if (!localStorage.getItem(KEYS.PROCTORING_EVENTS)) {
-    localStorage.setItem(KEYS.PROCTORING_EVENTS, JSON.stringify([]));
-  }
-  if (!localStorage.getItem(KEYS.SUBMISSIONS)) {
-    localStorage.setItem(KEYS.SUBMISSIONS, JSON.stringify([]));
-  }
-  if (!localStorage.getItem(KEYS.QUIZ_SUBMISSIONS)) {
-    localStorage.setItem(KEYS.QUIZ_SUBMISSIONS, JSON.stringify([]));
+  try {
+    // Fetch latest global state from Supabase app_state table
+    const { data, error } = await supabase.from('app_state').select('*');
+    
+    if (!error && data && data.length > 0) {
+      // Overwrite local storage with the cloud truth
+      data.forEach(row => {
+        localStorage.setItem(row.key, JSON.stringify(row.data));
+      });
+      console.log("Supabase Cloud DB successfully synced.");
+    } else {
+      console.log("Cloud DB empty or unreachable, seeding initial data.");
+      seedInitialData();
+    }
+  } catch (err) {
+    console.error("Supabase sync failed, falling back to local data:", err);
+    seedInitialData();
   }
 };
 
-// Generic read/write operations
+// Generic read operation (always synchronous, instant from memory/localstorage)
 export const getItem = <T>(key: string): T[] => {
   if (typeof window === 'undefined') return [];
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : [];
 };
 
+// Generic write operation (synchronous to local, async to cloud)
 export const setItem = <T>(key: string, data: T[]): void => {
   if (typeof window === 'undefined') return;
+  
+  // 1. Instant UI update via localStorage
   localStorage.setItem(key, JSON.stringify(data));
+  
+  // 2. Background cloud sync to Supabase
+  supabase.from('app_state').upsert({ key: key, data: data }, { onConflict: 'key' })
+    .then(({ error }) => {
+       if (error) console.error("Cloud sync error for", key, error);
+    });
 };
 
 export const DB = {
