@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Users, AlertTriangle, ShieldCheck, Swords, ShieldAlert, BarChart } from 'lucide-react';
+import { Users, AlertTriangle, ShieldCheck, Swords, ShieldAlert, BarChart, Database } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
