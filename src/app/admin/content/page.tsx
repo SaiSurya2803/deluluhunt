@@ -10,14 +10,28 @@ import { Save, Lock, Unlock, PlayCircle, CheckCircle } from 'lucide-react';
 
 export default function ContentManagementPage() {
   const [rounds, setRounds] = useState<Round[]>([]);
+  const [tournamentEndTime, setTournamentEndTime] = useState<string>('');
 
   useEffect(() => {
     setRounds(DB.getRounds() || []);
+    const gs = DB.getGlobalSettings();
+    // Convert to format suitable for datetime-local input (YYYY-MM-DDThh:mm)
+    if (gs.tournamentEndTime) {
+      setTournamentEndTime(new Date(gs.tournamentEndTime).toISOString().slice(0, 16));
+    }
   }, []);
 
   const saveRounds = () => {
     DB.setRounds(rounds);
-    alert('Rounds saved successfully!');
+    
+    // Save global settings
+    const currentGlobal = DB.getGlobalSettings();
+    DB.setGlobalSettings({
+      ...currentGlobal,
+      tournamentEndTime: new Date(tournamentEndTime).toISOString()
+    });
+    
+    alert('Content and timers saved successfully!');
   };
 
   const updateRound = (id: string, field: keyof Round, value: any) => {
@@ -40,6 +54,25 @@ export default function ContentManagementPage() {
           </Button>
         </div>
       </div>
+
+      <Card className="border-white/20/10 shadow-sm glass-panel overflow-hidden mb-6">
+        <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 pb-4">
+          <CardTitle className="text-lg text-slate-200 flex items-center">
+             Global Tournament Timer
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="space-y-2 max-w-sm">
+            <label className="text-sm font-semibold text-slate-300">Race Ends At (Date & Time)</label>
+            <Input 
+              type="datetime-local"
+              value={tournamentEndTime} 
+              onChange={(e) => setTournamentEndTime(e.target.value)} 
+              className="glass-panel border-white/20 text-white"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {rounds.length === 0 && <p className="text-slate-400 col-span-full text-center p-8">No rounds defined. Click Add Round.</p>}

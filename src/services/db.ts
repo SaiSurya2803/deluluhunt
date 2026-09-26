@@ -15,6 +15,7 @@ const KEYS = {
   PROCTORING_EVENTS: 'glec_proctoring_events',
   SUBMISSIONS: 'glec_round_submissions',
   QUIZ_SUBMISSIONS: 'glec_quiz_submissions',
+  GLOBAL_SETTINGS: 'glec_global_settings',
 };
 
 const seedInitialData = () => {
@@ -30,6 +31,7 @@ const seedInitialData = () => {
   if (!localStorage.getItem(KEYS.PROCTORING_EVENTS)) DB.setProctoringEvents([]);
   if (!localStorage.getItem(KEYS.SUBMISSIONS)) DB.setSubmissions([]);
   if (!localStorage.getItem(KEYS.QUIZ_SUBMISSIONS)) DB.setQuizSubmissions([]);
+  if (!localStorage.getItem(KEYS.GLOBAL_SETTINGS)) DB.setItem(KEYS.GLOBAL_SETTINGS, [{ tournamentEndTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() }]);
 };
 
 // Initialize DB and sync from Supabase
@@ -111,4 +113,10 @@ export const DB = {
 
   getQuizSubmissions: () => getItem<QuizSubmission>(KEYS.QUIZ_SUBMISSIONS),
   setQuizSubmissions: (subs: QuizSubmission[]) => setItem(KEYS.QUIZ_SUBMISSIONS, subs),
+
+  getGlobalSettings: () => {
+    const settings = getItem<any>(KEYS.GLOBAL_SETTINGS);
+    return settings[0] || { tournamentEndTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() };
+  },
+  setGlobalSettings: (settings: any) => setItem(KEYS.GLOBAL_SETTINGS, [settings]),
 };

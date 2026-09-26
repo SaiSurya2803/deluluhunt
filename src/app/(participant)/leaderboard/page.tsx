@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 export default function LeaderboardPage() {
   const { team } = useAuthStore();
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const teams = DB.getTeams();
@@ -29,6 +30,28 @@ export default function LeaderboardPage() {
       
     ranked.forEach((r, idx) => r.rank = idx + 1);
     setEntries(ranked);
+
+    // Global Timer Setup
+    const gs = DB.getGlobalSettings();
+    const endTime = gs.tournamentEndTime ? new Date(gs.tournamentEndTime).getTime() : Date.now();
+    
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const diff = endTime - now;
+      if (diff > 0) {
+        setTimeLeft({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((diff / 1000 / 60) % 60),
+          seconds: Math.floor((diff / 1000) % 60)
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const top3 = entries.slice(0, 3);
@@ -69,10 +92,10 @@ export default function LeaderboardPage() {
           </div>
           <div className="flex gap-2 relative z-10">
             {[
-              { label: 'Days', val: '00' },
-              { label: 'Hours', val: '24' },
-              { label: 'Minutes', val: '59' },
-              { label: 'Seconds', val: '59' },
+              { label: 'Days', val: String(timeLeft.days).padStart(2, '0') },
+              { label: 'Hours', val: String(timeLeft.hours).padStart(2, '0') },
+              { label: 'Minutes', val: String(timeLeft.minutes).padStart(2, '0') },
+              { label: 'Seconds', val: String(timeLeft.seconds).padStart(2, '0') },
             ].map((t, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
                 <div className="bg-[#182C25] border border-[#34C759]/30 text-[#34C759] font-mono text-xl py-1.5 px-2 rounded-md shadow-inner">
