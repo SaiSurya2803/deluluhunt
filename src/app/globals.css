@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6, .font-mono {
 }
 
 /* Glass panel utility - Floating dark card */
-@utility glass-panel {
+.glass-panel {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 20px 60px rgba(0, 0, 0, 0.35);
@@ -88,7 +88,7 @@ h1, h2, h3, h4, h5, h6, .font-mono {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@utility glass-panel:hover {
+.glass-panel:hover {
   transform: translateY(-2px);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 25px 70px rgba(0, 0, 0, 0.5);
 }
