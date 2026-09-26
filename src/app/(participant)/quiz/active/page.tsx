@@ -297,12 +297,12 @@ export default function ActiveQuizPage() {
     <div className="flex flex-col h-screen -m-4 md:-m-8 relative">
       {/* Live Proctoring PIP */}
       <div className="absolute bottom-4 left-4 z-50 flex gap-2 pointer-events-none">
-        <div className="w-32 h-24 bg-black rounded-lg border-2 border-slate-700 overflow-hidden relative shadow-lg">
+        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && videoStream) el.srcObject = videoStream; }}></video>
           <div className="absolute top-1 left-1 bg-danger text-white text-[8px] px-1 rounded animate-pulse">REC</div>
           <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">CAM</div>
         </div>
-        <div className="w-32 h-24 bg-black rounded-lg border-2 border-slate-700 overflow-hidden relative shadow-lg">
+        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && screenStream) el.srcObject = screenStream; }}></video>
           <div className="absolute top-1 left-1 bg-danger text-white text-[8px] px-1 rounded animate-pulse">REC</div>
           <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">SCR</div>
@@ -314,7 +314,7 @@ export default function ActiveQuizPage() {
         </div>
       </div>
       {/* Top Bar */}
-      <div className="flex items-center justify-between p-4 bg-slate-900/90 border-b border-glass-border">
+      <div className="flex items-center justify-between p-4 bg-white/5 backdrop-blur-md/90 border-b border-glass-border">
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center">
             <img src="/logo.png" alt="INNOVATEX" className="h-8 w-auto object-contain mr-3" />
@@ -361,7 +361,7 @@ export default function ActiveQuizPage() {
                       "p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3",
                       isSelected 
                         ? "border-primary bg-primary/10 shadow-[0_0_15px_rgba(0,240,255,0.2)]" 
-                        : "border-glass-border bg-slate-900/60 hover:bg-slate-900/60 hover:border-foreground/30"
+                        : "border-glass-border bg-white/5 backdrop-blur-md/60 hover:bg-white/5 backdrop-blur-md/60 hover:border-foreground/30"
                     )}
                   >
                     <div className="mt-0.5 shrink-0">
@@ -404,7 +404,7 @@ export default function ActiveQuizPage() {
         </div>
         
         {/* Right Sidebar - Question Palette */}
-        <div className="w-64 border-l border-glass-border bg-slate-900/60 p-4 hidden lg:flex flex-col">
+        <div className="w-64 border-l border-glass-border bg-white/5 backdrop-blur-md/60 p-4 hidden lg:flex flex-col">
           <div className="text-sm font-semibold uppercase text-foreground/60 mb-4">Question Palette</div>
           
           <div className="grid grid-cols-5 gap-2 mb-8">

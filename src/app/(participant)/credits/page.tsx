@@ -82,7 +82,7 @@ export default function CreditsPage() {
           ) : (
             <div className="divide-y divide-glass-border">
               {transactions.map(tx => (
-                <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-slate-900/20 transition-colors">
+                <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-white/5 backdrop-blur-md/20 transition-colors">
                   <div className="flex items-center gap-4">
                     <div className={`p-2 rounded-full ${tx.amount > 0 ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger'}`}>
                       {tx.amount > 0 ? <ArrowUpRight className="w-5 h-5" /> : <ArrowDownRight className="w-5 h-5" />}

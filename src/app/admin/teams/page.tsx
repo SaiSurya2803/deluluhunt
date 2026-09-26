@@ -142,12 +142,12 @@ export default function AdminTeamsPage() {
           </button>
           <button 
             onClick={downloadTemplate}
-            className="bg-slate-900 border border-slate-600 hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
+            className="bg-white/5 backdrop-blur-md border border-white/20 hover:bg-white/10 backdrop-blur-lg text-slate-300 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Template
           </button>
-          <label className="cursor-pointer bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center">
+          <label className="cursor-pointer bg-white/5 backdrop-blur-md hover:bg-white/10 backdrop-blur-lg text-white px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             Import CSV
             <input 
@@ -160,10 +160,10 @@ export default function AdminTeamsPage() {
         </div>
       </div>
 
-      <Card className="border-slate-700 shadow-sm bg-slate-900 overflow-hidden">
+      <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-hidden">
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-400 uppercase bg-slate-800 border-b border-slate-700">
+            <thead className="text-xs text-slate-400 uppercase bg-white/10 backdrop-blur-lg border-b border-white/10">
               <tr>
                 <th className="px-6 py-4">Team Name</th>
                 <th className="px-6 py-4">Email</th>
@@ -178,7 +178,7 @@ export default function AdminTeamsPage() {
             </thead>
             <tbody>
               {teams.map(team => (
-                <tr key={team.id} className="border-b border-slate-800 hover:bg-slate-800 transition-colors">
+                <tr key={team.id} className="border-b border-white/10 hover:bg-white/10 backdrop-blur-lg transition-colors">
                   <td className="px-6 py-4 font-bold text-white">{team.name}</td>
                   <td className="px-6 py-4 text-slate-300">{team.email}</td>
                   <td className="px-6 py-4">{team.members.length} / 4</td>

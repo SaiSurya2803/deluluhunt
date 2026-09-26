@@ -49,13 +49,13 @@ export default function AdminAssetsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
+      <div className="flex justify-between items-center pb-4 border-b border-white/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">ASSETS MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Manage challenge resources, datasets, and file links.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addAsset} className="bg-slate-900 text-slate-300 hover:bg-slate-800">
+          <Button variant="outline" onClick={addAsset} className="bg-white/5 backdrop-blur-md text-slate-300 hover:bg-white/10 backdrop-blur-lg">
             <Plus className="w-4 h-4 mr-2" /> Add Asset
           </Button>
           <Button onClick={saveAssets} className="bg-success text-white hover:bg-success/90">
@@ -66,8 +66,8 @@ export default function AdminAssetsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {assets.map((asset, index) => (
-          <Card key={asset.id} className="border-slate-700 shadow-sm bg-slate-900 overflow-visible">
-            <CardHeader className="bg-slate-800 border-b border-slate-800 flex flex-row items-center justify-between pb-4">
+          <Card key={asset.id} className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-visible">
+            <CardHeader className="bg-white/10 backdrop-blur-lg border-b border-white/10 flex flex-row items-center justify-between pb-4">
               <CardTitle className="text-lg text-slate-200 flex items-center">
                 <FileArchive className="w-4 h-4 mr-2 text-primary" /> {asset.name}
               </CardTitle>
@@ -82,7 +82,7 @@ export default function AdminAssetsPage() {
                 <select 
                   value={asset.roundId}
                   onChange={(e) => updateAsset(asset.id, 'roundId', e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-600 text-sm rounded-md px-3 py-2 text-white"
+                  className="w-full bg-white/5 backdrop-blur-md border border-white/20 text-sm rounded-md px-3 py-2 text-white"
                 >
                   {rounds.map(r => (
                     <option key={r.id} value={r.id}>Round {r.roundNumber}: {r.title}</option>
@@ -95,7 +95,7 @@ export default function AdminAssetsPage() {
                 <Input 
                   value={asset.name} 
                   onChange={(e) => updateAsset(asset.id, 'name', e.target.value)} 
-                  className="bg-slate-900 border-slate-600 text-white"
+                  className="bg-white/5 backdrop-blur-md border-white/20 text-white"
                 />
               </div>
 
@@ -104,7 +104,7 @@ export default function AdminAssetsPage() {
                 <textarea 
                   value={asset.description || ''} 
                   onChange={(e) => updateAsset(asset.id, 'description', e.target.value)} 
-                  className="w-full bg-slate-900 border border-slate-600 text-white rounded-md p-2 text-sm min-h-[60px]"
+                  className="w-full bg-white/5 backdrop-blur-md border border-white/20 text-white rounded-md p-2 text-sm min-h-[60px]"
                 />
               </div>
 
@@ -114,7 +114,7 @@ export default function AdminAssetsPage() {
                   <select 
                     value={asset.type}
                     onChange={(e) => updateAsset(asset.id, 'type', e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-600 text-sm rounded-md px-3 py-2 text-white"
+                    className="w-full bg-white/5 backdrop-blur-md border border-white/20 text-sm rounded-md px-3 py-2 text-white"
                   >
                     <option value="PDF">PDF</option>
                     <option value="IMAGE">IMAGE</option>
@@ -143,7 +143,7 @@ export default function AdminAssetsPage() {
                 <Input 
                   value={asset.url} 
                   onChange={(e) => updateAsset(asset.id, 'url', e.target.value)} 
-                  className="bg-slate-900 border-slate-600 text-white text-xs"
+                  className="bg-white/5 backdrop-blur-md border-white/20 text-white text-xs"
                 />
               </div>
 

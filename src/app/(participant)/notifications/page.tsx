@@ -89,7 +89,7 @@ export default function NotificationsPage() {
           </div>
         ) : (
           notifications.map(notif => (
-            <Card key={notif.id} className={cn("transition-colors", notif.isRead ? "opacity-70 border-transparent bg-slate-900/20" : "border-primary/20 bg-primary/5")}>
+            <Card key={notif.id} className={cn("transition-colors", notif.isRead ? "opacity-70 border-transparent bg-white/5 backdrop-blur-md/20" : "border-primary/20 bg-primary/5")}>
               <CardContent className="p-4 flex gap-4 items-start">
                 <div className="mt-1 shrink-0">{getIcon(notif.type)}</div>
                 <div className="flex-1">

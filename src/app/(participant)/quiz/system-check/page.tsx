@@ -100,7 +100,7 @@ export default function SystemCheckPage() {
         <p className="text-foreground/60">Verifying your environment before starting the proctored assessment.</p>
       </div>
 
-      <Card className="border-slate-700 shadow-sm mt-8">
+      <Card className="border-white/10 shadow-sm mt-8">
         <CardContent className="p-0">
           <CheckItem icon={Globe} title="Internet Connection" status={checks.internet} />
           <CheckItem icon={Monitor} title="Browser Compatibility" status={checks.browser} />
@@ -115,7 +115,7 @@ export default function SystemCheckPage() {
             <label className="flex items-start gap-3 cursor-pointer">
               <input 
                 type="checkbox" 
-                className="mt-1 w-5 h-5 rounded border-glass-border bg-slate-900/80 text-primary focus:ring-primary"
+                className="mt-1 w-5 h-5 rounded border-glass-border bg-white/5 backdrop-blur-md/80 text-primary focus:ring-primary"
                 checked={consent}
                 onChange={e => setConsent(e.target.checked)}
               />

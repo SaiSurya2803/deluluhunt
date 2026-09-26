@@ -32,7 +32,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
+      <div className="flex justify-between items-center pb-4 border-b border-white/10">
         <div>
           <h1 className="text-3xl font-bold text-white tracking-tight">Overview</h1>
           <p className="text-slate-400 mt-1">Real-time platform statistics and alerts.</p>
@@ -46,7 +46,7 @@ export default function AdminDashboardPage() {
 
       {/* Top Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="border-slate-700 shadow-sm bg-slate-900">
+        <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md">
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -61,7 +61,7 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-slate-700 shadow-sm bg-slate-900">
+        <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md">
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -70,13 +70,13 @@ export default function AdminDashboardPage() {
               </div>
               <div className="p-2 bg-success/10 rounded-lg"><ShieldCheck className="w-5 h-5 text-success" /></div>
             </div>
-            <div className="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+            <div className="w-full bg-white/10 backdrop-blur-lg h-1.5 rounded-full mt-4 overflow-hidden">
               <div className="bg-success h-full" style={{ width: `${Math.max(10, (stats.quizSubmissions / Math.max(1, stats.totalTeams)) * 100)}%` }}></div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-slate-700 shadow-sm bg-slate-900">
+        <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md">
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -88,8 +88,8 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-slate-700 shadow-sm bg-slate-900 relative overflow-hidden group">
-          <div className={cn("absolute inset-0 opacity-10 pointer-events-none transition-opacity", stats.proctoringAlerts > 0 ? "bg-danger" : "bg-slate-700")}></div>
+        <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md relative overflow-hidden group">
+          <div className={cn("absolute inset-0 opacity-10 pointer-events-none transition-opacity", stats.proctoringAlerts > 0 ? "bg-danger" : "bg-white/10")}></div>
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -98,7 +98,7 @@ export default function AdminDashboardPage() {
                   {stats.proctoringAlerts}
                 </p>
               </div>
-              <div className={cn("p-2 rounded-lg", stats.proctoringAlerts > 0 ? "bg-danger/20 text-danger animate-pulse" : "bg-slate-800 text-slate-400")}>
+              <div className={cn("p-2 rounded-lg", stats.proctoringAlerts > 0 ? "bg-danger/20 text-danger animate-pulse" : "bg-white/10 backdrop-blur-lg text-slate-400")}>
                 <AlertTriangle className="w-5 h-5" />
               </div>
             </div>
@@ -112,8 +112,8 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <Card className="border-slate-700 shadow-sm bg-slate-900">
-          <CardHeader className="border-b border-slate-800 bg-slate-800/50">
+        <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md">
+          <CardHeader className="border-b border-white/10 bg-white/10 backdrop-blur-lg/50">
             <CardTitle className="text-slate-300 text-base flex items-center">
               <ShieldAlert className="w-4 h-4 mr-2" /> Recent Suspicious Activity
             </CardTitle>
@@ -125,8 +125,8 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-slate-700 shadow-sm bg-slate-900">
-          <CardHeader className="border-b border-slate-800 bg-slate-800/50">
+        <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md">
+          <CardHeader className="border-b border-white/10 bg-white/10 backdrop-blur-lg/50">
             <CardTitle className="text-slate-300 text-base flex items-center">
               <BarChart className="w-4 h-4 mr-2" /> System Status
             </CardTitle>

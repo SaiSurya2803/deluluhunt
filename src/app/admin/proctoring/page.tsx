@@ -26,9 +26,9 @@ function LiveMonitorNode({ team }: { team: Team }) {
   }, [team.id]);
 
   return (
-    <Card className="overflow-hidden border-slate-700 shadow-sm bg-slate-900 hover:shadow-md transition-shadow">
-      <div className="flex bg-slate-900 relative">
-        <div className="w-1/3 aspect-video bg-black relative border-r border-slate-800 flex items-center justify-center">
+    <Card className="overflow-hidden border-white/10 shadow-sm bg-white/5 backdrop-blur-md hover:shadow-md transition-shadow">
+      <div className="flex bg-white/5 backdrop-blur-md relative">
+        <div className="w-1/3 aspect-video bg-black relative border-r border-white/10 flex items-center justify-center">
           {camFrame ? <img src={camFrame} alt="cam" className="w-full h-full object-cover transform scale-x-[-1]" /> : <Video className="w-6 h-6 text-slate-300" />}
           <div className="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded">CAM</div>
         </div>
@@ -41,7 +41,7 @@ function LiveMonitorNode({ team }: { team: Team }) {
           <span className="text-[10px] uppercase font-bold text-white tracking-widest bg-black/40 px-1.5 py-0.5 rounded backdrop-blur-sm">LIVE</span>
         </div>
       </div>
-      <CardContent className="p-3 bg-slate-900">
+      <CardContent className="p-3 bg-white/5 backdrop-blur-md">
         <p className="font-bold text-sm text-white truncate">{team.name}</p>
         <div className="flex items-center justify-between mt-2">
           <SplitSquareHorizontal className="w-4 h-4 text-success" />
@@ -94,7 +94,7 @@ export default function ProctoringPage() {
         <div className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-semibold text-white tracking-tight">Event Log</h2>
           {events.length === 0 ? (
-            <Card className="border-slate-700 shadow-sm bg-slate-900">
+            <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md">
               <CardContent className="p-12 text-center text-slate-400">
                 No proctoring events recorded.
               </CardContent>
@@ -106,16 +106,16 @@ export default function ProctoringPage() {
                 const member = team?.members.find(m => m.id === event.memberId);
                 
                 return (
-                  <Card key={event.id} className={cn("transition-colors border-slate-700 shadow-sm", event.status === 'UNREVIEWED' ? 'bg-danger/5 border-l-4 border-l-danger' : 'bg-slate-900 opacity-70')}>
+                  <Card key={event.id} className={cn("transition-colors border-white/10 shadow-sm", event.status === 'UNREVIEWED' ? 'bg-danger/5 border-l-4 border-l-danger' : 'bg-white/5 backdrop-blur-md opacity-70')}>
                     <CardContent className="p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       <div className="flex items-start gap-4">
-                        <div className={`p-2 rounded-full ${event.status === 'UNREVIEWED' ? 'bg-danger/10 text-danger' : 'bg-slate-800 text-slate-400'}`}>
+                        <div className={`p-2 rounded-full ${event.status === 'UNREVIEWED' ? 'bg-danger/10 text-danger' : 'bg-white/10 backdrop-blur-lg text-slate-400'}`}>
                           <AlertTriangle className="w-5 h-5" />
                         </div>
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <span className="font-bold text-white">{team?.name || 'Unknown Team'}</span>
-                            <span className="text-xs text-slate-400 px-2 border border-slate-700 rounded-md bg-slate-800">{member?.name || 'Unknown'}</span>
+                            <span className="text-xs text-slate-400 px-2 border border-white/10 rounded-md bg-white/10 backdrop-blur-lg">{member?.name || 'Unknown'}</span>
                             {getSeverityBadge(event.severity)}
                           </div>
                           <p className="text-slate-300 font-medium">{event.event}</p>
@@ -124,7 +124,7 @@ export default function ProctoringPage() {
                       </div>
                       
                       {event.status === 'UNREVIEWED' ? (
-                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="bg-slate-900 border-slate-700 text-slate-300 hover:text-white">
+                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="bg-white/5 backdrop-blur-md border-white/10 text-slate-300 hover:text-white">
                           <CheckCircle className="w-4 h-4 mr-2 text-success" /> Mark Reviewed
                         </Button>
                       ) : (
@@ -145,7 +145,7 @@ export default function ProctoringPage() {
               <LiveMonitorNode key={team.id} team={team} />
             ))}
             {Object.values(teams).filter(t => t.quizStatus === 'ACTIVE').length === 0 && (
-              <div className="col-span-full text-center p-8 text-slate-400 border border-slate-700 bg-slate-800 border-dashed rounded-xl">
+              <div className="col-span-full text-center p-8 text-slate-400 border border-white/10 bg-white/10 backdrop-blur-lg border-dashed rounded-xl">
                 No active participants streaming
               </div>
             )}

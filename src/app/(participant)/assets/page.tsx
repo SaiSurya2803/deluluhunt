@@ -63,7 +63,7 @@ export default function AssetsPage() {
               <Card key={asset.id} className={asset.isLocked ? 'opacity-70 border-glass-border' : 'hover:border-primary/50 transition-colors'}>
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start mb-4">
-                    <div className="p-3 bg-slate-900/60 rounded-lg border border-glass-border">
+                    <div className="p-3 bg-white/5 backdrop-blur-md/60 rounded-lg border border-glass-border">
                       {asset.isLocked ? <Lock className="w-8 h-8 text-foreground/40" /> : getIcon(asset.type)}
                     </div>
                     {round && (
@@ -76,7 +76,7 @@ export default function AssetsPage() {
                 </CardHeader>
                 <CardFooter>
                   {asset.isLocked ? (
-                    <Button variant="ghost" disabled className="w-full text-xs bg-slate-900/80">
+                    <Button variant="ghost" disabled className="w-full text-xs bg-white/5 backdrop-blur-md/80">
                       <Lock className="w-3 h-3 mr-2" /> LOCKED
                     </Button>
                   ) : (

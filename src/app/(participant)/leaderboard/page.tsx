@@ -51,7 +51,7 @@ export default function LeaderboardPage() {
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs text-foreground/50 uppercase bg-slate-900/60 border-b border-glass-border">
+              <thead className="text-xs text-foreground/50 uppercase bg-white/5 backdrop-blur-md/60 border-b border-glass-border">
                 <tr>
                   <th className="px-6 py-4">Rank</th>
                   <th className="px-6 py-4">Team</th>
@@ -67,7 +67,7 @@ export default function LeaderboardPage() {
                     <tr 
                       key={entry.teamId} 
                       className={cn(
-                        "border-b border-glass-border/50 last:border-0 hover:bg-slate-900/5 transition-colors",
+                        "border-b border-glass-border/50 last:border-0 hover:bg-white/5 backdrop-blur-md/5 transition-colors",
                         isCurrentTeam && "bg-primary/10 border-primary/30"
                       )}
                     >

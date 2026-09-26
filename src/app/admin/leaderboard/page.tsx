@@ -72,18 +72,18 @@ export default function AdminLeaderboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-slate-700">
+      <div className="flex justify-between items-center pb-4 border-b border-white/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">ADMIN LEADERBOARD</h1>
           <p className="text-slate-400 mt-1">Live rankings with score override capabilities.</p>
         </div>
       </div>
 
-      <Card className="border-slate-700 shadow-sm bg-slate-900 overflow-hidden">
+      <Card className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-hidden">
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs text-slate-400 uppercase bg-slate-800 border-b border-slate-700">
+              <thead className="text-xs text-slate-400 uppercase bg-white/10 backdrop-blur-lg border-b border-white/10">
                 <tr>
                   <th className="px-6 py-4">Rank</th>
                   <th className="px-6 py-4">Team</th>
@@ -99,7 +99,7 @@ export default function AdminLeaderboardPage() {
                   return (
                     <tr 
                       key={entry.teamId} 
-                      className="border-b border-slate-800 last:border-0 hover:bg-slate-800 transition-colors"
+                      className="border-b border-white/10 last:border-0 hover:bg-white/10 backdrop-blur-lg transition-colors"
                     >
                       <td className="px-6 py-4">{getRankIcon(entry.rank)}</td>
                       <td className="px-6 py-4 font-bold text-white">
@@ -111,7 +111,7 @@ export default function AdminLeaderboardPage() {
                             type="number" 
                             value={editScore} 
                             onChange={(e) => setEditScore(parseInt(e.target.value) || 0)}
-                            className="w-24 h-8 text-center bg-slate-900 border-primary"
+                            className="w-24 h-8 text-center bg-white/5 backdrop-blur-md border-primary"
                             autoFocus
                           />
                         ) : (
@@ -125,7 +125,7 @@ export default function AdminLeaderboardPage() {
                             type="number" 
                             value={editQuizScore} 
                             onChange={(e) => setEditQuizScore(parseInt(e.target.value) || 0)}
-                            className="w-24 h-8 text-center bg-slate-900 border-success"
+                            className="w-24 h-8 text-center bg-white/5 backdrop-blur-md border-success"
                           />
                         ) : (
                           entry.quizScore

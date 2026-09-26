@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0A0B1A;
-  --foreground: #B3B4CD;
+  --background: #09090b; /* Deep almost-black */
+  --foreground: #e4e4e7; /* Clean off-white */
   
-  --primary: #FF2A5F;
-  --primary-hover: #e02251;
-  --secondary: #3B82F6;
-  --accent: #FF2A5F;
+  --primary: #f8312f; /* Nothing Phone signature red */
+  --primary-hover: #dc2626;
+  --secondary: #27272a; /* Tech gray */
+  --accent: #f8312f;
   
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(24, 24, 27, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(16px);
   
-  --success: #22c55e;
+  --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
 }
@@ -33,40 +34,42 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   
-  --font-sans: var(--font-vt323), 'Inter', system-ui, sans-serif;
-  --font-mono: var(--font-vt323), 'Fira Code', ui-monospace, monospace;
+  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-space-grotesk), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-vt323), monospace !important;
-  background-image: 
-    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
-  background-repeat: repeat;
-  background-size: 200px 200px;
+  font-family: var(--font-sans) !important;
+  /* Nothing OS Dotted Texture */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
   background-attachment: fixed;
   min-height: 100vh;
-  font-size: 1.25rem; /* Slightly larger base font for pixel font readability */
+  font-size: 1rem;
 }
 
 * {
-  font-family: var(--font-vt323), monospace !important;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6, .font-mono {
+  font-family: var(--font-mono) !important;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 0px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
@@ -75,43 +78,49 @@ body {
 /* Glass panel utility */
 @utility glass-panel {
   background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
-  border-radius: 0; /* Boxy aesthetic */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 1.5rem; /* Smoother, sleeker rounded corners */
 }
 
 /* Glowing text utility */
 @utility text-glow {
-  text-shadow: 0 0 10px rgba(255, 42, 95, 0.6);
-  color: white;
+  text-shadow: 0 0 15px rgba(248, 49, 47, 0.4);
 }
 
-/* Buttons and Inputs overrides for retro feel */
+/* Buttons and Inputs overrides for minimal futuristic feel */
 input, textarea, select {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(8px) !important;
   color: white !important;
   border: 1px solid var(--glass-border) !important;
-  border-radius: 0 !important;
+  border-radius: 1rem !important;
+  transition: all 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(248, 49, 47, 0.2) !important;
+  outline: none !important;
 }
 
 table th {
-  color: white !important;
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border-bottom: 2px solid var(--primary) !important;
+  color: #a1a1aa !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
 table td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 table tr:hover td {
-  background-color: rgba(255, 255, 255, 0.02) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
 @utility preserve-3d {

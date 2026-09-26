@@ -51,7 +51,7 @@ export default function RulesPage() {
         </Card>
       </div>
 
-      <Card className="bg-slate-900/60">
+      <Card className="bg-white/5 backdrop-blur-md/60">
         <CardContent className="p-6 text-center">
           <p className="text-foreground/60 mb-2">Need technical assistance?</p>
           <p className="font-bold text-white">Contact the support team at <a href="mailto:support@innovatex.com" className="text-primary hover:underline">support@innovatex.com</a></p>

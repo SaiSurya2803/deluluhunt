@@ -78,7 +78,7 @@ export default function DashboardPage() {
             <div className="text-sm font-semibold uppercase tracking-wider text-primary">Round Progress</div>
             <div className="text-xl font-bold">{progressPercent}%</div>
           </div>
-          <div className="w-full bg-slate-900/80 h-4 rounded-full overflow-hidden border border-glass-border">
+          <div className="w-full bg-white/5 backdrop-blur-md/80 h-4 rounded-full overflow-hidden border border-glass-border">
             <div 
               className="bg-primary h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(0,240,255,0.8)]"
               style={{ width: `${progressPercent}%` }}

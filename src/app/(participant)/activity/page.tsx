@@ -47,11 +47,11 @@ export default function ActivityPage() {
                 
                 return (
                   <div key={log.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-primary/30 bg-slate-900 text-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-primary/30 bg-white/5 backdrop-blur-md text-primary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
                       <Clock className="w-4 h-4" />
                     </div>
                     
-                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-glass-border bg-slate-900/60 hover:bg-slate-900/60 transition-colors">
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-glass-border bg-white/5 backdrop-blur-md/60 hover:bg-white/5 backdrop-blur-md/60 transition-colors">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-xs font-bold text-primary uppercase tracking-wider">{date.toLocaleDateString()} {date.toLocaleTimeString()}</span>
                       </div>
