@@ -80,9 +80,6 @@ export default function Home() {
                 </h1>
                 
                 <div id="about" className="mt-12 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow-md">
-                    IN
-                  </div>
                   <div className="text-sm font-serif font-bold text-[#6B6B80] tracking-[0.1em] uppercase">
                     Decode the chaos. Hunt the impossible. 🧩
                   </div>
