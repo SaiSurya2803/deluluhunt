@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'The Ultimate 6-Round Technology Challenge',
 };
 
-import { Space_Grotesk, Inter, DotGothic16 } from 'next/font/google';
+import { Space_Grotesk, Inter, DotGothic16, Playfair_Display } from 'next/font/google';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -24,6 +24,11 @@ const dotGothic = DotGothic16({
   variable: '--font-dot',
 });
 
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-serif',
+});
+
 import { DatabaseSyncProvider } from '@/components/DatabaseSyncProvider';
 
 export default function RootLayout({
@@ -33,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`min-h-screen bg-background text-foreground antialiased selection:bg-primary/30 ${spaceGrotesk.variable} ${inter.variable} ${dotGothic.variable}`}>
+      <body className={`min-h-screen bg-background text-foreground antialiased selection:bg-primary/30 ${spaceGrotesk.variable} ${inter.variable} ${dotGothic.variable} ${playfair.variable}`}>
         <DatabaseSyncProvider>
           {children}
         </DatabaseSyncProvider>

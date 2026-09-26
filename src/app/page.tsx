@@ -83,7 +83,7 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow-md">
                     IN
                   </div>
-                  <div className="text-xs font-bold text-[#6B6B80] tracking-widest uppercase">
+                  <div className="text-sm font-serif font-bold text-[#6B6B80] tracking-[0.2em] uppercase">
                     A FLAGSHIP TECHNOLOGY CHALLENGE
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export default function Home() {
                 <motion.div 
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute top-16 right-[-40px] w-24 h-24 rounded-full bg-white shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center text-[10px] font-bold text-[#2D2D3F] uppercase tracking-widest z-30"
+                  className="absolute top-16 right-[-40px] w-24 h-24 rounded-full bg-white shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center text-[10px] font-bold text-[#2D2D3F] uppercase tracking-widest z-30 font-serif"
                 >
                   <span className="text-2xl mb-1">👁</span> Explore
                 </motion.div>
@@ -155,8 +155,8 @@ export default function Home() {
                     01
                   </div>
                   <div>
-                    <div className="text-[10px] text-[#A8A8C0] font-bold uppercase tracking-widest">Status</div>
-                    <div className="text-lg text-[#2D2D3F] font-black tracking-tighter leading-none">SYSTEM<br/>ONLINE</div>
+                    <div className="text-[10px] text-[#A8A8C0] font-bold uppercase tracking-widest font-serif">Status</div>
+                    <div className="text-xl text-[#2D2D3F] font-black tracking-tight leading-[1.1] font-serif">SYSTEM<br/>ONLINE</div>
                   </div>
                 </motion.div>
               </motion.div>
