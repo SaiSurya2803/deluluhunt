@@ -35,8 +35,8 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   
-  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-mono: var(--font-space-grotesk), ui-monospace, monospace;
+  --font-sans: var(--font-dot), 'DotGothic16', monospace;
+  --font-mono: var(--font-dot), 'DotGothic16', monospace;
 }
 
 body {
