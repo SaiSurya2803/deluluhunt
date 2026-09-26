@@ -26,16 +26,16 @@ export default function ContentManagementPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/10">
+      <div className="flex justify-between items-center pb-4 border-b border-white/80">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">ROUNDS MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Configure titles, descriptions, points, and unlock status.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setRounds([...rounds, { id: `r${Date.now()}`, roundNumber: rounds.length + 1, title: 'New Round', description: '', objective: '', rules: [], maxScore: 100, status: 'LOCKED' }])} className="bg-white/5 backdrop-blur-md text-slate-300 hover:bg-white/10 backdrop-blur-lg">
+          <Button variant="outline" onClick={() => setRounds([...rounds, { id: `r${Date.now()}`, roundNumber: rounds.length + 1, title: 'New Round', description: '', objective: '', rules: [], maxScore: 100, status: 'LOCKED' }])} className="bg-white/60 backdrop-blur-xl text-slate-300 hover:bg-white/80 backdrop-blur-lg">
             Add Round
           </Button>
-          <Button onClick={saveRounds} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveRounds} className="bg-success text-black hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save All Rounds
           </Button>
         </div>
@@ -44,14 +44,14 @@ export default function ContentManagementPage() {
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {rounds.length === 0 && <p className="text-slate-400 col-span-full text-center p-8">No rounds defined. Click Add Round.</p>}
         {rounds.map((round) => (
-          <Card key={round.id} className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-hidden">
-            <CardHeader className="bg-white/10 backdrop-blur-lg border-b border-white/10 flex flex-row items-center justify-between pb-4">
+          <Card key={round.id} className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl overflow-hidden">
+            <CardHeader className="bg-white/80 backdrop-blur-lg border-b border-white/80 flex flex-row items-center justify-between pb-4">
               <CardTitle className="text-lg text-slate-200">Round {round.roundNumber}</CardTitle>
               <div className="flex items-center gap-2">
                 <select 
                   value={round.status}
                   onChange={(e) => updateRound(round.id, 'status', e.target.value)}
-                  className="bg-white/5 backdrop-blur-md border border-white/20 text-sm rounded px-2 py-1 text-slate-300"
+                  className="bg-white/60 backdrop-blur-xl border border-white text-sm rounded px-2 py-1 text-slate-300"
                 >
                   <option value="LOCKED">LOCKED</option>
                   <option value="UNLOCKED">UNLOCKED</option>
@@ -69,7 +69,7 @@ export default function ContentManagementPage() {
                 <Input 
                   value={round.title} 
                   onChange={(e) => updateRound(round.id, 'title', e.target.value)} 
-                  className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                  className="bg-white/60 backdrop-blur-xl border-white text-black"
                 />
               </div>
 
@@ -78,7 +78,7 @@ export default function ContentManagementPage() {
                 <textarea 
                   value={round.description} 
                   onChange={(e) => updateRound(round.id, 'description', e.target.value)} 
-                  className="w-full bg-white/5 backdrop-blur-md border border-white/20 text-white rounded-md p-2 text-sm min-h-[80px]"
+                  className="w-full bg-white/60 backdrop-blur-xl border border-white text-black rounded-md p-2 text-sm min-h-[80px]"
                 />
               </div>
               
@@ -87,7 +87,7 @@ export default function ContentManagementPage() {
                 <Input 
                   value={round.objective} 
                   onChange={(e) => updateRound(round.id, 'objective', e.target.value)} 
-                  className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                  className="bg-white/60 backdrop-blur-xl border-white text-black"
                 />
               </div>
 
@@ -98,7 +98,7 @@ export default function ContentManagementPage() {
                     type="number"
                     value={round.timeLimit || 0} 
                     onChange={(e) => updateRound(round.id, 'timeLimit', parseInt(e.target.value) || 0)} 
-                    className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                    className="bg-white/60 backdrop-blur-xl border-white text-black"
                   />
                 </div>
                 <div className="space-y-2">
@@ -107,7 +107,7 @@ export default function ContentManagementPage() {
                     type="number"
                     value={round.maxScore || 0} 
                     onChange={(e) => updateRound(round.id, 'maxScore', parseInt(e.target.value) || 0)} 
-                    className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                    className="bg-white/60 backdrop-blur-xl border-white text-black"
                   />
                 </div>
               </div>

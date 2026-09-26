@@ -48,16 +48,16 @@ export default function AdminCluesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/10">
+      <div className="flex justify-between items-center pb-4 border-b border-white/80">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">CLUES MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Add hints, configure costs, and assign them to specific rounds.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addClue} className="bg-white/5 backdrop-blur-md text-slate-300 hover:bg-white/10 backdrop-blur-lg">
+          <Button variant="outline" onClick={addClue} className="bg-white/60 backdrop-blur-xl text-slate-300 hover:bg-white/80 backdrop-blur-lg">
             <Plus className="w-4 h-4 mr-2" /> Add Clue
           </Button>
-          <Button onClick={saveClues} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveClues} className="bg-success text-black hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save All
           </Button>
         </div>
@@ -65,8 +65,8 @@ export default function AdminCluesPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {clues.map((clue, index) => (
-          <Card key={clue.id} className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-visible">
-            <CardHeader className="bg-white/10 backdrop-blur-lg border-b border-white/10 flex flex-row items-center justify-between pb-4">
+          <Card key={clue.id} className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl overflow-visible">
+            <CardHeader className="bg-white/80 backdrop-blur-lg border-b border-white/80 flex flex-row items-center justify-between pb-4">
               <CardTitle className="text-lg text-slate-200 flex items-center">
                 <Key className="w-4 h-4 mr-2 text-warning" /> Clue {index + 1}
               </CardTitle>
@@ -81,7 +81,7 @@ export default function AdminCluesPage() {
                 <select 
                   value={clue.roundId}
                   onChange={(e) => updateClue(clue.id, 'roundId', e.target.value)}
-                  className="w-full bg-white/5 backdrop-blur-md border border-white/20 text-sm rounded-md px-3 py-2 text-white"
+                  className="w-full bg-white/60 backdrop-blur-xl border border-white text-sm rounded-md px-3 py-2 text-black"
                 >
                   {rounds.map(r => (
                     <option key={r.id} value={r.id}>Round {r.roundNumber}: {r.title}</option>
@@ -94,7 +94,7 @@ export default function AdminCluesPage() {
                 <textarea 
                   value={clue.content} 
                   onChange={(e) => updateClue(clue.id, 'content', e.target.value)} 
-                  className="w-full bg-white/5 backdrop-blur-md border border-white/20 text-white rounded-md p-3 text-sm min-h-[100px]"
+                  className="w-full bg-white/60 backdrop-blur-xl border border-white text-black rounded-md p-3 text-sm min-h-[100px]"
                 />
               </div>
 
@@ -105,7 +105,7 @@ export default function AdminCluesPage() {
                     type="number"
                     value={clue.cost} 
                     onChange={(e) => updateClue(clue.id, 'cost', parseInt(e.target.value) || 0)} 
-                    className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                    className="bg-white/60 backdrop-blur-xl border-white text-black"
                     disabled={clue.isFree}
                   />
                 </div>

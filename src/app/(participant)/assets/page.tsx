@@ -46,7 +46,7 @@ export default function AssetsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white text-glow">ASSET LIBRARY</h1>
+        <h1 className="text-3xl font-bold text-black text-glow">ASSET LIBRARY</h1>
         <p className="text-foreground/60 mt-1">Access resources provided for unlocked challenge rounds.</p>
       </div>
 
@@ -63,7 +63,7 @@ export default function AssetsPage() {
               <Card key={asset.id} className={asset.isLocked ? 'opacity-70 border-glass-border' : 'hover:border-primary/50 transition-colors'}>
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start mb-4">
-                    <div className="p-3 bg-white/5 backdrop-blur-md/60 rounded-lg border border-glass-border">
+                    <div className="p-3 bg-white/60 backdrop-blur-xl/60 rounded-lg border border-glass-border">
                       {asset.isLocked ? <Lock className="w-8 h-8 text-foreground/40" /> : getIcon(asset.type)}
                     </div>
                     {round && (
@@ -76,7 +76,7 @@ export default function AssetsPage() {
                 </CardHeader>
                 <CardFooter>
                   {asset.isLocked ? (
-                    <Button variant="ghost" disabled className="w-full text-xs bg-white/5 backdrop-blur-md/80">
+                    <Button variant="ghost" disabled className="w-full text-xs bg-white/60 backdrop-blur-xl/80">
                       <Lock className="w-3 h-3 mr-2" /> LOCKED
                     </Button>
                   ) : (

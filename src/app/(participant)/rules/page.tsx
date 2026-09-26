@@ -8,7 +8,7 @@ export default function RulesPage() {
     <div className="space-y-8 max-w-4xl mx-auto">
       <div className="text-center space-y-4 mb-8">
         <ShieldQuestion className="w-16 h-16 text-primary mx-auto" />
-        <h1 className="text-3xl font-bold text-white text-glow">CHALLENGE RULES</h1>
+        <h1 className="text-3xl font-bold text-black text-glow">CHALLENGE RULES</h1>
         <p className="text-foreground/60">Everything you need to know to compete in the Innovatex Delulu Hunt.</p>
       </div>
 
@@ -51,10 +51,10 @@ export default function RulesPage() {
         </Card>
       </div>
 
-      <Card className="bg-white/5 backdrop-blur-md/60">
+      <Card className="bg-white/60 backdrop-blur-xl/60">
         <CardContent className="p-6 text-center">
           <p className="text-foreground/60 mb-2">Need technical assistance?</p>
-          <p className="font-bold text-white">Contact the support team at <a href="mailto:support@innovatex.com" className="text-primary hover:underline">support@innovatex.com</a></p>
+          <p className="font-bold text-black">Contact the support team at <a href="mailto:support@innovatex.com" className="text-primary hover:underline">support@innovatex.com</a></p>
         </CardContent>
       </Card>
     </div>

@@ -57,16 +57,16 @@ export default function AdminQuizPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/10">
+      <div className="flex justify-between items-center pb-4 border-b border-white/80">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">QUIZ MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Configure questions, set point values, and assign per-question timers.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addQuestion} className="bg-white/5 backdrop-blur-md text-slate-300 hover:bg-white/10 backdrop-blur-lg">
+          <Button variant="outline" onClick={addQuestion} className="bg-white/60 backdrop-blur-xl text-slate-300 hover:bg-white/80 backdrop-blur-lg">
             <Plus className="w-4 h-4 mr-2" /> Add Question
           </Button>
-          <Button onClick={saveQuestions} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveQuestions} className="bg-success text-black hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save All
           </Button>
         </div>
@@ -74,13 +74,13 @@ export default function AdminQuizPage() {
 
       <div className="space-y-6">
         {questions.length === 0 ? (
-          <div className="text-center p-12 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-slate-400">
+          <div className="text-center p-12 bg-white/60 backdrop-blur-xl border border-white/80 rounded-xl text-slate-400">
             No questions available. Click "Add Question" to start building the quiz.
           </div>
         ) : (
           questions.map((q, index) => (
-            <Card key={q.id} className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-visible">
-              <CardHeader className="bg-white/10 backdrop-blur-lg border-b border-white/10 flex flex-row items-center justify-between pb-4">
+            <Card key={q.id} className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl overflow-visible">
+              <CardHeader className="bg-white/80 backdrop-blur-lg border-b border-white/80 flex flex-row items-center justify-between pb-4">
                 <CardTitle className="text-lg text-slate-200">Question {index + 1}</CardTitle>
                 <Button variant="ghost" size="sm" onClick={() => removeQuestion(q.id)} className="text-danger hover:bg-danger/10">
                   <Trash2 className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function AdminQuizPage() {
                   <Input 
                     value={q.text} 
                     onChange={(e) => updateQuestion(q.id, 'text', e.target.value)} 
-                    className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                    className="bg-white/60 backdrop-blur-xl border-white text-black"
                   />
                 </div>
 
@@ -106,7 +106,7 @@ export default function AdminQuizPage() {
                       type="number" 
                       value={q.timer || 60} 
                       onChange={(e) => updateQuestion(q.id, 'timer', parseInt(e.target.value) || 0)}
-                      className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                      className="bg-white/60 backdrop-blur-xl border-white text-black"
                     />
                   </div>
                   <div className="space-y-2">
@@ -117,7 +117,7 @@ export default function AdminQuizPage() {
                       type="number" 
                       value={q.points || 10} 
                       onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
-                      className="bg-white/5 backdrop-blur-md border-white/20 text-white"
+                      className="bg-white/60 backdrop-blur-xl border-white text-black"
                     />
                   </div>
                 </div>
@@ -131,12 +131,12 @@ export default function AdminQuizPage() {
                         name={`correct-${q.id}`} 
                         checked={q.correctOptionIndex === oIndex}
                         onChange={() => updateQuestion(q.id, 'correctOptionIndex', oIndex)}
-                        className="w-5 h-5 text-primary border-white/20 cursor-pointer"
+                        className="w-5 h-5 text-primary border-white cursor-pointer"
                       />
                       <Input 
                         value={opt} 
                         onChange={(e) => updateOption(q.id, oIndex, e.target.value)}
-                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-white" : "bg-white/5 backdrop-blur-md border-white/20 text-white"}
+                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-black" : "bg-white/60 backdrop-blur-xl border-white text-black"}
                       />
                     </div>
                   ))}

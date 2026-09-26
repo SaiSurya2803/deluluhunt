@@ -34,7 +34,7 @@ export default function AdminQuizSubmissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/10">
+      <div className="flex justify-between items-center pb-4 border-b border-white/80">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">QUIZ SUBMISSIONS</h1>
           <p className="text-slate-400 mt-1">Detailed breakdown of answers and time taken per team.</p>
@@ -43,7 +43,7 @@ export default function AdminQuizSubmissionsPage() {
 
       <div className="grid grid-cols-1 gap-6">
         {submissions.length === 0 && (
-          <div className="text-center p-12 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-slate-400">
+          <div className="text-center p-12 bg-white/60 backdrop-blur-xl border border-white/80 rounded-xl text-slate-400">
             No quiz submissions yet.
           </div>
         )}
@@ -56,8 +56,8 @@ export default function AdminQuizSubmissionsPage() {
           const totalTime = Object.values(sub.timeTaken || {}).reduce((acc, curr) => acc + curr, 0);
 
           return (
-            <Card key={sub.id} className="border-white/10 shadow-sm bg-white/5 backdrop-blur-md overflow-hidden">
-              <CardHeader className="bg-white/10 backdrop-blur-lg border-b border-white/10 pb-4">
+            <Card key={sub.id} className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl overflow-hidden">
+              <CardHeader className="bg-white/80 backdrop-blur-lg border-b border-white/80 pb-4">
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle className="text-xl text-slate-200">{team.name}</CardTitle>
@@ -66,7 +66,7 @@ export default function AdminQuizSubmissionsPage() {
                   <div className="flex items-center gap-4">
                     <div className="text-center">
                       <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Time Taken</p>
-                      <Badge variant="outline" className="font-mono bg-white/5 backdrop-blur-md">{formatTime(totalTime)}</Badge>
+                      <Badge variant="outline" className="font-mono bg-white/60 backdrop-blur-xl">{formatTime(totalTime)}</Badge>
                     </div>
                     <div className="text-center">
                       <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Score</p>
@@ -78,7 +78,7 @@ export default function AdminQuizSubmissionsPage() {
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left">
-                    <thead className="text-xs text-slate-400 bg-white/10 backdrop-blur-lg/50 border-b border-white/10">
+                    <thead className="text-xs text-slate-400 bg-white/80 backdrop-blur-lg/50 border-b border-white/80">
                       <tr>
                         <th className="px-6 py-3 font-medium">Question</th>
                         <th className="px-6 py-3 font-medium">Team's Answer</th>
@@ -100,7 +100,7 @@ export default function AdminQuizSubmissionsPage() {
                         const correctAnswerText = question.options[question.correctOptionIndex];
 
                         return (
-                          <tr key={qId} className="hover:bg-white/10 backdrop-blur-lg/50">
+                          <tr key={qId} className="hover:bg-white/80 backdrop-blur-lg/50">
                             <td className="px-6 py-4 max-w-xs truncate font-medium text-slate-300" title={question.text}>
                               {question.text}
                             </td>
