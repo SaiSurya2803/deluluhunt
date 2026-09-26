@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b; /* Deep almost-black */
-  --foreground: #e4e4e7; /* Clean off-white */
+  --background: #000000; /* Pure black to make colors pop */
+  --foreground: #e4e4e7;
   
-  --primary: #f8312f; /* Nothing Phone signature red */
-  --primary-hover: #dc2626;
-  --secondary: #27272a; /* Tech gray */
-  --accent: #f8312f;
+  --primary: #fce300; /* Vibrant Yellow from the image */
+  --primary-hover: #e5cd00;
+  --secondary: #161618; /* Dark frosted gray */
+  --accent: #a855f7; /* Soft purple */
   
-  --glass-bg: rgba(24, 24, 27, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: blur(16px);
+  --glass-bg: rgba(30, 30, 35, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-blur: blur(24px);
   
   --success: #10b981;
-  --warning: #f59e0b;
+  --warning: #fce300;
   --danger: #ef4444;
 }
 
@@ -42,9 +42,9 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans) !important;
-  /* Nothing OS Dotted Texture */
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-  background-size: 24px 24px;
+  /* Ultra-faint, small dotted texture to match image */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
   background-attachment: fixed;
   min-height: 100vh;
   font-size: 1rem;
@@ -57,7 +57,10 @@ body {
 h1, h2, h3, h4, h5, h6, .font-mono {
   font-family: var(--font-mono) !important;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
+}
+
+.font-dot {
+  font-family: var(--font-dot) !important;
 }
 
 /* Custom Scrollbar */
@@ -75,34 +78,46 @@ h1, h2, h3, h4, h5, h6, .font-mono {
   background: var(--primary);
 }
 
-/* Glass panel utility */
+/* Glass panel utility - updated to match the ultra-rounded squircle vibe */
 @utility glass-panel {
   background-color: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  border-radius: 1.5rem; /* Smoother, sleeker rounded corners */
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 2.5rem; /* Massive squircle rounding */
+}
+
+/* Specific glowing cards to match image */
+.card-purple-glow {
+  background: linear-gradient(135deg, rgba(168,85,247,0.3) 0%, rgba(217,70,239,0.3) 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 10px 30px rgba(168,85,247, 0.2);
+}
+
+.card-blue-glow {
+  background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(99,102,241,0.2) 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 10px 30px rgba(59,130,246, 0.2);
 }
 
 /* Glowing text utility */
 @utility text-glow {
-  text-shadow: 0 0 15px rgba(248, 49, 47, 0.4);
+  text-shadow: 0 0 15px rgba(252, 227, 0, 0.4);
 }
 
-/* Buttons and Inputs overrides for minimal futuristic feel */
+/* Buttons and Inputs overrides */
 input, textarea, select {
   background-color: rgba(255, 255, 255, 0.03) !important;
   backdrop-filter: blur(8px) !important;
   color: white !important;
   border: 1px solid var(--glass-border) !important;
-  border-radius: 1rem !important;
+  border-radius: 1.5rem !important;
   transition: all 0.3s ease;
+  padding: 0.75rem 1.25rem !important;
 }
 
 input:focus, textarea:focus, select:focus {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px rgba(248, 49, 47, 0.2) !important;
+  box-shadow: 0 0 0 2px rgba(252, 227, 0, 0.2) !important;
   outline: none !important;
 }
 
@@ -110,8 +125,10 @@ table th {
   color: #a1a1aa !important;
   background-color: rgba(255, 255, 255, 0.02) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  font-family: var(--font-mono) !important;
-  font-weight: 400;
+  font-family: var(--font-sans) !important;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
 }
 
