@@ -108,6 +108,27 @@ h1, h2, h3, h4, h5, h6, .font-mono {
   border-radius: 32px;
 }
 
+.card-green-glow {
+  background: radial-gradient(circle at 80% 80%, rgba(52,199,89,0.25), transparent 60%), linear-gradient(145deg, #112d1b, #0b150f);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 60px rgba(0, 0, 0, 0.35);
+  border-radius: 32px;
+}
+
+.card-yellow-glow {
+  background: radial-gradient(circle at 20% 80%, rgba(250,204,21,0.2), transparent 60%), linear-gradient(145deg, #2a2508, #111005);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 60px rgba(0, 0, 0, 0.35);
+  border-radius: 32px;
+}
+
+.card-white-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1), transparent 60%), linear-gradient(145deg, #1a1a24, #0d0d12);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 20px 60px rgba(0, 0, 0, 0.35);
+  border-radius: 32px;
+}
+
 /* Buttons and Inputs overrides for dark minimal theme */
 input, textarea, select {
   background: linear-gradient(145deg, #121318, #0a0b0e) !important;
