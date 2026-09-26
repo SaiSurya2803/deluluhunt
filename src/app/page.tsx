@@ -103,8 +103,38 @@ export default function Home() {
                   <div className="w-56 h-56 bg-gradient-to-tr from-[#FFD1E8] to-[#C4F1F9] rounded-full blur-[30px] opacity-60"></div>
                 </div>
 
-                {/* The Innovatex Logo */}
-                <img src="/innovatex-logo.png" alt="Innovatex Logo" className="w-32 h-32 object-contain opacity-90 relative z-20 mix-blend-multiply" />
+                {/* The Innovatex Logo (Recreated in high-res SVG) */}
+                <div className="relative z-20 flex items-center justify-center w-32 h-32 bg-white/40 backdrop-blur-md rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/50">
+                  <svg 
+                    viewBox="0 0 100 120" 
+                    className="w-16 h-16 text-[#1C1C28] drop-shadow-[0_5px_10px_rgba(0,0,0,0.2)] transform translate-y-1" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="8" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    {/* Top Dot */}
+                    <circle cx="50" cy="8" r="6" fill="currentColor" stroke="none" />
+                    {/* Left Dot */}
+                    <circle cx="16" cy="30" r="6" fill="currentColor" stroke="none" />
+                    {/* Right Dot */}
+                    <circle cx="84" cy="30" r="6" fill="currentColor" stroke="none" />
+                    
+                    {/* Dashes */}
+                    <path d="M 30 42 L 38 50" />
+                    <path d="M 70 42 L 62 50" />
+                    
+                    {/* Pen Nib / Diamond Body */}
+                    <path d="M 50 25 L 20 70 L 40 100 H 60 L 80 70 Z" />
+                    
+                    {/* Inner 'G' Line */}
+                    <path d="M 45 70 H 75" />
+                    
+                    {/* Base Lines */}
+                    <path d="M 35 110 H 65" />
+                  </svg>
+                </div>
                 
                 {/* Floating 'Explore' Badge */}
                 <motion.div 
