@@ -99,7 +99,12 @@ export default function Home() {
                 className="w-72 h-[420px] bg-gradient-to-br from-white/60 to-white/20 backdrop-blur-md rounded-[120px] border border-white/60 shadow-[0_30px_60px_rgba(0,0,0,0.05)] relative flex items-center justify-center z-10"
               >
                 {/* Inner Glow */}
-                <div className="w-56 h-56 bg-gradient-to-tr from-[#FFD1E8] to-[#C4F1F9] rounded-full blur-[30px] opacity-60"></div>
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-56 h-56 bg-gradient-to-tr from-[#FFD1E8] to-[#C4F1F9] rounded-full blur-[30px] opacity-60"></div>
+                </div>
+
+                {/* The Innovatex Logo */}
+                <img src="/innovatex-logo.png" alt="Innovatex Logo" className="w-32 h-32 object-contain opacity-90 relative z-20 mix-blend-multiply" />
                 
                 {/* Floating 'Explore' Badge */}
                 <motion.div 
