@@ -83,8 +83,8 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow-md">
                     IN
                   </div>
-                  <div className="text-sm font-serif font-bold text-[#6B6B80] tracking-[0.2em] uppercase">
-                    A FLAGSHIP TECHNOLOGY CHALLENGE
+                  <div className="text-sm font-serif font-bold text-[#6B6B80] tracking-[0.1em] uppercase">
+                    Decode the chaos. Hunt the impossible. 🧩
                   </div>
                 </div>
               </motion.div>
@@ -136,13 +136,13 @@ export default function Home() {
                   </svg>
                 </div>
                 
-                {/* Floating 'Explore' Badge */}
+                {/* Floating 'Decrypt' Badge */}
                 <motion.div 
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                   className="absolute top-16 right-[-40px] w-24 h-24 rounded-full bg-white shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center text-[10px] font-bold text-[#2D2D3F] uppercase tracking-widest z-30 font-serif"
                 >
-                  <span className="text-2xl mb-1">👁</span> Explore
+                  <span className="text-xl mb-1 font-mono tracking-tighter">&lt;/&gt;</span> DECRYPT
                 </motion.div>
 
                 {/* Overlapping Glass Card (Bottom Left) */}
@@ -152,11 +152,11 @@ export default function Home() {
                   className="absolute bottom-[-30px] left-[-60px] w-48 h-32 bg-white/70 backdrop-blur-xl border border-white rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] p-5 flex flex-col justify-between z-30 transform -rotate-6"
                 >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-400 to-blue-400 text-white flex items-center justify-center font-bold text-xs shadow-inner">
-                    01
+                    <span className="font-mono">{'>_'}</span>
                   </div>
                   <div>
                     <div className="text-[10px] text-[#A8A8C0] font-bold uppercase tracking-widest font-serif">Status</div>
-                    <div className="text-xl text-[#2D2D3F] font-black tracking-tight leading-[1.1] font-serif">SYSTEM<br/>ONLINE</div>
+                    <div className="text-xl text-[#2D2D3F] font-black tracking-tight leading-[1.1] font-serif">READY<br/>TO HUNT</div>
                   </div>
                 </motion.div>
               </motion.div>
