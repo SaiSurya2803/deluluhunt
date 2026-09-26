@@ -32,9 +32,9 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/80">
+      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
         <div>
-          <h1 className="text-3xl font-bold text-black tracking-tight">Overview</h1>
+          <h1 className="text-3xl font-bold text-white tracking-tight">Overview</h1>
           <p className="text-slate-400 mt-1">Real-time platform statistics and alerts.</p>
         </div>
         <Link href="/admin/proctoring">
@@ -46,12 +46,12 @@ export default function AdminDashboardPage() {
 
       {/* Top Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl">
+        <Card className="border-white/20/10 shadow-sm glass-panel ">
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Total Teams</p>
-                <p className="text-3xl font-bold text-black mt-1">{stats.totalTeams}</p>
+                <p className="text-3xl font-bold text-white mt-1">{stats.totalTeams}</p>
               </div>
               <div className="p-2 bg-primary/10 rounded-lg"><Users className="w-5 h-5 text-primary" /></div>
             </div>
@@ -61,44 +61,44 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl">
+        <Card className="border-white/20/10 shadow-sm glass-panel ">
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Quiz Subs</p>
-                <p className="text-3xl font-bold text-black mt-1">{stats.quizSubmissions}</p>
+                <p className="text-3xl font-bold text-white mt-1">{stats.quizSubmissions}</p>
               </div>
               <div className="p-2 bg-success/10 rounded-lg"><ShieldCheck className="w-5 h-5 text-success" /></div>
             </div>
-            <div className="w-full bg-white/80 backdrop-blur-lg h-1.5 rounded-full mt-4 overflow-hidden">
+            <div className="w-full glass-panel backdrop-blur-lg h-1.5 rounded-full mt-4 overflow-hidden">
               <div className="bg-success h-full" style={{ width: `${Math.max(10, (stats.quizSubmissions / Math.max(1, stats.totalTeams)) * 100)}%` }}></div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl">
+        <Card className="border-white/20/10 shadow-sm glass-panel ">
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Credits Used</p>
-                <p className="text-3xl font-bold text-black mt-1">{stats.totalCreditsUsed}</p>
+                <p className="text-3xl font-bold text-white mt-1">{stats.totalCreditsUsed}</p>
               </div>
               <div className="p-2 bg-warning/10 rounded-lg"><Swords className="w-5 h-5 text-warning" /></div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl relative overflow-hidden group">
-          <div className={cn("absolute inset-0 opacity-10 pointer-events-none transition-opacity", stats.proctoringAlerts > 0 ? "bg-danger" : "bg-white/80")}></div>
+        <Card className="border-white/20/10 shadow-sm glass-panel  relative overflow-hidden group">
+          <div className={cn("absolute inset-0 opacity-10 pointer-events-none transition-opacity", stats.proctoringAlerts > 0 ? "bg-danger" : "glass-panel")}></div>
           <CardContent className="p-6">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Proctor Alerts</p>
-                <p className={cn("text-3xl font-bold mt-1", stats.proctoringAlerts > 0 ? "text-danger" : "text-black")}>
+                <p className={cn("text-3xl font-bold mt-1", stats.proctoringAlerts > 0 ? "text-danger" : "text-white")}>
                   {stats.proctoringAlerts}
                 </p>
               </div>
-              <div className={cn("p-2 rounded-lg", stats.proctoringAlerts > 0 ? "bg-danger/20 text-danger animate-pulse" : "bg-white/80 backdrop-blur-lg text-slate-400")}>
+              <div className={cn("p-2 rounded-lg", stats.proctoringAlerts > 0 ? "bg-danger/20 text-danger animate-pulse" : "glass-panel backdrop-blur-lg text-slate-400")}>
                 <AlertTriangle className="w-5 h-5" />
               </div>
             </div>
@@ -112,8 +112,8 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl">
-          <CardHeader className="border-b border-white/80 bg-white/80 backdrop-blur-lg/50">
+        <Card className="border-white/20/10 shadow-sm glass-panel ">
+          <CardHeader className="border-b border-white/20/10 glass-panel backdrop-blur-lg/50">
             <CardTitle className="text-slate-300 text-base flex items-center">
               <ShieldAlert className="w-4 h-4 mr-2" /> Recent Suspicious Activity
             </CardTitle>
@@ -125,8 +125,8 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl">
-          <CardHeader className="border-b border-white/80 bg-white/80 backdrop-blur-lg/50">
+        <Card className="border-white/20/10 shadow-sm glass-panel ">
+          <CardHeader className="border-b border-white/20/10 glass-panel backdrop-blur-lg/50">
             <CardTitle className="text-slate-300 text-base flex items-center">
               <BarChart className="w-4 h-4 mr-2" /> System Status
             </CardTitle>
@@ -175,7 +175,7 @@ export default function AdminDashboardPage() {
                   alert('SYNC ERROR: ' + e.message);
                 }
               }}
-              className="bg-warning text-black hover:bg-warning/80"
+              className="bg-warning text-white hover:bg-warning/80"
             >
               Test Cloud Database Connection
             </Button>

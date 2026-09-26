@@ -283,7 +283,7 @@ export default function ActiveQuizPage() {
     router.push('/quiz/intro');
   };
 
-  if (questions.length === 0) return <div className="p-8 text-center text-black">Loading questions...</div>;
+  if (questions.length === 0) return <div className="p-8 text-center text-white">Loading questions...</div>;
 
   const currentQ = questions[currentIndex];
   
@@ -297,24 +297,24 @@ export default function ActiveQuizPage() {
     <div className="flex flex-col h-screen -m-4 md:-m-8 relative">
       {/* Live Proctoring PIP */}
       <div className="absolute bottom-4 left-4 z-50 flex gap-2 pointer-events-none">
-        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/80 overflow-hidden relative shadow-lg">
+        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/20/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && videoStream) el.srcObject = videoStream; }}></video>
-          <div className="absolute top-1 left-1 bg-danger text-black text-[8px] px-1 rounded animate-pulse">REC</div>
-          <div className="absolute bottom-1 right-1 bg-black/60 text-black text-[8px] px-1 rounded">CAM</div>
+          <div className="absolute top-1 left-1 bg-danger text-white text-[8px] px-1 rounded animate-pulse">REC</div>
+          <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">CAM</div>
         </div>
-        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/80 overflow-hidden relative shadow-lg">
+        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/20/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && screenStream) el.srcObject = screenStream; }}></video>
-          <div className="absolute top-1 left-1 bg-danger text-black text-[8px] px-1 rounded animate-pulse">REC</div>
-          <div className="absolute bottom-1 right-1 bg-black/60 text-black text-[8px] px-1 rounded">SCR</div>
+          <div className="absolute top-1 left-1 bg-danger text-white text-[8px] px-1 rounded animate-pulse">REC</div>
+          <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">SCR</div>
         </div>
         <div className="flex flex-col justify-end">
-          <div className={cn("text-xs font-bold px-2 py-1 rounded shadow", trustScore > 70 ? "bg-success text-black" : trustScore > 40 ? "bg-warning text-black" : "bg-danger text-black")}>
+          <div className={cn("text-xs font-bold px-2 py-1 rounded shadow", trustScore > 70 ? "bg-success text-white" : trustScore > 40 ? "bg-warning text-white" : "bg-danger text-white")}>
             AI Trust: {trustScore}%
           </div>
         </div>
       </div>
       {/* Top Bar */}
-      <div className="flex items-center justify-between p-4 bg-white/60 backdrop-blur-xl/90 border-b border-glass-border">
+      <div className="flex items-center justify-between p-4 glass-panel /90 border-b border-glass-border">
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center">
             <img src="/logo.png" alt="INNOVATEX" className="h-8 w-auto object-contain mr-3" />
@@ -340,13 +340,13 @@ export default function ActiveQuizPage() {
           <div className="max-w-3xl mx-auto w-full flex-1">
             
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-black">Question {currentIndex + 1}</h2>
+              <h2 className="text-xl font-semibold text-white">Question {currentIndex + 1}</h2>
               {saveIndicator && <span className="text-success text-xs flex items-center"><Save className="w-3 h-3 mr-1" /> Answer Saved</span>}
             </div>
             
             <Card className="mb-6">
               <CardContent className="p-6">
-                <p className="text-lg text-black leading-relaxed">{currentQ.text}</p>
+                <p className="text-lg text-white leading-relaxed">{currentQ.text}</p>
               </CardContent>
             </Card>
             
@@ -361,13 +361,13 @@ export default function ActiveQuizPage() {
                       "p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3",
                       isSelected 
                         ? "border-primary bg-primary/10 shadow-[0_0_15px_rgba(0,240,255,0.2)]" 
-                        : "border-glass-border bg-white/60 backdrop-blur-xl/60 hover:bg-white/60 backdrop-blur-xl/60 hover:border-foreground/30"
+                        : "border-glass-border glass-panel /60 hover:glass-panel /60 hover:border-foreground/30"
                     )}
                   >
                     <div className="mt-0.5 shrink-0">
                       {isSelected ? <CheckCircle className="w-5 h-5 text-primary" /> : <Circle className="w-5 h-5 text-foreground/40" />}
                     </div>
-                    <span className={isSelected ? "text-black font-medium" : "text-foreground/80"}>{option}</span>
+                    <span className={isSelected ? "text-white font-medium" : "text-foreground/80"}>{option}</span>
                   </div>
                 );
               })}
@@ -404,7 +404,7 @@ export default function ActiveQuizPage() {
         </div>
         
         {/* Right Sidebar - Question Palette */}
-        <div className="w-64 border-l border-glass-border bg-white/60 backdrop-blur-xl/60 p-4 hidden lg:flex flex-col">
+        <div className="w-64 border-l border-glass-border glass-panel /60 p-4 hidden lg:flex flex-col">
           <div className="text-sm font-semibold uppercase text-foreground/60 mb-4">Question Palette</div>
           
           <div className="grid grid-cols-5 gap-2 mb-8">
@@ -414,8 +414,8 @@ export default function ActiveQuizPage() {
               const isCurrent = idx === currentIndex;
               
               let bgClass = "bg-glass-bg border-glass-border text-foreground/70";
-              if (isCurrent) bgClass = "bg-primary/20 border-primary text-black";
-              else if (isMarked) bgClass = "bg-secondary text-black border-secondary";
+              if (isCurrent) bgClass = "bg-primary/20 border-primary text-white";
+              else if (isMarked) bgClass = "bg-secondary text-white border-secondary";
               else if (isAnswered) bgClass = "bg-success/20 text-success border-success/50";
               
               return (

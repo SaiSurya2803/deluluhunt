@@ -26,23 +26,23 @@ function LiveMonitorNode({ team }: { team: Team }) {
   }, [team.id]);
 
   return (
-    <Card className="overflow-hidden border-white/80 shadow-sm bg-white/60 backdrop-blur-xl hover:shadow-md transition-shadow">
-      <div className="flex bg-white/60 backdrop-blur-xl relative">
-        <div className="w-1/3 aspect-video bg-black relative border-r border-white/80 flex items-center justify-center">
+    <Card className="overflow-hidden border-white/20/10 shadow-sm glass-panel  hover:shadow-md transition-shadow">
+      <div className="flex glass-panel  relative">
+        <div className="w-1/3 aspect-video bg-black relative border-r border-white/20/10 flex items-center justify-center">
           {camFrame ? <img src={camFrame} alt="cam" className="w-full h-full object-cover transform scale-x-[-1]" /> : <Video className="w-6 h-6 text-slate-300" />}
-          <div className="absolute bottom-1 left-1 bg-black/60 text-black text-[8px] px-1 rounded">CAM</div>
+          <div className="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded">CAM</div>
         </div>
         <div className="w-2/3 aspect-video bg-black relative flex items-center justify-center">
           {screenFrame ? <img src={screenFrame} alt="screen" className="w-full h-full object-cover" /> : <Monitor className="w-8 h-8 text-slate-300" />}
-          <div className="absolute bottom-1 right-1 bg-black/60 text-black text-[8px] px-1 rounded">SCR</div>
+          <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">SCR</div>
         </div>
         <div className="absolute top-2 left-2 flex items-center gap-1 z-10">
           <span className="w-2 h-2 rounded-full bg-danger animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]"></span>
-          <span className="text-[10px] uppercase font-bold text-black tracking-widest bg-black/40 px-1.5 py-0.5 rounded backdrop-blur-sm">LIVE</span>
+          <span className="text-[10px] uppercase font-bold text-white tracking-widest bg-black/40 px-1.5 py-0.5 rounded backdrop-blur-sm">LIVE</span>
         </div>
       </div>
-      <CardContent className="p-3 bg-white/60 backdrop-blur-xl">
-        <p className="font-bold text-sm text-black truncate">{team.name}</p>
+      <CardContent className="p-3 glass-panel ">
+        <p className="font-bold text-sm text-white truncate">{team.name}</p>
         <div className="flex items-center justify-between mt-2">
           <SplitSquareHorizontal className="w-4 h-4 text-success" />
           <span className="text-xs font-medium text-success">Streams Active</span>
@@ -92,9 +92,9 @@ export default function ProctoringPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="text-xl font-semibold text-black tracking-tight">Event Log</h2>
+          <h2 className="text-xl font-semibold text-white tracking-tight">Event Log</h2>
           {events.length === 0 ? (
-            <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl">
+            <Card className="border-white/20/10 shadow-sm glass-panel ">
               <CardContent className="p-12 text-center text-slate-400">
                 No proctoring events recorded.
               </CardContent>
@@ -106,16 +106,16 @@ export default function ProctoringPage() {
                 const member = team?.members.find(m => m.id === event.memberId);
                 
                 return (
-                  <Card key={event.id} className={cn("transition-colors border-white/80 shadow-sm", event.status === 'UNREVIEWED' ? 'bg-danger/5 border-l-4 border-l-danger' : 'bg-white/60 backdrop-blur-xl opacity-70')}>
+                  <Card key={event.id} className={cn("transition-colors border-white/20/10 shadow-sm", event.status === 'UNREVIEWED' ? 'bg-danger/5 border-l-4 border-l-danger' : 'glass-panel  opacity-70')}>
                     <CardContent className="p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       <div className="flex items-start gap-4">
-                        <div className={`p-2 rounded-full ${event.status === 'UNREVIEWED' ? 'bg-danger/10 text-danger' : 'bg-white/80 backdrop-blur-lg text-slate-400'}`}>
+                        <div className={`p-2 rounded-full ${event.status === 'UNREVIEWED' ? 'bg-danger/10 text-danger' : 'glass-panel backdrop-blur-lg text-slate-400'}`}>
                           <AlertTriangle className="w-5 h-5" />
                         </div>
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-bold text-black">{team?.name || 'Unknown Team'}</span>
-                            <span className="text-xs text-slate-400 px-2 border border-white/80 rounded-md bg-white/80 backdrop-blur-lg">{member?.name || 'Unknown'}</span>
+                            <span className="font-bold text-white">{team?.name || 'Unknown Team'}</span>
+                            <span className="text-xs text-slate-400 px-2 border border-white/20/10 rounded-md glass-panel backdrop-blur-lg">{member?.name || 'Unknown'}</span>
                             {getSeverityBadge(event.severity)}
                           </div>
                           <p className="text-slate-300 font-medium">{event.event}</p>
@@ -124,7 +124,7 @@ export default function ProctoringPage() {
                       </div>
                       
                       {event.status === 'UNREVIEWED' ? (
-                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="bg-white/60 backdrop-blur-xl border-white/80 text-slate-300 hover:text-black">
+                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="glass-panel  border-white/20/10 text-slate-300 hover:text-white">
                           <CheckCircle className="w-4 h-4 mr-2 text-success" /> Mark Reviewed
                         </Button>
                       ) : (
@@ -139,13 +139,13 @@ export default function ProctoringPage() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-black tracking-tight">Active Monitors</h2>
+          <h2 className="text-xl font-semibold text-white tracking-tight">Active Monitors</h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {Object.values(teams).filter(t => t.quizStatus === 'ACTIVE').map(team => (
               <LiveMonitorNode key={team.id} team={team} />
             ))}
             {Object.values(teams).filter(t => t.quizStatus === 'ACTIVE').length === 0 && (
-              <div className="col-span-full text-center p-8 text-slate-400 border border-white/80 bg-white/80 backdrop-blur-lg border-dashed rounded-xl">
+              <div className="col-span-full text-center p-8 text-slate-400 border border-white/20/10 glass-panel backdrop-blur-lg border-dashed rounded-xl">
                 No active participants streaming
               </div>
             )}

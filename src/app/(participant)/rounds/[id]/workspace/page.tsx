@@ -133,9 +133,9 @@ export default function ChallengeWorkspacePage() {
 
   return (
     <div className="flex flex-col h-full space-y-4">
-      <div className="flex justify-between items-center bg-white/60 backdrop-blur-xl/60 p-4 rounded-lg border border-glass-border">
+      <div className="flex justify-between items-center glass-panel /60 p-4 rounded-lg border border-glass-border">
         <div className="flex items-center gap-4">
-          <Link href={`/rounds/${round.id}`} className="text-foreground/60 hover:text-black">
+          <Link href={`/rounds/${round.id}`} className="text-foreground/60 hover:text-white">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
@@ -161,9 +161,9 @@ export default function ChallengeWorkspacePage() {
           <CardContent className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             <div className="prose prose-invert prose-sm">
               <p className="text-foreground/80 leading-relaxed">{round.description}</p>
-              <h4 className="text-black mt-4">Objective</h4>
+              <h4 className="text-white mt-4">Objective</h4>
               <p className="text-foreground/80">{round.objective}</p>
-              <h4 className="text-black mt-4">Requirements</h4>
+              <h4 className="text-white mt-4">Requirements</h4>
               <ul className="text-foreground/80">
                 {round.rules.map((rule, idx) => (
                   <li key={idx}>{rule}</li>
@@ -217,7 +217,7 @@ export default function ChallengeWorkspacePage() {
                 disabled={round.status === 'COMPLETED'}
               />
               <div className="w-full sm:w-1/2 flex flex-col bg-slate-950/50">
-                <div className="text-xs font-semibold px-4 py-2 border-b border-glass-border/30 text-slate-400 bg-white/60 backdrop-blur-xl/50 flex justify-between">
+                <div className="text-xs font-semibold px-4 py-2 border-b border-glass-border/30 text-slate-400 glass-panel /50 flex justify-between">
                   <span>EXECUTION OUTPUT</span>
                 </div>
                 <div className="flex-1 p-4 overflow-y-auto font-mono text-xs text-slate-300 whitespace-pre-wrap custom-scrollbar min-h-[150px]">
@@ -226,7 +226,7 @@ export default function ChallengeWorkspacePage() {
               </div>
             </div>
             
-            <div className="bg-white/60 backdrop-blur-xl/60 border-t border-glass-border p-4 flex justify-between items-center">
+            <div className="glass-panel /60 border-t border-glass-border p-4 flex justify-between items-center">
               <Button variant="ghost" onClick={handleSave} disabled={round.status === 'COMPLETED'} className="text-foreground/70">
                 <Save className="w-4 h-4 mr-2" /> Save Draft
               </Button>

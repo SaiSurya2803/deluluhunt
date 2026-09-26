@@ -72,18 +72,18 @@ export default function AdminLeaderboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/80">
+      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">ADMIN LEADERBOARD</h1>
           <p className="text-slate-400 mt-1">Live rankings with score override capabilities.</p>
         </div>
       </div>
 
-      <Card className="border-white/80 shadow-sm bg-white/60 backdrop-blur-xl overflow-hidden">
+      <Card className="border-white/20/10 shadow-sm glass-panel  overflow-hidden">
         <CardContent className="p-0 overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs text-slate-400 uppercase bg-white/80 backdrop-blur-lg border-b border-white/80">
+              <thead className="text-xs text-slate-400 uppercase glass-panel backdrop-blur-lg border-b border-white/20/10">
                 <tr>
                   <th className="px-6 py-4">Rank</th>
                   <th className="px-6 py-4">Team</th>
@@ -99,10 +99,10 @@ export default function AdminLeaderboardPage() {
                   return (
                     <tr 
                       key={entry.teamId} 
-                      className="border-b border-white/80 last:border-0 hover:bg-white/80 backdrop-blur-lg transition-colors"
+                      className="border-b border-white/20/10 last:border-0 hover:glass-panel backdrop-blur-lg transition-colors"
                     >
                       <td className="px-6 py-4">{getRankIcon(entry.rank)}</td>
-                      <td className="px-6 py-4 font-bold text-black">
+                      <td className="px-6 py-4 font-bold text-white">
                         {entry.teamName}
                       </td>
                       <td className="px-6 py-4 font-mono text-primary text-lg">
@@ -111,7 +111,7 @@ export default function AdminLeaderboardPage() {
                             type="number" 
                             value={editScore} 
                             onChange={(e) => setEditScore(parseInt(e.target.value) || 0)}
-                            className="w-24 h-8 text-center bg-white/60 backdrop-blur-xl border-primary"
+                            className="w-24 h-8 text-center glass-panel  border-primary"
                             autoFocus
                           />
                         ) : (
@@ -125,7 +125,7 @@ export default function AdminLeaderboardPage() {
                             type="number" 
                             value={editQuizScore} 
                             onChange={(e) => setEditQuizScore(parseInt(e.target.value) || 0)}
-                            className="w-24 h-8 text-center bg-white/60 backdrop-blur-xl border-success"
+                            className="w-24 h-8 text-center glass-panel  border-success"
                           />
                         ) : (
                           entry.quizScore
@@ -137,7 +137,7 @@ export default function AdminLeaderboardPage() {
                             <Button size="sm" variant="ghost" onClick={() => setEditingId(null)} className="h-8 w-8 p-0 text-slate-400">
                               <X className="w-4 h-4" />
                             </Button>
-                            <Button size="sm" onClick={() => handleSaveScore(entry.teamId)} className="h-8 w-8 p-0 bg-success hover:bg-success/90 text-black">
+                            <Button size="sm" onClick={() => handleSaveScore(entry.teamId)} className="h-8 w-8 p-0 bg-success hover:bg-success/90 text-white">
                               <Check className="w-4 h-4" />
                             </Button>
                           </div>
