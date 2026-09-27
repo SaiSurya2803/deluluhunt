@@ -116,7 +116,14 @@ export const DB = {
 
   getGlobalSettings: () => {
     const settings = getItem<any>(KEYS.GLOBAL_SETTINGS);
-    return settings[0] || { tournamentEndTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() };
+    const defaults = { 
+      tournamentEndTime: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+      eventDate: "OCT 28 2026",
+      venue: "INNOVATEX HQ",
+      registrationUrl: "/register",
+      rulesText: "Welcome to Delulu Hunt. Strategy and intellect are your best weapons.\n\n1. No unauthorized access.\n2. Do not share flags with other teams.\n3. The judges' decision is final."
+    };
+    return settings[0] || defaults;
   },
   setGlobalSettings: (settings: any) => setItem(KEYS.GLOBAL_SETTINGS, [settings]),
 };

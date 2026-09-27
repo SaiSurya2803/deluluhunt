@@ -11,27 +11,36 @@ import { Save, Lock, Unlock, PlayCircle, CheckCircle } from 'lucide-react';
 export default function ContentManagementPage() {
   const [rounds, setRounds] = useState<Round[]>([]);
   const [tournamentEndTime, setTournamentEndTime] = useState<string>('');
+  const [eventDate, setEventDate] = useState<string>('');
+  const [venue, setVenue] = useState<string>('');
+  const [registrationUrl, setRegistrationUrl] = useState<string>('');
+  const [rulesText, setRulesText] = useState<string>('');
 
   useEffect(() => {
     setRounds(DB.getRounds() || []);
     const gs = DB.getGlobalSettings();
-    // Convert to format suitable for datetime-local input (YYYY-MM-DDThh:mm)
     if (gs.tournamentEndTime) {
       setTournamentEndTime(new Date(gs.tournamentEndTime).toISOString().slice(0, 16));
     }
+    setEventDate(gs.eventDate || '');
+    setVenue(gs.venue || '');
+    setRegistrationUrl(gs.registrationUrl || '');
+    setRulesText(gs.rulesText || '');
   }, []);
 
   const saveRounds = () => {
     DB.setRounds(rounds);
     
     // Save global settings
-    const currentGlobal = DB.getGlobalSettings();
     DB.setGlobalSettings({
-      ...currentGlobal,
-      tournamentEndTime: new Date(tournamentEndTime).toISOString()
+      tournamentEndTime: new Date(tournamentEndTime).toISOString(),
+      eventDate,
+      venue,
+      registrationUrl,
+      rulesText
     });
     
-    alert('Content and timers saved successfully!');
+    alert('Content and settings saved successfully!');
   };
 
   const updateRound = (id: string, field: keyof Round, value: any) => {
@@ -42,15 +51,15 @@ export default function ContentManagementPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
         <div>
-          <h1 className="text-3xl font-bold text-danger tracking-tight">ROUNDS MANAGEMENT</h1>
-          <p className="text-slate-400 mt-1">Configure titles, descriptions, points, and unlock status.</p>
+          <h1 className="text-3xl font-bold text-danger tracking-tight">PLATFORM MANAGEMENT</h1>
+          <p className="text-slate-400 mt-1">Configure global settings and round configurations.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setRounds([...rounds, { id: `r${Date.now()}`, roundNumber: rounds.length + 1, title: 'New Round', description: '', objective: '', rules: [], maxScore: 100, status: 'LOCKED' }])} className="glass-panel  text-slate-300 hover:glass-panel backdrop-blur-lg">
+          <Button variant="outline" onClick={() => setRounds([...rounds, { id: `r${Date.now()}`, roundNumber: rounds.length + 1, title: 'New Round', description: '', objective: '', rules: [], maxScore: 100, status: 'LOCKED' }])} className="glass-panel text-slate-300 hover:glass-panel backdrop-blur-lg">
             Add Round
           </Button>
           <Button onClick={saveRounds} className="bg-success text-white hover:bg-success/90">
-            <Save className="w-4 h-4 mr-2" /> Save All Rounds
+            <Save className="w-4 h-4 mr-2" /> Save Changes
           </Button>
         </div>
       </div>
@@ -58,17 +67,57 @@ export default function ContentManagementPage() {
       <Card className="border-white/20/10 shadow-sm glass-panel overflow-hidden mb-6">
         <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 pb-4">
           <CardTitle className="text-lg text-slate-200 flex items-center">
-             Global Tournament Timer
+             Global Settings
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-6">
-          <div className="space-y-2 max-w-sm">
+        <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
             <label className="text-sm font-semibold text-slate-300">Race Ends At (Date & Time)</label>
             <Input 
               type="datetime-local"
               value={tournamentEndTime} 
-              onChange={(e) => setTournamentEndTime(e.target.value)} 
-              className="glass-panel border-white/20 text-white"
+              onChange={(e) => setTournamentEndTime(e.target.value)}
+              className="bg-void/50 border-white/20/10 text-white"
+            />
+            <p className="text-xs text-slate-500">Global countdown timer for leaderboard.</p>
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-300">Event Date (Home Page)</label>
+            <Input 
+              type="text"
+              value={eventDate} 
+              onChange={(e) => setEventDate(e.target.value)}
+              className="bg-void/50 border-white/20/10 text-white"
+              placeholder="e.g. OCT 28 2026"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-300">Venue (Home Page)</label>
+            <Input 
+              type="text"
+              value={venue} 
+              onChange={(e) => setVenue(e.target.value)}
+              className="bg-void/50 border-white/20/10 text-white"
+              placeholder="e.g. INNOVATEX HQ"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-300">Registration URL (Home Page)</label>
+            <Input 
+              type="text"
+              value={registrationUrl} 
+              onChange={(e) => setRegistrationUrl(e.target.value)}
+              className="bg-void/50 border-white/20/10 text-white"
+              placeholder="e.g. /register or https://forms.gle/..."
+            />
+          </div>
+          <div className="space-y-2 md:col-span-2">
+            <label className="text-sm font-semibold text-slate-300">Rules & Help Text (/rules)</label>
+            <textarea 
+              value={rulesText}
+              onChange={(e) => setRulesText(e.target.value)}
+              className="w-full h-32 bg-void/50 border border-white/20/10 rounded-md p-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-danger"
+              placeholder="Enter the official hackathon rules here..."
             />
           </div>
         </CardContent>

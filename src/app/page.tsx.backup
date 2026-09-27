@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import * as THREE from 'three';
-import { DB } from '@/services/db';
 import './home.css';
 
-const DEFAULT_CONFIG = {
+const CONFIG = {
   ORGANIZER: "INNOVATEX",
-  EVENT_DATE: "OCT 28 2026", 
-  VENUE: "INNOVATEX HQ",
+  EVENT_DATE: "", 
+  VENUE: "",
   REGISTRATION_URL: "/register",
   ROUNDS: [
     { id: 1, name: "FIX THE CODE", desc: "Teams receive code containing errors and must identify, debug, and fix the mistakes to make it run correctly.", points: 100, time: "50 MIN", color: 0x8a5cff },
@@ -22,9 +21,6 @@ const DEFAULT_CONFIG = {
 };
 
 export default function DeluluHome() {
-  const [mounted, setMounted] = useState(false);
-  const [dynConfig, setDynConfig] = useState<any>(null);
-
   const stageRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -32,33 +28,6 @@ export default function DeluluHome() {
   const spacerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Fetch dynamic data from database to populate home page
-    const dbRounds = DB.getRounds() || [];
-    const dbSettings = DB.getGlobalSettings() || {};
-    
-    const colors = [0x8a5cff, 0xff5f87, 0x2fe6c2, 0xffb15c, 0xff8a5c, 0xffffff, 0x2fe6c2, 0x8a5cff];
-    
-    const mappedRounds = dbRounds.map((r, i) => ({
-      id: r.roundNumber,
-      name: r.title,
-      desc: r.description,
-      points: r.maxScore,
-      time: r.timeLimit ? `${r.timeLimit} MIN` : 'UNLIMITED',
-      color: colors[i % colors.length]
-    }));
-
-    setDynConfig({
-      EVENT_DATE: dbSettings.eventDate || DEFAULT_CONFIG.EVENT_DATE,
-      VENUE: dbSettings.venue || DEFAULT_CONFIG.VENUE,
-      REGISTRATION_URL: dbSettings.registrationUrl || DEFAULT_CONFIG.REGISTRATION_URL,
-      ROUNDS: mappedRounds.length > 0 ? mappedRounds : DEFAULT_CONFIG.ROUNDS
-    });
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted || !dynConfig) return;
-
     // ------------------------------------------
     // Intersection Observer for scroll reveals
     // ------------------------------------------
@@ -149,12 +118,12 @@ export default function DeluluHome() {
     coreGroup.add(fragGroup);
     const fragments: THREE.Mesh[] = [];
     
-    dynConfig.ROUNDS.forEach((r: any, i: number) => {
+    CONFIG.ROUNDS.forEach((r, i) => {
       const m = new THREE.Mesh(
         new THREE.OctahedronGeometry(0.36, 0),
         new THREE.MeshStandardMaterial({ color: r.color, emissive: r.color, emissiveIntensity: 0.9, roughness: 0.3, metalness: 0.4 })
       );
-      const angle = (i / Math.max(1, dynConfig.ROUNDS.length)) * Math.PI * 2;
+      const angle = (i / 6) * Math.PI * 2;
       m.userData = { angle, baseR: 3.1, round: r };
       fragGroup.add(m);
       fragments.push(m);
@@ -300,17 +269,15 @@ export default function DeluluHome() {
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(animFrameId);
       
+      // dispose three js
       renderer.dispose();
       if (stageRef.current) {
         stageRef.current.innerHTML = '';
       }
     };
-  }, [mounted, dynConfig]);
+  }, []);
 
-  if (!mounted || !dynConfig) return null;
-
-  const metaLineText = [dynConfig.EVENT_DATE, dynConfig.VENUE].filter(Boolean).join(' · ');
-  const totalRounds = dynConfig.ROUNDS.length;
+  const metaLineText = [CONFIG.EVENT_DATE, CONFIG.VENUE].filter(Boolean).join(' · ');
 
   return (
     <div className="delulu-home">
@@ -324,7 +291,7 @@ export default function DeluluHome() {
           <a href="#hero">HOME</a>
           <a href="#rounds">ROUNDS</a>
           <a href="#how">HOW IT WORKS</a>
-          <Link href={dynConfig.REGISTRATION_URL}>REGISTER</Link>
+          <Link href={CONFIG.REGISTRATION_URL}>REGISTER</Link>
         </div>
       </nav>
 
@@ -334,10 +301,10 @@ export default function DeluluHome() {
             <div className="heroText">
               <div className="eyebrow">INNOVATEX PRESENTS</div>
               <h1 className="title"><span>DELULU</span><span className="accent">HUNT</span></h1>
-              <div className="subline">A {totalRounds}-ROUND TECHNICAL CHALLENGE</div>
-              <p className="desc">Think. Build. Decode. Explore.<br/>{totalRounds} challenges. One final hunt.</p>
+              <div className="subline">A 6-ROUND TECHNICAL CHALLENGE</div>
+              <p className="desc">Think. Build. Decode. Explore.<br/>Six challenges. One final hunt.</p>
               <div className="ctaRow">
-                <Link className="btn primary" href={dynConfig.REGISTRATION_URL} id="enterCta">
+                <Link className="btn primary" href={CONFIG.REGISTRATION_URL} id="enterCta">
                   ENTER THE HUNT <span className="arrow">→</span>
                 </Link>
                 <a className="btn ghost" href="#rounds">EXPLORE ROUNDS</a>
@@ -346,8 +313,8 @@ export default function DeluluHome() {
             <div></div>
           </div>
           <div className="marks">
-            <div className="mark mono">01 / 0{totalRounds}<b>ROUNDS</b></div>
-            <div className="mark mono">{totalRounds}<b>CHALLENGES</b></div>
+            <div className="mark mono">01 / 06<b>ROUNDS</b></div>
+            <div className="mark mono">6<b>CHALLENGES</b></div>
             <div className="mark mono">01<b>ONE HUNT</b></div>
           </div>
           <div className="gridline"></div>
@@ -359,13 +326,13 @@ export default function DeluluHome() {
         <section id="hunt" className="wrap">
           <div className="huntHead reveal">
             <div className="kicker">THE HUNT</div>
-            <h2>{totalRounds} rounds.<br/>{totalRounds} different ways to think.</h2>
+            <h2>Six rounds.<br/>Six different ways to think.</h2>
             <p>Every round tests a different skill — logic, language, speed, judgement. Together they decide who reaches the final hunt.</p>
           </div>
         </section>
 
         <section id="rounds" className="wrap">
-          {dynConfig.ROUNDS.map((r: any) => (
+          {CONFIG.ROUNDS.map(r => (
             <div key={r.id} className="roundRow reveal" id={`round-${r.id}`} data-id={r.id} onClick={() => document.getElementById(`round-${r.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
               <div className="rNum mono">0{r.id}</div>
               <div className="rMain">
@@ -377,7 +344,7 @@ export default function DeluluHome() {
               </div>
               <div className="rMeta">
                 <span><b>{r.points}</b>POINTS</span>
-                <span><b>{r.time.split(' ')[0] || r.time}</b> {r.time.split(' ')[1] || ''}</span>
+                <span><b>{r.time.split(' ')[0]}</b> {r.time.split(' ')[1]}</span>
               </div>
             </div>
           ))}
@@ -390,17 +357,17 @@ export default function DeluluHome() {
           </div>
           <div className="howList">
             <div className="howItem reveal"><div className="n">01</div><h4>Register your team</h4><p>Sign up before the gates close and get your round schedule.</p></div>
-            <div className="howItem reveal"><div className="n">02</div><h4>Compete across {totalRounds} rounds</h4><p>Each round scores points on its own — speed and accuracy both count.</p></div>
-            <div className="howItem reveal"><div className="n">03</div><h4>Reach the final hunt</h4><p>Top teams carry their points into the final stage and present live to judges.</p></div>
+            <div className="howItem reveal"><div className="n">02</div><h4>Compete across six rounds</h4><p>Each round scores points on its own — speed and accuracy both count.</p></div>
+            <div className="howItem reveal"><div className="n">03</div><h4>Reach the final hunt</h4><p>Top teams carry their points into Round 06 and present live to judges.</p></div>
           </div>
         </section>
 
         <section id="register" className="wrap">
           <div className="kicker" style={{ justifyContent: 'center', display: 'flex' }}>READY?</div>
           <h2>Enter the hunt.</h2>
-          <p>{totalRounds} rounds. One hunt. Only the sharpest hunters reach the finish.</p>
+          <p>Six rounds. One hunt. Only the sharpest hunters reach the finish.</p>
           <div className="ctaRow">
-            <Link className="btn primary" id="registerBtn" href={dynConfig.REGISTRATION_URL}>
+            <Link className="btn primary" id="registerBtn" href={CONFIG.REGISTRATION_URL}>
               JOIN DELULU HUNT <span className="arrow">→</span>
             </Link>
           </div>
@@ -408,7 +375,7 @@ export default function DeluluHome() {
 
         <footer className="wrap">
           <span>INNOVATEX © DELULU HUNT</span>
-          <span id="metaLine">{metaLineText || "CONFIGURE DATE / VENUE IN ADMIN CONFIG"}</span>
+          <span id="metaLine">{metaLineText || "CONFIGURE DATE / VENUE IN CONFIG"}</span>
         </footer>
       </main>
     </div>
