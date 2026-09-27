@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/useAuthStore';
+import { DB } from '@/services/db';
 import { 
   LayoutDashboard, 
   Swords, 
@@ -46,8 +47,28 @@ export default function ParticipantLayout({ children }: { children: React.ReactN
   useEffect(() => {
     if (!isAuthenticated || !team || !currentMember) {
       router.push('/login');
+      return;
     }
-  }, [isAuthenticated, team, currentMember, router]);
+
+    // Verify session periodically and on route change
+    const verifySession = () => {
+      const teams = DB.getTeams();
+      const dbTeam = teams.find(t => t.id === team.id);
+      
+      // If team was deleted by admin, or disabled, log them out immediately
+      if (!dbTeam || !dbTeam.isActive) {
+        logout();
+        router.push('/login');
+      }
+    };
+
+    verifySession();
+    
+    // Poll every 5 seconds to catch admin deletions in real-time
+    const interval = setInterval(verifySession, 5000);
+    return () => clearInterval(interval);
+
+  }, [isAuthenticated, team?.id, currentMember?.id, pathname, router, logout]);
 
   if (!isAuthenticated || !team) return null;
 
