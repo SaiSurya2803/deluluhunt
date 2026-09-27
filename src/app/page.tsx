@@ -1,254 +1,383 @@
 "use client";
 
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { DB } from '@/services/db';
+import * as THREE from 'three';
+import './home.css';
 
-export default function Home() {
-  const [faqMsg, setFaqMsg] = useState('');
-  const [faqSent, setFaqSent] = useState(false);
+const CONFIG = {
+  ORGANIZER: "INNOVATEX",
+  EVENT_DATE: "", 
+  VENUE: "",
+  REGISTRATION_URL: "/register",
+  ROUNDS: [
+    { id: 1, name: "FIX THE CODE", desc: "Teams receive code containing errors and must identify, debug, and fix the mistakes to make it run correctly.", points: 100, time: "50 MIN", color: 0x8a5cff },
+    { id: 2, name: "CRACK THE MESSAGE", desc: "Teams receive a message written using a simple code or cipher and must decode it to uncover the hidden message.", points: 100, time: "50 MIN", color: 0xff5f87 },
+    { id: 3, name: "BUILD SOMETHING SMALL", desc: "Teams receive a short specification and must quickly design and build a basic working solution.", points: 150, time: "70 MIN", color: 0x2fe6c2 },
+    { id: 4, name: "USE AI THE SMART WAY", desc: "Teams must use an AI tool effectively to achieve a given target through smart prompting, problem solving, or analysis.", points: 150, time: "50 MIN", color: 0xffb15c },
+    { id: 5, name: "FIND THE HIDDEN CLUE", desc: "Teams investigate a safe practice website or file and must discover the hidden clue concealed inside it.", points: 200, time: "70 MIN", color: 0xff8a5c },
+    { id: 6, name: "FINAL CHALLENGE", desc: "Teams receive a real-world problem, develop a basic solution, and present their approach to the judges.", points: 300, time: "90 MIN", color: 0xffffff },
+  ]
+};
 
-  const handleFaqSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!faqMsg.trim()) return;
-    
-    const notifs = DB.getNotifications() || [];
-    notifs.push({
-      id: `faq-${Date.now()}`,
-      teamId: 'ALL',
-      title: 'New FAQ Question (From Homepage)',
-      message: faqMsg,
-      type: 'INFO',
-      isRead: false,
-      createdAt: new Date().toISOString()
+export default function DeluluHome() {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const spacerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // ------------------------------------------
+    // Intersection Observer for scroll reveals
+    // ------------------------------------------
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ------------------------------------------
+    // Cursor glow & magnetic buttons
+    // ------------------------------------------
+    const glow = glowRef.current;
+    if (!glow) return;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      glow.style.opacity = '1';
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    };
+    const handlePointerLeave = () => {
+      glow.style.opacity = '0';
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    document.body.addEventListener('pointerleave', handlePointerLeave);
+
+    const buttons = document.querySelectorAll('.delulu-home .btn');
+    buttons.forEach((btn: Element) => {
+      const htmlBtn = btn as HTMLElement;
+      htmlBtn.addEventListener('pointermove', (e: Event) => {
+        const ev = e as PointerEvent;
+        const r = htmlBtn.getBoundingClientRect();
+        const mx = (ev.clientX - r.left - r.width / 2) * 0.25;
+        const my = (ev.clientY - r.top - r.height / 2) * 0.35;
+        htmlBtn.style.transform = `translate(${mx}px,${my}px)`;
+      });
+      htmlBtn.addEventListener('pointerleave', () => {
+        htmlBtn.style.transform = '';
+      });
     });
-    DB.setNotifications(notifs);
-    setFaqSent(true);
-    setFaqMsg('');
-    setTimeout(() => setFaqSent(false), 3000);
-  };
+
+    // ------------------------------------------
+    // 3D Engine Setup (Three.js)
+    // ------------------------------------------
+    if (!stageRef.current) return;
+    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 13);
+    
+    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+    stageRef.current.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0x8a5cff, 0.55));
+    const keyLight = new THREE.PointLight(0xffffff, 1.6, 40);
+    keyLight.position.set(6, 6, 10);
+    scene.add(keyLight);
+    
+    const rimLight = new THREE.PointLight(0x2fe6c2, 1.2, 40);
+    rimLight.position.set(-8, -4, -6);
+    scene.add(rimLight);
+
+    const coreGroup = new THREE.Group();
+    coreGroup.position.set(2.6, 0, 0); // sits on right side of hero
+    scene.add(coreGroup);
+
+    const core = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(2.3, 1),
+      new THREE.MeshStandardMaterial({ color: 0x120f22, emissive: 0x8a5cff, emissiveIntensity: 0.55, metalness: 0.75, roughness: 0.22, flatShading: true })
+    );
+    coreGroup.add(core);
+    
+    const coreWire = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(2.34, 1),
+      new THREE.MeshBasicMaterial({ color: 0x8a5cff, wireframe: true, transparent: true, opacity: 0.25 })
+    );
+    coreGroup.add(coreWire);
+
+    const fragGroup = new THREE.Group();
+    coreGroup.add(fragGroup);
+    const fragments: THREE.Mesh[] = [];
+    
+    CONFIG.ROUNDS.forEach((r, i) => {
+      const m = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.36, 0),
+        new THREE.MeshStandardMaterial({ color: r.color, emissive: r.color, emissiveIntensity: 0.9, roughness: 0.3, metalness: 0.4 })
+      );
+      const angle = (i / 6) * Math.PI * 2;
+      m.userData = { angle, baseR: 3.1, round: r };
+      fragGroup.add(m);
+      fragments.push(m);
+    });
+
+    // faint particle field
+    const pn = isMobile ? 60 : 150;
+    const pgeo = new THREE.BufferGeometry();
+    const parr = new Float32Array(pn * 3);
+    for (let i = 0; i < pn; i++) {
+      parr[i * 3] = (Math.random() - 0.5) * 30;
+      parr[i * 3 + 1] = (Math.random() - 0.5) * 18;
+      parr[i * 3 + 2] = (Math.random() - 0.5) * 14 - 4;
+    }
+    pgeo.setAttribute('position', new THREE.BufferAttribute(parr, 3));
+    const particles = new THREE.Points(pgeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.045, transparent: true, opacity: 0.4 }));
+    scene.add(particles);
+
+    /* mouse parallax */
+    let mx = 0, my = 0, tmx = 0, tmy = 0;
+    const onMouseMove = (e: PointerEvent) => {
+      tmx = (e.clientX / window.innerWidth - 0.5) * 2;
+      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+    };
+    window.addEventListener('pointermove', onMouseMove);
+
+    /* raycast hover/click on fragments */
+    const raycaster = new THREE.Raycaster();
+    const mouseNDC = new THREE.Vector2();
+    let lastClientX = 0, lastClientY = 0;
+    
+    renderer.domElement.style.pointerEvents = 'auto';
+    stageRef.current.style.pointerEvents = 'none';
+    
+    const onCanvasMove = (e: PointerEvent) => {
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
+      mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener('pointermove', onCanvasMove);
+
+    function checkHover() {
+      raycaster.setFromCamera(mouseNDC, camera);
+      const hits = raycaster.intersectObjects(fragments);
+      if (hits.length && tooltipRef.current) {
+        document.body.style.cursor = 'pointer';
+        const r = hits[0].object.userData.round;
+        tooltipRef.current.textContent = "ROUND 0" + r.id + " — " + r.name;
+        tooltipRef.current.style.left = lastClientX + 'px';
+        tooltipRef.current.style.top = lastClientY + 'px';
+        tooltipRef.current.style.opacity = '1';
+        return hits[0].object;
+      }
+      document.body.style.cursor = '';
+      if (tooltipRef.current) tooltipRef.current.style.opacity = '0';
+      return null;
+    }
+
+    const onCanvasClick = () => {
+      const hit = checkHover();
+      if (hit) {
+        const el = document.getElementById('round-' + hit.userData.round.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+    window.addEventListener('click', onCanvasClick);
+
+    /* scroll-linked transform */
+    let scrollP = 0;
+    function scrollProgress() {
+      if (!heroRef.current || !spacerRef.current) return 0;
+      const total = heroRef.current.offsetHeight + spacerRef.current.offsetHeight;
+      const p = window.scrollY / total;
+      return Math.max(0, Math.min(1, p));
+    }
+    
+    const onScroll = () => {
+      const p = scrollProgress();
+      if (stageRef.current) {
+        stageRef.current.style.opacity = p > 0.92 ? Math.max(0, 1 - ((p - 0.92) / 0.08)).toString() : '1';
+        stageRef.current.style.pointerEvents = 'none';
+      }
+      scrollP = p;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* animate */
+    const clock = new THREE.Clock();
+    let animFrameId: number;
+    
+    function animate() {
+      animFrameId = requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      mx += (tmx - mx) * 0.04;
+      my += (tmy - my) * 0.04;
+      const p = scrollP;
+
+      core.rotation.y = t * 0.18 + mx * 0.3;
+      core.rotation.x = Math.sin(t * 0.3) * 0.08 + my * 0.15;
+      coreWire.rotation.copy(core.rotation);
+
+      fragGroup.rotation.y = t * 0.12;
+      const spread = 1 + p * 2.4; 
+      fragments.forEach(f => {
+        const a = f.userData.angle + t * 0.15;
+        const r = f.userData.baseR * spread;
+        f.position.set(Math.cos(a) * r, Math.sin(a * 0.6) * 0.6, Math.sin(a) * r);
+        f.rotation.x += 0.01;
+        f.rotation.y += 0.015;
+      });
+
+      coreGroup.position.x = 2.6 - p * 1.6 + mx * 0.3;
+      coreGroup.position.y = my * 0.25 - p * 0.6;
+      coreGroup.scale.setScalar(1 - p * 0.25);
+      camera.position.x = mx * 0.4;
+      camera.position.y = -my * 0.2;
+      camera.lookAt(2.6 - p * 1.6, 0, 0);
+
+      particles.rotation.y = t * 0.01;
+      checkHover();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener('resize', onResize);
+
+    // CLEANUP
+    return () => {
+      io.disconnect();
+      window.removeEventListener('pointermove', handlePointerMove);
+      document.body.removeEventListener('pointerleave', handlePointerLeave);
+      window.removeEventListener('pointermove', onMouseMove);
+      window.removeEventListener('pointermove', onCanvasMove);
+      window.removeEventListener('click', onCanvasClick);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      cancelAnimationFrame(animFrameId);
+      
+      // dispose three js
+      renderer.dispose();
+      if (stageRef.current) {
+        stageRef.current.innerHTML = '';
+      }
+    };
+  }, []);
+
+  const metaLineText = [CONFIG.EVENT_DATE, CONFIG.VENUE].filter(Boolean).join(' · ');
 
   return (
-    <div className="min-h-screen bg-[#6D5D9E] p-4 md:p-8 flex items-center justify-center font-sans overflow-hidden">
-      
-      {/* The main 'Tablet' Container */}
-      <div className="w-full max-w-7xl bg-[#F8F9FB] rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col h-[90vh] md:h-[95vh] border-8 border-white/20">
-        
-        {/* Soft Pastel Gradient Mesh Background inside the tablet */}
-        <div className="absolute inset-0 z-0 opacity-60 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#FFD1E8] blur-[100px] rounded-full"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#C4F1F9] blur-[120px] rounded-full"></div>
-          <div className="absolute top-[20%] right-[20%] w-[40%] h-[40%] bg-[#E2D8FF] blur-[90px] rounded-full"></div>
+    <div className="delulu-home">
+      <div id="stage" ref={stageRef} className="delulu-home-stage"></div>
+      <div id="cursorGlow" ref={glowRef} className="delulu-home-cursorGlow"></div>
+      <div className="delulu-home-tooltip tooltip" ref={tooltipRef} id="tooltip"></div>
+
+      <nav>
+        <div className="brand">INNOVATEX</div>
+        <div className="navlinks">
+          <a href="#hero">HOME</a>
+          <a href="#rounds">ROUNDS</a>
+          <a href="#how">HOW IT WORKS</a>
+          <Link href={CONFIG.REGISTRATION_URL}>REGISTER</Link>
         </div>
+      </nav>
 
-        {/* Content Wrapper (Scrollable) */}
-        <div className="relative z-10 flex-1 overflow-y-auto custom-scrollbar flex flex-col text-[#2D2D3F]">
-          
-          {/* Header */}
-          <header className="flex justify-between items-center p-8 md:px-12">
-            <div className="font-bold text-3xl tracking-tighter text-[#1C1C28]">
-              INNOVATEX
-            </div>
-            <nav className="hidden md:flex gap-8 text-sm font-bold tracking-widest text-[#6B6B80] uppercase">
-              <a href="#about" className="hover:text-[#2D2D3F] transition-colors">About</a>
-              <a href="#rounds" className="hover:text-[#2D2D3F] transition-colors">Rounds</a>
-              <a href="#faq" className="hover:text-[#2D2D3F] transition-colors">FAQ</a>
-            </nav>
-            <div className="flex gap-4">
-              <Link href="/login">
-                <button className="text-xs font-bold uppercase tracking-widest text-[#6B6B80] hover:text-[#2D2D3F] transition-colors">
-                  Login
-                </button>
-              </Link>
-              {/* Google Form Link Placeholder */}
-              <a href="#" target="_blank" rel="noopener noreferrer">
-                <button className="flex items-center gap-2 bg-[#2D2D3F] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#1C1C28] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                  Register <div className="w-2 h-2 bg-white rounded-full"></div>
-                </button>
-              </a>
-            </div>
-          </header>
-
-          {/* Hero Section */}
-          <main className="flex-1 px-8 md:px-12 py-12 md:py-20 flex flex-col md:flex-row relative">
-            <div className="md:w-1/2 flex flex-col justify-center relative z-20">
-              <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-                <span className="text-[#A8A8C0] text-6xl md:text-8xl font-black absolute -top-12 -left-6 opacity-30 select-none">#</span>
-                <h1 className="text-[5rem] md:text-[8rem] font-black leading-[0.85] tracking-tighter text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)] uppercase">
-                  DELULU<br/>HUNT
-                </h1>
-                
-                <div id="about" className="mt-12 flex items-center gap-4">
-                  <div className="text-sm font-serif font-bold text-[#6B6B80] tracking-[0.1em] uppercase">
-                    Decode the chaos. Hunt the impossible. 🧩
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-            
-            <div className="md:w-1/2 flex items-center justify-center relative mt-16 md:mt-0 z-10 min-h-[500px]">
-              
-              {/* The Main Translucent Pill */}
-              <motion.div 
-                animate={{ y: [0, -15, 0] }} 
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="w-72 h-[420px] bg-gradient-to-br from-white/60 to-white/20 backdrop-blur-md rounded-[120px] border border-white/60 shadow-[0_30px_60px_rgba(0,0,0,0.05)] relative flex items-center justify-center z-10"
-              >
-                {/* Inner Glow */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-56 h-56 bg-gradient-to-tr from-[#FFD1E8] to-[#C4F1F9] rounded-full blur-[30px] opacity-60"></div>
-                </div>
-
-                {/* The Innovatex Logo (Recreated in high-res SVG) */}
-                <div className="relative z-20 flex items-center justify-center w-32 h-32 bg-white/40 backdrop-blur-md rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/50">
-                  <svg 
-                    viewBox="0 0 100 120" 
-                    className="w-16 h-16 text-[#1C1C28] drop-shadow-[0_5px_10px_rgba(0,0,0,0.2)] transform translate-y-1" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="8" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  >
-                    {/* Top Dot */}
-                    <circle cx="50" cy="8" r="6" fill="currentColor" stroke="none" />
-                    {/* Left Dot */}
-                    <circle cx="16" cy="30" r="6" fill="currentColor" stroke="none" />
-                    {/* Right Dot */}
-                    <circle cx="84" cy="30" r="6" fill="currentColor" stroke="none" />
-                    
-                    {/* Dashes */}
-                    <path d="M 30 42 L 38 50" />
-                    <path d="M 70 42 L 62 50" />
-                    
-                    {/* Pen Nib / Diamond Body */}
-                    <path d="M 50 25 L 20 70 L 40 100 H 60 L 80 70 Z" />
-                    
-                    {/* Inner 'G' Line */}
-                    <path d="M 45 70 H 75" />
-                    
-                    {/* Base Lines */}
-                    <path d="M 35 110 H 65" />
-                  </svg>
-                </div>
-                
-                {/* Floating 'Decrypt' Badge */}
-                <motion.div 
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute top-16 right-[-40px] w-24 h-24 rounded-full bg-white shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center text-[10px] font-bold text-[#2D2D3F] uppercase tracking-widest z-30 font-serif"
-                >
-                  <span className="text-xl mb-1 font-mono tracking-tighter">&lt;/&gt;</span> DECRYPT
-                </motion.div>
-
-                {/* Overlapping Glass Card (Bottom Left) */}
-                <motion.div 
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute bottom-[-30px] left-[-60px] w-48 h-32 bg-white/70 backdrop-blur-xl border border-white rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] p-5 flex flex-col justify-between z-30 transform -rotate-6"
-                >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-400 to-blue-400 text-white flex items-center justify-center font-bold text-xs shadow-inner">
-                    <span className="font-mono">{'>_'}</span>
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-[#A8A8C0] font-bold uppercase tracking-widest font-serif">Status</div>
-                    <div className="text-xl text-[#2D2D3F] font-black tracking-tight leading-[1.1] font-serif">READY<br/>TO HUNT</div>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              {/* Floating CSS 3D Spheres (Behind and Around the Pill) */}
-              
-              {/* Top White Sphere */}
-              <motion.div 
-                animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-4 right-8 w-32 h-32 rounded-full z-20 shadow-[0_20px_40px_rgba(0,0,0,0.15)]"
-                style={{ background: 'radial-gradient(circle at 30% 30%, #ffffff 0%, #e2e8f0 40%, #94a3b8 100%)' }}
-              />
-
-              {/* Small Gold Sphere (Top Left) */}
-              <motion.div 
-                animate={{ y: [0, 15, 0], x: [0, -5, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="absolute top-20 left-12 w-12 h-12 rounded-full z-0 shadow-[0_10px_20px_rgba(250,204,21,0.3)]"
-                style={{ background: 'radial-gradient(circle at 30% 30%, #fef08a 0%, #eab308 50%, #854d0e 100%)' }}
-              />
-
-              {/* Small Dark Sphere (Bottom Right) */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-                className="absolute bottom-24 right-4 w-10 h-10 rounded-full z-20 shadow-[0_10px_20px_rgba(0,0,0,0.3)]"
-                style={{ background: 'radial-gradient(circle at 30% 30%, #475569 0%, #1e293b 50%, #0f172a 100%)' }}
-              />
-
-            </div>
-          </main>
-
-          {/* About & Rounds Description */}
-          <section id="rounds" className="px-8 md:px-12 py-16 bg-white/40 backdrop-blur-sm border-t border-white/40">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-black uppercase tracking-tight text-[#1C1C28] mb-6">The Challenge (6 Rounds)</h2>
-              <p className="text-[#6B6B80] leading-relaxed font-medium mb-12">
-                Delulu Hunt is an intense, multi-stage competitive programming and logical reasoning event. 
-                <strong className="text-[#2D2D3F]"> Strategy and intellect</strong> are your best weapons. 
-                Navigate through the cryptic terminal, solve complex algorithms, and secure your place on the global leaderboard.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  { num: 1, title: 'Logic Gates', desc: 'Basic algorithmic puzzles and boolean logic.' },
-                  { num: 2, title: 'Cipher Break', desc: 'Decrypt hidden messages to unlock the next stage.' },
-                  { num: 3, title: 'Data Structures', desc: 'Optimize the flow of data under strict time constraints.' },
-                  { num: 4, title: 'System Architecture', desc: 'Identify bottlenecks in a mock distributed system.' },
-                  { num: 5, title: 'The Sandbox', desc: 'A live coding environment where your code attacks other teams.' },
-                  { num: 6, title: 'Boss Fight', desc: 'The ultimate algorithmic showdown against the AI.' },
-                ].map((r) => (
-                  <div key={r.num} className="bg-white/60 p-6 rounded-2xl border border-white/50 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-xs font-black text-[#A8A8C0] mb-1">ROUND 0{r.num}</div>
-                    <div className="text-lg font-bold text-[#1C1C28] mb-2">{r.title}</div>
-                    <div className="text-sm text-[#6B6B80] font-medium">{r.desc}</div>
-                  </div>
-                ))}
+      <main>
+        <section id="hero" ref={heroRef}>
+          <div className="wrap heroGrid">
+            <div className="heroText">
+              <div className="eyebrow">INNOVATEX PRESENTS</div>
+              <h1 className="title"><span>DELULU</span><span className="accent">HUNT</span></h1>
+              <div className="subline">A 6-ROUND TECHNICAL CHALLENGE</div>
+              <p className="desc">Think. Build. Decode. Explore.<br/>Six challenges. One final hunt.</p>
+              <div className="ctaRow">
+                <Link className="btn primary" href={CONFIG.REGISTRATION_URL} id="enterCta">
+                  ENTER THE HUNT <span className="arrow">→</span>
+                </Link>
+                <a className="btn ghost" href="#rounds">EXPLORE ROUNDS</a>
               </div>
             </div>
-          </section>
+            <div></div>
+          </div>
+          <div className="marks">
+            <div className="mark mono">01 / 06<b>ROUNDS</b></div>
+            <div className="mark mono">6<b>CHALLENGES</b></div>
+            <div className="mark mono">01<b>ONE HUNT</b></div>
+          </div>
+          <div className="gridline"></div>
+          <div className="scrollcue">SCROLL<div className="bar"></div></div>
+        </section>
 
-          {/* FAQ / Message Admin */}
-          <section id="faq" className="px-8 md:px-12 py-20 bg-gradient-to-b from-transparent to-[#F0F2F9]">
-            <div className="max-w-xl mx-auto text-center">
-              <h2 className="text-3xl font-black uppercase tracking-tight text-[#1C1C28] mb-4">Have Questions? (FAQ)</h2>
-              <p className="text-[#6B6B80] text-sm font-medium mb-8">Send a direct message to the Innovatex Admin Panel. We will review and respond during the event briefing.</p>
-              
-              <form onSubmit={handleFaqSubmit} className="flex flex-col gap-4">
-                <textarea 
-                  value={faqMsg}
-                  onChange={(e) => setFaqMsg(e.target.value)}
-                  placeholder="Ask your question here..."
-                  className="w-full bg-white/80 border border-white/50 p-4 rounded-2xl shadow-inner outline-none focus:border-[#2D2D3F]/30 transition-colors text-sm font-medium text-[#2D2D3F] resize-none h-32"
-                  required
-                />
-                <button type="submit" className="bg-[#2D2D3F] text-white py-3 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-[#1C1C28] transition-colors shadow-md">
-                  {faqSent ? 'Message Sent to Admins!' : 'Submit Question'}
-                </button>
-              </form>
-            </div>
-          </section>
+        <div id="transformSpacer" ref={spacerRef}></div>
 
-          {/* Footer */}
-          <footer className="mt-auto p-8 border-t border-[#E5E7EB]/50 flex flex-col md:flex-row justify-between items-center gap-4 bg-white/30 backdrop-blur-md">
-            <div className="text-[10px] font-bold text-[#6B6B80] tracking-widest uppercase">
-              Developed by BHEEMA SAISURYA
-            </div>
-            <div className="text-[10px] font-bold text-[#6B6B80] tracking-widest uppercase">
-              @COPYRIGHTS RESERVED TO INNOVATEX OFFICIAL
-            </div>
-          </footer>
+        <section id="hunt" className="wrap">
+          <div className="huntHead reveal">
+            <div className="kicker">THE HUNT</div>
+            <h2>Six rounds.<br/>Six different ways to think.</h2>
+            <p>Every round tests a different skill — logic, language, speed, judgement. Together they decide who reaches the final hunt.</p>
+          </div>
+        </section>
 
-        </div>
-      </div>
+        <section id="rounds" className="wrap">
+          {CONFIG.ROUNDS.map(r => (
+            <div key={r.id} className="roundRow reveal" id={`round-${r.id}`} data-id={r.id} onClick={() => document.getElementById(`round-${r.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+              <div className="rNum mono">0{r.id}</div>
+              <div className="rMain">
+                <h3>
+                  <span className="dot" style={{ background: '#' + r.color.toString(16).padStart(6, '0') }}></span>
+                  {r.name}
+                </h3>
+                <p>{r.desc}</p>
+              </div>
+              <div className="rMeta">
+                <span><b>{r.points}</b>POINTS</span>
+                <span><b>{r.time.split(' ')[0]}</b> {r.time.split(' ')[1]}</span>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        <section id="how" className="wrap">
+          <div className="huntHead reveal">
+            <div className="kicker">HOW IT WORKS</div>
+            <h2>Three steps in.</h2>
+          </div>
+          <div className="howList">
+            <div className="howItem reveal"><div className="n">01</div><h4>Register your team</h4><p>Sign up before the gates close and get your round schedule.</p></div>
+            <div className="howItem reveal"><div className="n">02</div><h4>Compete across six rounds</h4><p>Each round scores points on its own — speed and accuracy both count.</p></div>
+            <div className="howItem reveal"><div className="n">03</div><h4>Reach the final hunt</h4><p>Top teams carry their points into Round 06 and present live to judges.</p></div>
+          </div>
+        </section>
+
+        <section id="register" className="wrap">
+          <div className="kicker" style={{ justifyContent: 'center', display: 'flex' }}>READY?</div>
+          <h2>Enter the hunt.</h2>
+          <p>Six rounds. One hunt. Only the sharpest hunters reach the finish.</p>
+          <div className="ctaRow">
+            <Link className="btn primary" id="registerBtn" href={CONFIG.REGISTRATION_URL}>
+              JOIN DELULU HUNT <span className="arrow">→</span>
+            </Link>
+          </div>
+        </section>
+
+        <footer className="wrap">
+          <span>INNOVATEX © DELULU HUNT</span>
+          <span id="metaLine">{metaLineText || "CONFIGURE DATE / VENUE IN CONFIG"}</span>
+        </footer>
+      </main>
     </div>
   );
 }
