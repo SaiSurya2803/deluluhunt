@@ -129,8 +129,10 @@ export default function DeluluHome() {
     rimLight.position.set(-8, -4, -6);
     scene.add(rimLight);
 
+    const getBaseX = () => window.innerWidth < 960 ? 0 : 2.6;
+    
     const coreGroup = new THREE.Group();
-    coreGroup.position.set(2.6, 0, 0); // sits on right side of hero
+    coreGroup.position.set(getBaseX(), 0, 0); // sits on right side of hero or centered on mobile
     scene.add(coreGroup);
 
     const core = new THREE.Mesh(
@@ -268,12 +270,13 @@ export default function DeluluHome() {
         f.rotation.y += 0.015;
       });
 
-      coreGroup.position.x = 2.6 - p * 1.6 + mx * 0.3;
-      coreGroup.position.y = my * 0.25 - p * 0.6;
-      coreGroup.scale.setScalar(1 - p * 0.25);
+      const bx = getBaseX();
+      coreGroup.position.x = bx - p * 1.6 + mx * 0.3;
+      coreGroup.position.y = (window.innerWidth < 960 ? -1.5 : 0) + my * 0.25 - p * 0.6;
+      coreGroup.scale.setScalar((window.innerWidth < 960 ? 0.7 : 1) - p * 0.25);
       camera.position.x = mx * 0.4;
       camera.position.y = -my * 0.2;
-      camera.lookAt(2.6 - p * 1.6, 0, 0);
+      camera.lookAt(bx - p * 1.6, 0, 0);
 
       particles.rotation.y = t * 0.01;
       checkHover();
