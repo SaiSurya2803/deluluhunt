@@ -60,9 +60,8 @@ export default function CluesPage() {
       const newCredits = team.credits - clue.cost;
       
       // Update team credits
-      const teams = DB.getTeams();
       const updatedTeam = { ...team, credits: newCredits };
-      DB.setTeams(teams.map(t => t.id === team.id ? updatedTeam : t));
+      DB.updateItem(DB.KEYS.TEAMS, updatedTeam);
       updateTeam(updatedTeam);
 
       // Save unlocked state
@@ -71,32 +70,24 @@ export default function CluesPage() {
       localStorage.setItem(teamUnlockedCluesKey, JSON.stringify([...unlockedIds, clue.id]));
 
       // Log credit tx
-      const txs = DB.getCreditTx();
-      DB.setCreditTx([
-        {
-          id: `tx-${Date.now()}`,
-          teamId: team.id,
-          amount: -clue.cost,
-          balanceAfter: newCredits,
-          reason: `Unlocked extra clue for Round ${rounds[clue.roundId]?.roundNumber}`,
-          timestamp: new Date().toISOString(),
-          roundId: clue.roundId,
-        },
-        ...txs
-      ]);
+      DB.updateItem(DB.KEYS.CREDIT_TX, {
+        id: `tx-${Date.now()}`,
+        teamId: team.id,
+        amount: -clue.cost,
+        balanceAfter: newCredits,
+        reason: `Unlocked extra clue for Round ${rounds[clue.roundId]?.roundNumber}`,
+        timestamp: new Date().toISOString(),
+        roundId: clue.roundId,
+      });
 
       // Log activity
-      const logs = DB.getActivityLogs();
-      DB.setActivityLogs([
-        {
-          id: `log-${Date.now()}`,
-          teamId: team.id,
-          memberId: currentMember.id,
-          action: `Purchased Clue for Round ${rounds[clue.roundId]?.roundNumber} (-${clue.cost} credits)`,
-          timestamp: new Date().toISOString()
-        },
-        ...logs
-      ]);
+      DB.updateItem(DB.KEYS.ACTIVITY_LOGS, {
+        id: `log-${Date.now()}`,
+        teamId: team.id,
+        memberId: currentMember.id,
+        action: `Purchased Clue for Round ${rounds[clue.roundId]?.roundNumber} (-${clue.cost} credits)`,
+        timestamp: new Date().toISOString()
+      });
 
       loadData(); // refresh
     }

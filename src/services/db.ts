@@ -43,10 +43,38 @@ export const initDB = async () => {
     const { data, error } = await supabase.from('app_state').select('*');
     
     if (!error && data && data.length > 0) {
-      // Overwrite local storage with the cloud truth
+      // Group fragmented keys (e.g. "glec_teams||team-1") back into their parent arrays
+      const lists: Record<string, any[]> = {};
+      const arrayKeys = Object.values(KEYS);
+
       data.forEach(row => {
-        localStorage.setItem(row.key, JSON.stringify(row.data));
+        if (row.key.includes('||')) {
+          const [baseKey] = row.key.split('||');
+          if (!lists[baseKey]) lists[baseKey] = [];
+          lists[baseKey].push(row.data);
+        } else if (arrayKeys.includes(row.key)) {
+          if (!lists[row.key]) lists[row.key] = [];
+          if (Array.isArray(row.data)) {
+             lists[row.key].push(...row.data);
+          } else {
+             lists[row.key].push(row.data);
+          }
+        } else {
+          // Standard generic key (e.g. just a string or object)
+          localStorage.setItem(row.key, JSON.stringify(row.data));
+        }
       });
+
+      // Deduplicate items by ID and overwrite local storage
+      for (const [key, items] of Object.entries(lists)) {
+         // Deduplicate items by ID (if they have one), prioritizing newer fragments
+         const uniqueMap = new Map();
+         items.forEach(item => {
+           uniqueMap.set(item.id || Math.random(), item);
+         });
+         localStorage.setItem(key, JSON.stringify(Array.from(uniqueMap.values())));
+      }
+      
       console.log("Supabase Cloud DB successfully synced.");
     } else {
       console.log("Cloud DB empty or unreachable, seeding initial data.");
@@ -79,11 +107,37 @@ export const setItem = <T>(key: string, data: T[]): void => {
     });
 };
 
+// Atomic update for single items (prevents JSON array race conditions)
+export const updateItem = <T extends { id?: string }>(key: string, item: T): void => {
+  if (typeof window === 'undefined') return;
+  const list = getItem<T>(key);
+  
+  // If item doesn't have an ID, generate a temporary one for the key
+  const itemId = item.id || `temp-${Date.now()}`;
+  
+  const index = list.findIndex(i => i.id === item.id);
+  if (index > -1 && item.id) {
+    list[index] = item;
+  } else {
+    list.push(item);
+  }
+  
+  // Update local UI state
+  localStorage.setItem(key, JSON.stringify(list));
+  
+  // Background atomic cloud sync using a unique fragmented key
+  supabase.from('app_state').upsert({ key: `${key}||${itemId}`, data: item }, { onConflict: 'key' })
+    .then(({ error }) => {
+       if (error) console.error("Cloud atomic sync error for", key, error);
+    });
+};
+
 export const DB = {
   KEYS,
   init: initDB,
   getItem,
   setItem,
+  updateItem,
   getTeams: () => getItem<Team>(KEYS.TEAMS),
   setTeams: (teams: Team[]) => setItem(KEYS.TEAMS, teams),
   

@@ -34,21 +34,14 @@ export default function RoundOverviewPage() {
     
     // If not started, mark in progress
     if (round.status === 'UNLOCKED') {
-      const rounds = DB.getRounds();
-      const updatedRounds = rounds.map(r => r.id === round.id ? { ...r, status: 'IN_PROGRESS' as const } : r);
-      DB.setRounds(updatedRounds);
-      
-      const logs = DB.getActivityLogs();
-      DB.setActivityLogs([
-        {
-          id: `log-${Date.now()}`,
-          teamId: team.id,
-          memberId: currentMember.id,
-          action: `Started Round ${round.roundNumber}`,
-          timestamp: new Date().toISOString()
-        },
-        ...logs
-      ]);
+      DB.updateItem(DB.KEYS.ROUNDS, { ...round, status: 'IN_PROGRESS' as const });
+      DB.updateItem(DB.KEYS.ACTIVITY_LOGS, {
+        id: `log-${Date.now()}`,
+        teamId: team.id,
+        memberId: currentMember.id,
+        action: `Started Round ${round.roundNumber}`,
+        timestamp: new Date().toISOString()
+      });
     }
     
     router.push(`/rounds/${round.id}/workspace`);

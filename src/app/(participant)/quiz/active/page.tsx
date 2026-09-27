@@ -34,19 +34,15 @@ export default function ActiveQuizPage() {
     const handleVisibilityChange = () => {
       if (document.hidden && team && currentMember) {
         setTrustScore(prev => Math.max(0, prev - 15));
-        const events = DB.getItem<any>(DB.KEYS.PROCTORING_EVENTS);
-        DB.setItem(DB.KEYS.PROCTORING_EVENTS, [
-          {
-            id: `pe-${Date.now()}`,
-            teamId: team.id,
-            memberId: currentMember.id,
-            event: 'Tab Switched / Focus Lost',
-            severity: 'HIGH',
-            timestamp: new Date().toISOString(),
-            status: 'UNREVIEWED'
-          },
-          ...events
-        ]);
+        DB.updateItem(DB.KEYS.PROCTORING_EVENTS, {
+          id: `pe-${Date.now()}`,
+          teamId: team.id,
+          memberId: currentMember.id,
+          event: 'Tab Switched / Focus Lost',
+          severity: 'HIGH',
+          timestamp: new Date().toISOString(),
+          status: 'UNREVIEWED'
+        });
         alert("PROCTORING WARNING: Please return to the quiz window. This event has been recorded and your trust score dropped.");
       }
     };
@@ -240,23 +236,18 @@ export default function ActiveQuizPage() {
     });
     
     // Save detailed quiz submission
-    const quizSubs = DB.getQuizSubmissions() || [];
-    DB.setQuizSubmissions([
-      ...quizSubs,
-      {
-        id: `qsub-${Date.now()}`,
-        teamId: team.id,
-        answers: answers,
-        timeTaken: timeTaken,
-        submittedAt: new Date().toISOString(),
-        totalScore: score
-      }
-    ]);
+    DB.updateItem(DB.KEYS.QUIZ_SUBMISSIONS, {
+      id: `qsub-${Date.now()}`,
+      teamId: team.id,
+      answers: answers,
+      timeTaken: timeTaken,
+      submittedAt: new Date().toISOString(),
+      totalScore: score
+    });
 
     // Update team - IMPORTANT: we add quizTrustScore and quizScore
-    const teams = DB.getTeams();
     const updatedTeam = { ...team, quizStatus: 'COMPLETED' as const, quizScore: score, quizTrustScore: trustScore };
-    DB.setTeams(teams.map(t => t.id === team.id ? updatedTeam : t));
+    DB.updateItem(DB.KEYS.TEAMS, updatedTeam);
     updateTeam(updatedTeam);
     
     // Stop streams properly using refs
@@ -268,17 +259,13 @@ export default function ActiveQuizPage() {
     }
     
     // Log
-    const logs = DB.getActivityLogs();
-    DB.setActivityLogs([
-      {
-        id: `log-${Date.now()}`,
-        teamId: team.id,
-        memberId: currentMember?.id,
-        action: auto ? `Quiz Auto-Submitted (Score: ${score}, Trust: ${trustScore}%)` : `Quiz Submitted manually (Score: ${score}, Trust: ${trustScore}%)`,
-        timestamp: new Date().toISOString()
-      },
-      ...logs
-    ]);
+    DB.updateItem(DB.KEYS.ACTIVITY_LOGS, {
+      id: `log-${Date.now()}`,
+      teamId: team.id,
+      memberId: currentMember?.id || 'unknown',
+      action: auto ? `Quiz Auto-Submitted (Score: ${score}, Trust: ${trustScore}%)` : `Quiz Submitted manually (Score: ${score}, Trust: ${trustScore}%)`,
+      timestamp: new Date().toISOString()
+    });
     
     router.push('/quiz/intro');
   };
