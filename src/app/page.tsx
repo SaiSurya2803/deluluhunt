@@ -260,14 +260,14 @@ export default function DeluluHome() {
       core.rotation.x = Math.sin(t * 0.3) * 0.08 + my * 0.15;
       coreWire.rotation.copy(core.rotation);
 
-      fragGroup.rotation.y = t * 0.12;
+      fragGroup.rotation.y = t * 0.6;
       const spread = 1 + p * 2.4; 
       fragments.forEach(f => {
-        const a = f.userData.angle + t * 0.15;
+        const a = f.userData.angle + t * 0.75;
         const r = f.userData.baseR * spread;
         f.position.set(Math.cos(a) * r, Math.sin(a * 0.6) * 0.6, Math.sin(a) * r);
-        f.rotation.x += 0.01;
-        f.rotation.y += 0.015;
+        f.rotation.x += 0.04;
+        f.rotation.y += 0.06;
       });
 
       const bx = getBaseX();
