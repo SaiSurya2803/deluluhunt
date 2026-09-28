@@ -353,7 +353,6 @@ export default function DeluluHome() {
             <div className="mark mono">{totalRounds}<b>CHALLENGES</b></div>
             <div className="mark mono">01<b>ONE HUNT</b></div>
           </div>
-          <div className="gridline"></div>
           <div className="scrollcue">SCROLL<div className="bar"></div></div>
         </section>
 
