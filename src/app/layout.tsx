@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Innovatex Delulu Hunt',
-  description: 'The Ultimate 6-Round Technology Challenge',
+  title: 'Delulu Hunt by Innovatex',
+  description: 'The Ultimate 6-Round Technology Challenge by Innovatex',
 };
 
 import { Space_Grotesk, Inter, DotGothic16, Playfair_Display } from 'next/font/google';
