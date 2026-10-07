@@ -4,7 +4,8 @@ import React from 'react';
 import { useThemeStore } from '@/store/themeStore';
 
 export function ThemeToggle() {
-  const { isDarkMode, toggleTheme } = useThemeStore();
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
   return (
     <button 

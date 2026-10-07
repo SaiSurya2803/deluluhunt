@@ -5,7 +5,7 @@ import { useThemeStore } from '@/store/themeStore';
 import { ThemeToggle } from './ThemeToggle';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const { isDarkMode } = useThemeStore();
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
   useEffect(() => {
     // We attach the light-theme class to the document body to make it truly global
