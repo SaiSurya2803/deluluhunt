@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import * as THREE from 'three';
 import { DB } from '@/services/db';
 import './home.css';
 
@@ -12,12 +11,10 @@ const DEFAULT_CONFIG = {
   VENUE: "INNOVATEX HQ",
   REGISTRATION_URL: "/register",
   ROUNDS: [
-    { id: 1, name: "FIX THE CODE", desc: "Teams receive code containing errors and must identify, debug, and fix the mistakes to make it run correctly.", points: 100, time: "50 MIN", color: 0x8a5cff },
-    { id: 2, name: "CRACK THE MESSAGE", desc: "Teams receive a message written using a simple code or cipher and must decode it to uncover the hidden message.", points: 100, time: "50 MIN", color: 0xff5f87 },
-    { id: 3, name: "BUILD SOMETHING SMALL", desc: "Teams receive a short specification and must quickly design and build a basic working solution.", points: 150, time: "70 MIN", color: 0x2fe6c2 },
-    { id: 4, name: "USE AI THE SMART WAY", desc: "Teams must use an AI tool effectively to achieve a given target through smart prompting, problem solving, or analysis.", points: 150, time: "50 MIN", color: 0xffb15c },
-    { id: 5, name: "FIND THE HIDDEN CLUE", desc: "Teams investigate a safe practice website or file and must discover the hidden clue concealed inside it.", points: 200, time: "70 MIN", color: 0xff8a5c },
-    { id: 6, name: "FINAL CHALLENGE", desc: "Teams receive a real-world problem, develop a basic solution, and present their approach to the judges.", points: 300, time: "90 MIN", color: 0xffffff },
+    { id: 1, name: "FIX THE CODE", desc: "Teams receive code containing errors and must identify, debug, and fix the mistakes to make it run correctly." },
+    { id: 2, name: "CRACK THE MESSAGE", desc: "Teams receive a message written using a simple code or cipher and must decode it to uncover the hidden message." },
+    { id: 3, name: "BUILD SOMETHING SMALL", desc: "Teams receive a short specification and must quickly design and build a basic working solution." },
+    { id: 4, name: "USE AI THE SMART WAY", desc: "Teams must use an AI tool effectively to achieve a given target through smart prompting, problem solving, or analysis." }
   ]
 };
 
@@ -25,26 +22,21 @@ export default function DeluluHome() {
   const [mounted, setMounted] = useState(false);
   const [dynConfig, setDynConfig] = useState<any>(null);
 
-  const stageRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
-  const spacerRef = useRef<HTMLDivElement>(null);
+  const [timeLeft, setTimeLeft] = useState({ days: 31, hours: 16, mins: 20, secs: 50 });
+  const [activeTab, setActiveTab] = useState('online'); // For schedule tabs
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Fetch dynamic data from database to populate home page
     const dbRounds = DB.getRounds() || [];
     const dbSettings = DB.getGlobalSettings() || {};
     
-    const colors = [0x8a5cff, 0xff5f87, 0x2fe6c2, 0xffb15c, 0xff8a5c, 0xffffff, 0x2fe6c2, 0x8a5cff];
-    
     const mappedRounds = dbRounds.map((r, i) => ({
       id: r.roundNumber,
       name: r.title,
       desc: r.description,
-      points: r.maxScore,
-      time: r.timeLimit ? `${r.timeLimit} MIN` : 'UNLIMITED',
-      color: colors[i % colors.length]
     }));
 
     setDynConfig({
@@ -56,363 +48,348 @@ export default function DeluluHome() {
     setMounted(true);
   }, []);
 
+  // Simple countdown timer logic
   useEffect(() => {
-    if (!mounted || !dynConfig) return;
+    if (!mounted) return;
+    const targetDate = Date.now() + (((31 * 24 + 16) * 60 + 20) * 60 + 50) * 1000;
+    
+    const timer = setInterval(() => {
+      const s = Math.max(0, Math.ceil((targetDate - Date.now()) / 1000));
+      setTimeLeft({
+        days: Math.floor(s / 86400),
+        hours: Math.floor((s % 86400) / 3600),
+        mins: Math.floor((s % 3600) / 60),
+        secs: s % 60
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [mounted]);
+  // Handle horizontal scrolling with mouse wheel on the track
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
 
-    // ------------------------------------------
-    // Intersection Observer for scroll reveals
-    // ------------------------------------------
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          io.unobserve(e.target);
+    const handleWheel = (e: WheelEvent) => {
+      // If the scroll is predominantly vertical, intercept it for horizontal scrolling
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        // Only prevent default if we actually have room to scroll, so we don't trap the user
+        const isScrollable = track.scrollWidth > track.clientWidth;
+        const isAtStart = track.scrollLeft === 0;
+        const isAtEnd = Math.abs(track.scrollWidth - track.clientWidth - track.scrollLeft) < 1;
+
+        if (isScrollable) {
+          const scrollSpeed = 3; // Multiplier to make it scroll faster
+          
+          // If trying to scroll down/right and we're not at the end
+          if (e.deltaY > 0 && !isAtEnd) {
+            e.preventDefault();
+            track.scrollLeft += (e.deltaY * scrollSpeed);
+          }
+          // If trying to scroll up/left and we're not at the start
+          else if (e.deltaY < 0 && !isAtStart) {
+            e.preventDefault();
+            track.scrollLeft += (e.deltaY * scrollSpeed);
+          }
         }
-      });
-    }, { threshold: 0.2 });
-
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    // ------------------------------------------
-    // Cursor glow & magnetic buttons
-    // ------------------------------------------
-    const glow = glowRef.current;
-    if (!glow) return;
-
-    const handlePointerMove = (e: PointerEvent) => {
-      glow.style.opacity = '1';
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
-    };
-    const handlePointerLeave = () => {
-      glow.style.opacity = '0';
-    };
-
-    window.addEventListener('pointermove', handlePointerMove);
-    document.body.addEventListener('pointerleave', handlePointerLeave);
-
-    const buttons = document.querySelectorAll('.delulu-home .btn');
-    buttons.forEach((btn: Element) => {
-      const htmlBtn = btn as HTMLElement;
-      htmlBtn.addEventListener('pointermove', (e: Event) => {
-        const ev = e as PointerEvent;
-        const r = htmlBtn.getBoundingClientRect();
-        const mx = (ev.clientX - r.left - r.width / 2) * 0.25;
-        const my = (ev.clientY - r.top - r.height / 2) * 0.35;
-        htmlBtn.style.transform = `translate(${mx}px,${my}px)`;
-      });
-      htmlBtn.addEventListener('pointerleave', () => {
-        htmlBtn.style.transform = '';
-      });
-    });
-
-    // ------------------------------------------
-    // 3D Engine Setup (Three.js)
-    // ------------------------------------------
-    if (!stageRef.current) return;
-    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 13);
-    
-    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
-    stageRef.current.appendChild(renderer.domElement);
-
-    scene.add(new THREE.AmbientLight(0x8a5cff, 0.55));
-    const keyLight = new THREE.PointLight(0xffffff, 1.6, 40);
-    keyLight.position.set(6, 6, 10);
-    scene.add(keyLight);
-    
-    const rimLight = new THREE.PointLight(0x2fe6c2, 1.2, 40);
-    rimLight.position.set(-8, -4, -6);
-    scene.add(rimLight);
-
-    const getBaseX = () => window.innerWidth < 960 ? 0 : 2.6;
-    
-    const coreGroup = new THREE.Group();
-    coreGroup.position.set(getBaseX(), 0, 0); // sits on right side of hero or centered on mobile
-    scene.add(coreGroup);
-
-    const core = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(2.3, 1),
-      new THREE.MeshStandardMaterial({ color: 0x120f22, emissive: 0x8a5cff, emissiveIntensity: 0.55, metalness: 0.75, roughness: 0.22, flatShading: true })
-    );
-    coreGroup.add(core);
-    
-    const coreWire = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(2.34, 1),
-      new THREE.MeshBasicMaterial({ color: 0x8a5cff, wireframe: true, transparent: true, opacity: 0.25 })
-    );
-    coreGroup.add(coreWire);
-
-    const fragGroup = new THREE.Group();
-    coreGroup.add(fragGroup);
-    const fragments: THREE.Mesh[] = [];
-    
-    dynConfig.ROUNDS.forEach((r: any, i: number) => {
-      const m = new THREE.Mesh(
-        new THREE.OctahedronGeometry(0.36, 0),
-        new THREE.MeshStandardMaterial({ color: r.color, emissive: r.color, emissiveIntensity: 0.9, roughness: 0.3, metalness: 0.4 })
-      );
-      const angle = (i / Math.max(1, dynConfig.ROUNDS.length)) * Math.PI * 2;
-      m.userData = { angle, baseR: 3.1, round: r };
-      fragGroup.add(m);
-      fragments.push(m);
-    });
-
-    // faint particle field
-    const pn = isMobile ? 60 : 150;
-    const pgeo = new THREE.BufferGeometry();
-    const parr = new Float32Array(pn * 3);
-    for (let i = 0; i < pn; i++) {
-      parr[i * 3] = (Math.random() - 0.5) * 30;
-      parr[i * 3 + 1] = (Math.random() - 0.5) * 18;
-      parr[i * 3 + 2] = (Math.random() - 0.5) * 14 - 4;
-    }
-    pgeo.setAttribute('position', new THREE.BufferAttribute(parr, 3));
-    const particles = new THREE.Points(pgeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.045, transparent: true, opacity: 0.4 }));
-    scene.add(particles);
-
-    /* mouse parallax */
-    let mx = 0, my = 0, tmx = 0, tmy = 0;
-    const onMouseMove = (e: PointerEvent) => {
-      tmx = (e.clientX / window.innerWidth - 0.5) * 2;
-      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    window.addEventListener('pointermove', onMouseMove);
-
-    /* raycast hover/click on fragments */
-    const raycaster = new THREE.Raycaster();
-    const mouseNDC = new THREE.Vector2();
-    let lastClientX = 0, lastClientY = 0;
-    
-    renderer.domElement.style.pointerEvents = 'auto';
-    stageRef.current.style.pointerEvents = 'none';
-    
-    const onCanvasMove = (e: PointerEvent) => {
-      lastClientX = e.clientX;
-      lastClientY = e.clientY;
-      mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-    window.addEventListener('pointermove', onCanvasMove);
-
-    function checkHover() {
-      raycaster.setFromCamera(mouseNDC, camera);
-      const hits = raycaster.intersectObjects(fragments);
-      if (hits.length && tooltipRef.current) {
-        document.body.style.cursor = 'pointer';
-        const r = hits[0].object.userData.round;
-        tooltipRef.current.textContent = "ROUND 0" + r.id + " — " + r.name;
-        tooltipRef.current.style.left = lastClientX + 'px';
-        tooltipRef.current.style.top = lastClientY + 'px';
-        tooltipRef.current.style.opacity = '1';
-        return hits[0].object;
-      }
-      document.body.style.cursor = '';
-      if (tooltipRef.current) tooltipRef.current.style.opacity = '0';
-      return null;
-    }
-
-    const onCanvasClick = () => {
-      const hit = checkHover();
-      if (hit) {
-        const el = document.getElementById('round-' + hit.userData.round.id);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     };
-    window.addEventListener('click', onCanvasClick);
 
-    /* scroll-linked transform */
-    let scrollP = 0;
-    function scrollProgress() {
-      if (!heroRef.current || !spacerRef.current) return 0;
-      const total = heroRef.current.offsetHeight + spacerRef.current.offsetHeight;
-      const p = window.scrollY / total;
-      return Math.max(0, Math.min(1, p));
+    // { passive: false } is required to allow e.preventDefault()
+    track.addEventListener('wheel', handleWheel, { passive: false });
+    return () => track.removeEventListener('wheel', handleWheel);
+  }, [mounted]);
+
+
+  const scrollTrack = () => {
+    if (trackRef.current) {
+      const t = trackRef.current;
+      t.scrollBy({ left: t.scrollLeft > 5 ? -t.clientWidth * 0.5 : t.clientWidth * 0.5, behavior: 'smooth' });
     }
-    
-    const onScroll = () => {
-      const p = scrollProgress();
-      if (stageRef.current) {
-        stageRef.current.style.opacity = p > 0.92 ? Math.max(0, 1 - ((p - 0.92) / 0.08)).toString() : '1';
-        stageRef.current.style.pointerEvents = 'none';
-      }
-      scrollP = p;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    /* animate */
-    const clock = new THREE.Clock();
-    let animFrameId: number;
-    
-    function animate() {
-      animFrameId = requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-      mx += (tmx - mx) * 0.04;
-      my += (tmy - my) * 0.04;
-      const p = scrollP;
-
-      core.rotation.y = t * 0.18 + mx * 0.3;
-      core.rotation.x = Math.sin(t * 0.3) * 0.08 + my * 0.15;
-      coreWire.rotation.copy(core.rotation);
-
-      fragGroup.rotation.y = t * 0.6;
-      const spread = 1 + p * 2.4; 
-      fragments.forEach(f => {
-        const a = f.userData.angle + t * 0.75;
-        const r = f.userData.baseR * spread;
-        f.position.set(Math.cos(a) * r, Math.sin(a * 0.6) * 0.6, Math.sin(a) * r);
-        f.rotation.x += 0.04;
-        f.rotation.y += 0.06;
-      });
-
-      const bx = getBaseX();
-      coreGroup.position.x = bx - p * 1.6 + mx * 0.3;
-      coreGroup.position.y = (window.innerWidth < 960 ? -1.5 : 0) + my * 0.25 - p * 0.6;
-      coreGroup.scale.setScalar((window.innerWidth < 960 ? 0.7 : 1) - p * 0.25);
-      camera.position.x = mx * 0.4;
-      camera.position.y = -my * 0.2;
-      camera.lookAt(bx - p * 1.6, 0, 0);
-
-      particles.rotation.y = t * 0.01;
-      checkHover();
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    const onResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-    window.addEventListener('resize', onResize);
-
-    // CLEANUP
-    return () => {
-      io.disconnect();
-      window.removeEventListener('pointermove', handlePointerMove);
-      document.body.removeEventListener('pointerleave', handlePointerLeave);
-      window.removeEventListener('pointermove', onMouseMove);
-      window.removeEventListener('pointermove', onCanvasMove);
-      window.removeEventListener('click', onCanvasClick);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animFrameId);
-      
-      renderer.dispose();
-      if (stageRef.current) {
-        stageRef.current.innerHTML = '';
-      }
-    };
-  }, [mounted, dynConfig]);
+  };
 
   if (!mounted || !dynConfig) return null;
 
-  const metaLineText = [dynConfig.EVENT_DATE, dynConfig.VENUE].filter(Boolean).join(' · ');
-  const totalRounds = dynConfig.ROUNDS.length;
-
   return (
-    <div className="delulu-home">
-      <div id="stage" ref={stageRef} className="delulu-home-stage"></div>
-      <div id="cursorGlow" ref={glowRef} className="delulu-home-cursorGlow"></div>
-      <div className="delulu-home-tooltip tooltip" ref={tooltipRef} id="tooltip"></div>
+    <div className={`delulu-home ${!isDarkMode ? 'light-theme' : ''}`}>
+      <i className="glow" style={{ left: '-120px', top: '-120px', zIndex: 0 }}></i>
+      
+      {/* HEADER */}
+      <header className="w nav">
+        <a className="logo">
+          <b>Delulu Hunt</b>
+          <small>by Innovatex</small>
+        </a>
+        <nav>
+          <a>About</a>
+          <a>Sectors</a>
+          <a>Schedule</a>
+          <a>Prizes</a>
+          <a>FAQs</a>
+        </nav>
+        <Link href={dynConfig.REGISTRATION_URL} className="reg">Registration</Link>
+      </header>
 
-      <nav>
-        <div className="brand">INNOVATEX</div>
-        <div className="navlinks">
-          <a href="#hero">HOME</a>
-          <a href="#rounds">ROUNDS</a>
-          <a href="#how">HOW IT WORKS</a>
-          <Link href={dynConfig.REGISTRATION_URL}>REGISTER</Link>
+      {/* HERO */}
+      <section className="w hero">
+        <i className="d sq" style={{ left: '42%', top: '-6px' }}></i>
+        <i className="d sq wh" style={{ right: '-2%', top: '-2px' }}></i>
+        <i className="d tri" style={{ left: '-3%', bottom: '52px', transform: 'rotate(180deg) scale(.8)' }}></i>
+        
+        <div>
+          <h1>Learn , Build , Innovate</h1>
+          <div className="out">Delulu Hunt</div>
+          <p>National Level Hackathon</p>
+          <Link href={dynConfig.REGISTRATION_URL} className="btn">Register Now</Link>
+          <a href="#sectors" className="btn g">View Problem Statement</a>
         </div>
-      </nav>
+        
+        <img className="mon" src="/hero_monitor.jpg" alt="3D Monitor" style={{ borderRadius: '12px' }} />
+      </section>
 
-      <main>
-        <section id="hero" ref={heroRef}>
-          <div className="wrap heroGrid">
-            <div className="heroText">
-              <div className="eyebrow">INNOVATEX PRESENTS</div>
-              <h1 className="title"><span>DELULU</span><span className="accent">HUNT</span></h1>
-              <div className="subline">A {totalRounds}-ROUND TECHNICAL CHALLENGE</div>
-              <p className="desc">Think. Build. Decode. Explore.<br/>{totalRounds} challenges. One final hunt.</p>
-              <div className="ctaRow">
-                <Link className="btn primary" href={dynConfig.REGISTRATION_URL} id="enterCta">
-                  ENTER THE HUNT <span className="arrow">→</span>
-                </Link>
-                <a className="btn ghost" href="#rounds">EXPLORE ROUNDS</a>
-              </div>
+      {/* ABOUT */}
+      <section className="w about">
+        <div className="ph">
+          <i className="p1"></i>
+          <i className="p2"></i>
+          <i className="d ring" style={{ right: '-8%', top: '-6%' }}></i>
+        </div>
+        <div>
+          <h2>About <b>Delulu Hunt</b></h2>
+          <p>Delulu Hunt is a premier hackathon organized by Innovatex to challenge the sharpest minds across multiple technical rounds. Think, build, and deploy!</p>
+          <p className="v">Venue : <span className="o">{dynConfig.VENUE}</span></p>
+          <div className="cd" id="cd">
+            <div><b>{String(timeLeft.days).padStart(2, '0')}</b>Days</div><span>:</span>
+            <div><b>{String(timeLeft.hours).padStart(2, '0')}</b>Hours</div><span>:</span>
+            <div><b>{String(timeLeft.mins).padStart(2, '0')}</b>Mins</div><span>:</span>
+            <div><b>{String(timeLeft.secs).padStart(2, '0')}</b>Secs</div>
+          </div>
+        </div>
+        <svg className="d arc" viewBox="0 0 60 80">
+          <path d="M6 4C10 40 30 60 52 72" stroke="#ffa20f" strokeWidth="9" fill="none" strokeLinecap="round"/>
+        </svg>
+      </section>
+
+      {/* PROBLEM SECTORS */}
+      <section className="w ps" id="sectors">
+        <i className="glow" style={{ left: 'calc(50% - 50vw - 190px)', top: '-120px', zIndex: -1 }}></i>
+        <h2>Problem <b>Sector - Theme</b></h2>
+        <small>sds</small>
+        <div className="car">
+          <div className="trk" id="trk" ref={trackRef}>
+            {dynConfig.ROUNDS.map((r: any, idx: number) => {
+              const bgClass = `c${(idx % 4) + 1}`; // cycles through c1, c2, c3, c4
+              return (
+                <article key={r.id} className={`c ${bgClass}`}>
+                  <h3>{r.name}</h3>
+                  <p>{r.desc}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="w cta">
+        <i className="ic">&lt;/&gt;</i>
+        <b>Convert Your Idea <span className="o">&#128640;</span> Into Action / Product</b>
+        <Link href={dynConfig.REGISTRATION_URL} className="btn">Register Now</Link>
+      </section>
+
+      {/* PARTNERS */}
+      <section className="w pt">
+        <h2>Our <b>Partners</b></h2>
+        <div className="lg">
+          <span>GLEC</span>
+          <span>GRIET</span>
+          <span>INNOVATEX</span>
+          <span>Microsoft</span>
+        </div>
+      </section>
+
+      {/* SCHEDULE */}
+      <section className="w sc">
+        <i className="d sq" style={{ left: '-4%', top: '72%' }}></i>
+        <i className="d ring" style={{ right: '6%', top: '74%' }}></i>
+        <h2>Hackathon <b>Schedule</b></h2>
+        <p>  A thrilling journey of clues, challenges, teamwork, and surprises. Are you ready to find what’s hidden?</p>
+        <div className="dt">
+          <i className="tri"></i>
+          <b>Friday, {dynConfig.EVENT_DATE}</b>
+          <i className="sq"></i>
+        </div>
+        <div className="tabs">
+          <button 
+            className={`t ${activeTab === 'online' ? 'on' : ''}`} 
+            onClick={() => setActiveTab('online')}
+          >
+            Delulu Hunt
+          </button>
+    </div>
+        <div className="rows">
+          <div className="r">
+            <b>10:00-11:00</b>
+            <div>
+              <b>Phase - I</b>
+              <p>Registration &amp; Briefing — Check in, form your teams, understand the rules, and get ready for the hunt.</p>
             </div>
-            <div></div>
           </div>
-          <div className="marks">
-            <div className="mark mono">01 / 0{totalRounds}<b>ROUNDS</b></div>
-            <div className="mark mono">{totalRounds}<b>CHALLENGES</b></div>
-            <div className="mark mono">01<b>ONE HUNT</b></div>
-          </div>
-          <div className="scrollcue">SCROLL<div className="bar"></div></div>
-        </section>
 
-        <div id="transformSpacer" ref={spacerRef}></div>
-
-        <section id="hunt" className="wrap">
-          <div className="huntHead reveal">
-            <div className="kicker">THE HUNT</div>
-            <h2>{totalRounds} rounds.<br/>{totalRounds} different ways to think.</h2>
-            <p>Every round tests a different skill — logic, language, speed, judgement. Together they decide who reaches the final hunt.</p>
-          </div>
-        </section>
-
-        <section id="rounds" className="wrap">
-          {dynConfig.ROUNDS.map((r: any) => (
-            <div key={r.id} className="roundRow reveal" id={`round-${r.id}`} data-id={r.id} onClick={() => document.getElementById(`round-${r.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
-              <div className="rNum mono">0{r.id}</div>
-              <div className="rMain">
-                <h3>
-                  <span className="dot" style={{ background: '#' + r.color.toString(16).padStart(6, '0') }}></span>
-                  {r.name}
-                </h3>
-                <p>{r.desc}</p>
-              </div>
-              <div className="rMeta">
-                <span><b>{r.points}</b>POINTS</span>
-                <span><b>{r.time.split(' ')[0] || r.time}</b> {r.time.split(' ')[1] || ''}</span>
-              </div>
+          <div className="r">
+            <b>12:00-02:00</b>
+            <div>
+              <b>Phase - II</b>
+              <p>The Hunt Begins — Follow the clues, solve puzzles, explore, and uncover hidden surprises.</p>
             </div>
-          ))}
-        </section>
-
-        <section id="how" className="wrap">
-          <div className="huntHead reveal">
-            <div className="kicker">HOW IT WORKS</div>
-            <h2>Three steps in.</h2>
           </div>
-          <div className="howList">
-            <div className="howItem reveal"><div className="n">01</div><h4>Register your team</h4><p>Sign up before the gates close and get your round schedule.</p></div>
-            <div className="howItem reveal"><div className="n">02</div><h4>Compete across {totalRounds} rounds</h4><p>Each round scores points on its own — speed and accuracy both count.</p></div>
-            <div className="howItem reveal"><div className="n">03</div><h4>Reach the final hunt</h4><p>Top teams carry their points into the final stage and present live to judges.</p></div>
-          </div>
-        </section>
 
-        <section id="register" className="wrap">
-          <div className="kicker" style={{ justifyContent: 'center', display: 'flex' }}>READY?</div>
-          <h2>Enter the hunt.</h2>
-          <p>{totalRounds} rounds. One hunt. Only the sharpest hunters reach the finish.</p>
-          <div className="ctaRow">
-            <Link className="btn primary" id="registerBtn" href={dynConfig.REGISTRATION_URL}>
-              JOIN DELULU HUNT <span className="arrow">→</span>
-            </Link>
+          <div className="r">
+            <b>03:00-04:00</b>
+            <div>
+              <b>Phase - III</b>
+              <p>The Ultimate Challenge — Put your teamwork, creativity, and quick thinking to the test.</p>
+            </div>
           </div>
-        </section>
 
-        <footer className="wrap">
-          <span>INNOVATEX © DELULU HUNT</span>
-          <span id="metaLine">{metaLineText || "CONFIGURE DATE / VENUE IN ADMIN CONFIG"}</span>
-        </footer>
-      </main>
+          <div className="r">
+            <b>04:00-05:00</b>
+            <div>
+              <b>Phase - IV</b>
+              <p>Grand Finale — Complete the final challenge, reach the finish line, and claim the EduLulu Hunt victory!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRIZES */}
+      <section className="w pz">
+        <div>
+          <h2><b>Prize</b> &amp; More</h2>
+          <div className="tiles">
+            <div>
+              <div className="tl g">Exciting Gadgets</div>
+              <div className="tl a">Goodies which bring a smile of your face</div>
+            </div>
+            <div>
+              <div className="tl x">
+                <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+                  <rect width="160" height="90" fill="#f4b30c"/>
+                  <path d="M20 4h30l38 44-16 22-28-30z" fill="#111"/>
+                  <path d="M60 90l24-52 26 52z" fill="#fff"/>
+                  <path d="M122 8h14v22h22v14h-22v22h-14V44h-22V30h22z" fill="#b6e82e"/>
+                </svg>
+              </div>
+              <div className="tl l">Golden Opportunity </div>
+            </div>
+          </div>
+        </div>
+        <div className="pr">
+          <div><b>Rs. 5,000</b><small>FIRST PRIZE</small></div>
+          <div><b>Rs. 3,000</b><small>SECOND PRIZE</small></div>
+          <div><b>Rs. 2,000</b><small>THIRD PRIZE</small></div>
+        </div>
+      </section>
+
+      {/* FAQS */}
+<section className="fq">
+  <h2 className="o">FAQs</h2>
+
+  <details open>
+    <summary>What is EduLulu Hunt?</summary>
+    <p>
+      EduLulu Hunt is an exciting clue-based challenge where participants
+      solve puzzles, complete tasks, explore, and compete to reach the final
+      destination.
+    </p>
+  </details>
+
+  <details>
+    <summary>How to participate in EduLulu Hunt?</summary>
+    <p>
+      You can participate by clicking the Register button on this website
+      and completing the registration process.
+    </p>
+  </details>
+
+  <details>
+    <summary>Who can participate?</summary>
+    <p>
+      Students and enthusiastic participants who are ready to take on
+      challenges, solve clues, and have fun can participate in EduLulu Hunt.
+    </p>
+  </details>
+
+  <details>
+    <summary>Can I participate as a team?</summary>
+    <p>
+      Yes! Participants can form a team and work together to solve clues,
+      complete challenges, and progress through the hunt.
+    </p>
+  </details>
+
+  <details>
+    <summary>What should I bring?</summary>
+    <p>
+      Bring your college ID, a fully charged smartphone, and anything
+      mentioned in the event instructions. Most importantly, bring your
+      problem-solving skills and team spirit!
+    </p>
+  </details>
+
+  <details>
+    <summary>Is there a registration fee?</summary>
+    <p>
+      Registration details and participation fees, if applicable, will be
+      mentioned on the registration page. Please check the latest event
+      information before registering.
+    </p>
+  </details>
+
+  <details>
+    <summary>What happens during the hunt?</summary>
+    <p>
+      Teams will receive clues and challenges that require observation,
+      logical thinking, teamwork, and creativity. Solve each challenge to
+      unlock the next stage of the hunt.
+    </p>
+  </details>
+
+  <details>
+    <summary>How will the winner be decided?</summary>
+    <p>
+      The winning team will be determined based on successful completion of
+      the challenges, accuracy, and the time taken to finish the hunt.
+    </p>
+  </details>
+
+  <details>
+    <summary>What if I get stuck on a clue?</summary>
+    <p>
+      Don't panic! Work with your teammates, think creatively, and look for
+      the hidden hints. Every clue is designed to test your observation and
+      problem-solving skills.
+    </p>
+  </details>
+
+  <details>
+    <summary>Where can I get event updates?</summary>
+    <p>
+      Follow the official EduLulu Hunt social media pages and check this
+      website regularly for announcements, updates, and important
+      instructions.
+    </p>
+  </details>
+</section>
+
+      {/* THEME TOGGLE BUTTON */}
+      <button 
+        className="theme-toggle" 
+        onClick={() => setIsDarkMode(!isDarkMode)}
+        aria-label="Toggle Theme"
+      >
+        {isDarkMode ? '☀️' : '🌙'}
+      </button>
+
     </div>
   );
 }
