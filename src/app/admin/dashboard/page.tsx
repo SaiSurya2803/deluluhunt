@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -34,7 +34,7 @@ export default function AdminDashboardPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
         <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Overview</h1>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Overview</h1>
           <p className="text-slate-400 mt-1">Real-time platform statistics and alerts.</p>
         </div>
         <Link href="/admin/proctoring">
@@ -51,7 +51,7 @@ export default function AdminDashboardPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Total Teams</p>
-                <p className="text-3xl font-bold text-white mt-1">{stats.totalTeams}</p>
+                <p className="text-3xl font-bold text-foreground mt-1">{stats.totalTeams}</p>
               </div>
               <div className="p-2 bg-primary/10 rounded-lg"><Users className="w-5 h-5 text-primary" /></div>
             </div>
@@ -66,7 +66,7 @@ export default function AdminDashboardPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Quiz Subs</p>
-                <p className="text-3xl font-bold text-white mt-1">{stats.quizSubmissions}</p>
+                <p className="text-3xl font-bold text-foreground mt-1">{stats.quizSubmissions}</p>
               </div>
               <div className="p-2 bg-success/10 rounded-lg"><ShieldCheck className="w-5 h-5 text-success" /></div>
             </div>
@@ -81,7 +81,7 @@ export default function AdminDashboardPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Credits Used</p>
-                <p className="text-3xl font-bold text-white mt-1">{stats.totalCreditsUsed}</p>
+                <p className="text-3xl font-bold text-foreground mt-1">{stats.totalCreditsUsed}</p>
               </div>
               <div className="p-2 bg-warning/10 rounded-lg"><Swords className="w-5 h-5 text-warning" /></div>
             </div>
@@ -94,7 +94,7 @@ export default function AdminDashboardPage() {
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-400">Proctor Alerts</p>
-                <p className={cn("text-3xl font-bold mt-1", stats.proctoringAlerts > 0 ? "text-danger" : "text-white")}>
+                <p className={cn("text-3xl font-bold mt-1", stats.proctoringAlerts > 0 ? "text-danger" : "text-foreground")}>
                   {stats.proctoringAlerts}
                 </p>
               </div>
@@ -175,7 +175,7 @@ export default function AdminDashboardPage() {
                   alert('SYNC ERROR: ' + e.message);
                 }
               }}
-              className="bg-warning text-white hover:bg-warning/80"
+              className="bg-warning text-foreground hover:bg-warning/80"
             >
               Test Cloud Database Connection
             </Button>

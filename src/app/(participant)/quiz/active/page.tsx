@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -270,7 +270,7 @@ export default function ActiveQuizPage() {
     router.push('/quiz/intro');
   };
 
-  if (questions.length === 0) return <div className="p-8 text-center text-white">Loading questions...</div>;
+  if (questions.length === 0) return <div className="p-8 text-center text-foreground">Loading questions...</div>;
 
   const currentQ = questions[currentIndex];
   
@@ -286,16 +286,16 @@ export default function ActiveQuizPage() {
       <div className="absolute bottom-4 left-4 z-50 flex gap-2 pointer-events-none">
         <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/20/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && videoStream) el.srcObject = videoStream; }}></video>
-          <div className="absolute top-1 left-1 bg-danger text-white text-[8px] px-1 rounded animate-pulse">REC</div>
-          <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">CAM</div>
+          <div className="absolute top-1 left-1 bg-danger text-foreground text-[8px] px-1 rounded animate-pulse">REC</div>
+          <div className="absolute bottom-1 right-1 bg-black/60 text-foreground text-[8px] px-1 rounded">CAM</div>
         </div>
         <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/20/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && screenStream) el.srcObject = screenStream; }}></video>
-          <div className="absolute top-1 left-1 bg-danger text-white text-[8px] px-1 rounded animate-pulse">REC</div>
-          <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">SCR</div>
+          <div className="absolute top-1 left-1 bg-danger text-foreground text-[8px] px-1 rounded animate-pulse">REC</div>
+          <div className="absolute bottom-1 right-1 bg-black/60 text-foreground text-[8px] px-1 rounded">SCR</div>
         </div>
         <div className="flex flex-col justify-end">
-          <div className={cn("text-xs font-bold px-2 py-1 rounded shadow", trustScore > 70 ? "bg-success text-white" : trustScore > 40 ? "bg-warning text-white" : "bg-danger text-white")}>
+          <div className={cn("text-xs font-bold px-2 py-1 rounded shadow", trustScore > 70 ? "bg-success text-foreground" : trustScore > 40 ? "bg-warning text-foreground" : "bg-danger text-foreground")}>
             AI Trust: {trustScore}%
           </div>
         </div>
@@ -327,13 +327,13 @@ export default function ActiveQuizPage() {
           <div className="max-w-3xl mx-auto w-full flex-1">
             
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-white">Question {currentIndex + 1}</h2>
+              <h2 className="text-xl font-semibold text-foreground">Question {currentIndex + 1}</h2>
               {saveIndicator && <span className="text-success text-xs flex items-center"><Save className="w-3 h-3 mr-1" /> Answer Saved</span>}
             </div>
             
             <Card className="mb-6">
               <CardContent className="p-6">
-                <p className="text-lg text-white leading-relaxed">{currentQ.text}</p>
+                <p className="text-lg text-foreground leading-relaxed">{currentQ.text}</p>
               </CardContent>
             </Card>
             
@@ -354,7 +354,7 @@ export default function ActiveQuizPage() {
                     <div className="mt-0.5 shrink-0">
                       {isSelected ? <CheckCircle className="w-5 h-5 text-primary" /> : <Circle className="w-5 h-5 text-foreground/40" />}
                     </div>
-                    <span className={isSelected ? "text-white font-medium" : "text-foreground/80"}>{option}</span>
+                    <span className={isSelected ? "text-foreground font-medium" : "text-foreground/80"}>{option}</span>
                   </div>
                 );
               })}
@@ -401,8 +401,8 @@ export default function ActiveQuizPage() {
               const isCurrent = idx === currentIndex;
               
               let bgClass = "bg-glass-bg border-glass-border text-foreground/70";
-              if (isCurrent) bgClass = "bg-primary/20 border-primary text-white";
-              else if (isMarked) bgClass = "bg-secondary text-white border-secondary";
+              if (isCurrent) bgClass = "bg-primary/20 border-primary text-foreground";
+              else if (isMarked) bgClass = "bg-secondary text-foreground border-secondary";
               else if (isAnswered) bgClass = "bg-success/20 text-success border-success/50";
               
               return (

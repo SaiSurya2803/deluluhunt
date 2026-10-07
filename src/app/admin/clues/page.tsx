@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { DB } from '@/services/db';
@@ -57,7 +57,7 @@ export default function AdminCluesPage() {
           <Button variant="outline" onClick={addClue} className="glass-panel  text-slate-300 hover:glass-panel backdrop-blur-lg">
             <Plus className="w-4 h-4 mr-2" /> Add Clue
           </Button>
-          <Button onClick={saveClues} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveClues} className="bg-success text-foreground hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save All
           </Button>
         </div>
@@ -81,7 +81,7 @@ export default function AdminCluesPage() {
                 <select 
                   value={clue.roundId}
                   onChange={(e) => updateClue(clue.id, 'roundId', e.target.value)}
-                  className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-white"
+                  className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-foreground"
                 >
                   {rounds.map(r => (
                     <option key={r.id} value={r.id}>Round {r.roundNumber}: {r.title}</option>
@@ -94,7 +94,7 @@ export default function AdminCluesPage() {
                 <textarea 
                   value={clue.content} 
                   onChange={(e) => updateClue(clue.id, 'content', e.target.value)} 
-                  className="w-full glass-panel  border border-white/20 text-white rounded-md p-3 text-sm min-h-[100px]"
+                  className="w-full glass-panel  border border-white/20 text-foreground rounded-md p-3 text-sm min-h-[100px]"
                 />
               </div>
 
@@ -105,7 +105,7 @@ export default function AdminCluesPage() {
                     type="number"
                     value={clue.cost} 
                     onChange={(e) => updateClue(clue.id, 'cost', parseInt(e.target.value) || 0)} 
-                    className="glass-panel  border-white/20 text-white"
+                    className="glass-panel  border-white/20 text-foreground"
                     disabled={clue.isFree}
                   />
                 </div>

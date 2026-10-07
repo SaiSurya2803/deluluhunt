@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { DB } from '@/services/db';
@@ -58,7 +58,7 @@ export default function ContentManagementPage() {
           <Button variant="outline" onClick={() => setRounds([...rounds, { id: `r${Date.now()}`, roundNumber: rounds.length + 1, title: 'New Round', description: '', objective: '', rules: [], maxScore: 100, status: 'LOCKED' }])} className="glass-panel text-slate-300 hover:glass-panel backdrop-blur-lg">
             Add Round
           </Button>
-          <Button onClick={saveRounds} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveRounds} className="bg-success text-foreground hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save Changes
           </Button>
         </div>
@@ -77,7 +77,7 @@ export default function ContentManagementPage() {
               type="datetime-local"
               value={tournamentEndTime} 
               onChange={(e) => setTournamentEndTime(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-white"
+              className="bg-void/50 border-white/20/10 text-foreground"
             />
             <p className="text-xs text-slate-500">Global countdown timer for leaderboard.</p>
           </div>
@@ -87,7 +87,7 @@ export default function ContentManagementPage() {
               type="text"
               value={eventDate} 
               onChange={(e) => setEventDate(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-white"
+              className="bg-void/50 border-white/20/10 text-foreground"
               placeholder="e.g. OCT 28 2026"
             />
           </div>
@@ -97,7 +97,7 @@ export default function ContentManagementPage() {
               type="text"
               value={venue} 
               onChange={(e) => setVenue(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-white"
+              className="bg-void/50 border-white/20/10 text-foreground"
               placeholder="e.g. INNOVATEX HQ"
             />
           </div>
@@ -107,7 +107,7 @@ export default function ContentManagementPage() {
               type="text"
               value={registrationUrl} 
               onChange={(e) => setRegistrationUrl(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-white"
+              className="bg-void/50 border-white/20/10 text-foreground"
               placeholder="e.g. /register or https://forms.gle/..."
             />
           </div>
@@ -116,7 +116,7 @@ export default function ContentManagementPage() {
             <textarea 
               value={rulesText}
               onChange={(e) => setRulesText(e.target.value)}
-              className="w-full h-32 bg-void/50 border border-white/20/10 rounded-md p-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-danger"
+              className="w-full h-32 bg-void/50 border border-white/20/10 rounded-md p-3 text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-danger"
               placeholder="Enter the official hackathon rules here..."
             />
           </div>
@@ -151,7 +151,7 @@ export default function ContentManagementPage() {
                 <Input 
                   value={round.title} 
                   onChange={(e) => updateRound(round.id, 'title', e.target.value)} 
-                  className="glass-panel  border-white/20 text-white"
+                  className="glass-panel  border-white/20 text-foreground"
                 />
               </div>
 
@@ -160,7 +160,7 @@ export default function ContentManagementPage() {
                 <textarea 
                   value={round.description} 
                   onChange={(e) => updateRound(round.id, 'description', e.target.value)} 
-                  className="w-full glass-panel  border border-white/20 text-white rounded-md p-2 text-sm min-h-[80px]"
+                  className="w-full glass-panel  border border-white/20 text-foreground rounded-md p-2 text-sm min-h-[80px]"
                 />
               </div>
               
@@ -169,7 +169,7 @@ export default function ContentManagementPage() {
                 <Input 
                   value={round.objective} 
                   onChange={(e) => updateRound(round.id, 'objective', e.target.value)} 
-                  className="glass-panel  border-white/20 text-white"
+                  className="glass-panel  border-white/20 text-foreground"
                 />
               </div>
 
@@ -180,7 +180,7 @@ export default function ContentManagementPage() {
                     type="number"
                     value={round.timeLimit || 0} 
                     onChange={(e) => updateRound(round.id, 'timeLimit', parseInt(e.target.value) || 0)} 
-                    className="glass-panel  border-white/20 text-white"
+                    className="glass-panel  border-white/20 text-foreground"
                   />
                 </div>
                 <div className="space-y-2">
@@ -189,7 +189,7 @@ export default function ContentManagementPage() {
                     type="number"
                     value={round.maxScore || 0} 
                     onChange={(e) => updateRound(round.id, 'maxScore', parseInt(e.target.value) || 0)} 
-                    className="glass-panel  border-white/20 text-white"
+                    className="glass-panel  border-white/20 text-foreground"
                   />
                 </div>
               </div>

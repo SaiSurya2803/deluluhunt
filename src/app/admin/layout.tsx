@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -51,13 +51,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="flex h-screen glass-panel backdrop-blur-lg overflow-hidden text-white font-sans">
+    <div className="flex h-screen glass-panel backdrop-blur-lg overflow-hidden text-foreground font-sans">
       {/* Mobile Menu Toggle */}
       <div className="md:hidden fixed top-0 left-0 w-full h-16 glass-panel  z-50 flex items-center justify-between px-4 border-b border-white/20/10 shadow-sm">
         <div className="font-bold text-lg tracking-wider text-danger flex items-center">
           <ShieldAlert className="w-5 h-5 mr-2" /> ADMIN
         </div>
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-300 hover:text-white">
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-300 hover:text-foreground">
           {isMobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
@@ -82,7 +82,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium",
                   isActive 
                     ? "bg-danger/10 text-danger" 
-                    : "text-slate-300 hover:glass-panel backdrop-blur-lg hover:text-white"
+                    : "text-slate-300 hover:glass-panel backdrop-blur-lg hover:text-foreground"
                 )}>
                   <item.icon className={cn("w-5 h-5", isActive ? "text-danger" : "text-slate-400")} />
                   <span className="text-sm">{item.name}</span>

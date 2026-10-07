@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -70,7 +70,7 @@ export default function NotificationsPage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="flex justify-between items-end border-b border-glass-border pb-4">
         <div>
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
             <Bell className="w-8 h-8 text-primary" /> NOTIFICATIONS
           </h1>
           <p className="text-foreground/60 mt-1">Stay updated with event announcements and alerts.</p>
@@ -94,13 +94,13 @@ export default function NotificationsPage() {
                 <div className="mt-1 shrink-0">{getIcon(notif.type)}</div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
-                    <h3 className={cn("font-bold", notif.isRead ? "text-foreground/80" : "text-white")}>{notif.title}</h3>
+                    <h3 className={cn("font-bold", notif.isRead ? "text-foreground/80" : "text-foreground")}>{notif.title}</h3>
                     <span className="text-xs text-foreground/50">{new Date(notif.createdAt).toLocaleDateString()}</span>
                   </div>
                   <p className="text-sm text-foreground/70 mt-1">{notif.message}</p>
                 </div>
                 {!notif.isRead && (
-                  <Button variant="ghost" size="icon" onClick={() => markAsRead(notif.id)} className="shrink-0 h-8 w-8 text-foreground/50 hover:text-white">
+                  <Button variant="ghost" size="icon" onClick={() => markAsRead(notif.id)} className="shrink-0 h-8 w-8 text-foreground/50 hover:text-foreground">
                     <Check className="w-4 h-4" />
                   </Button>
                 )}

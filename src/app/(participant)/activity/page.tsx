@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -26,7 +26,7 @@ export default function ActivityPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div>
-        <h1 className="text-3xl font-bold text-white text-glow">TEAM ACTIVITY</h1>
+        <h1 className="text-3xl font-bold text-foreground text-glow">TEAM ACTIVITY</h1>
         <p className="text-foreground/60 mt-1">A chronological log of all your team's actions.</p>
       </div>
 
@@ -55,7 +55,7 @@ export default function ActivityPage() {
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-xs font-bold text-primary uppercase tracking-wider">{date.toLocaleDateString()} {date.toLocaleTimeString()}</span>
                       </div>
-                      <p className="text-white font-medium">{log.action}</p>
+                      <p className="text-foreground font-medium">{log.action}</p>
                       {member && <p className="text-xs text-foreground/50 mt-2 flex items-center">Performed by: <span className="text-foreground/80 ml-1">{member.name}</span></p>}
                     </div>
                   </div>

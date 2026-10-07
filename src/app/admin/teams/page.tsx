@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -147,7 +147,7 @@ export default function AdminTeamsPage() {
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Template
           </button>
-          <label className="cursor-pointer glass-panel  hover:glass-panel backdrop-blur-lg text-white px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center">
+          <label className="cursor-pointer glass-panel  hover:glass-panel backdrop-blur-lg text-foreground px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             Import CSV
             <input 
@@ -179,12 +179,12 @@ export default function AdminTeamsPage() {
             <tbody>
               {teams.map(team => (
                 <tr key={team.id} className="border-b border-white/20/10 hover:glass-panel backdrop-blur-lg transition-colors">
-                  <td className="px-6 py-4 font-bold text-white">{team.name}</td>
+                  <td className="px-6 py-4 font-bold text-foreground">{team.name}</td>
                   <td className="px-6 py-4 text-slate-300">{team.email}</td>
                   <td className="px-6 py-4">{team.members.length} / 4</td>
                   <td className="px-6 py-4 text-primary font-bold">{team.score + (team.quizScore || 0)}</td>
                   <td className="px-6 py-4 text-primary">{team.quizScore !== undefined ? team.quizScore : 'N/A'}</td>
-                  <td className="px-6 py-4 text-white font-mono">{team.credits}</td>
+                  <td className="px-6 py-4 text-foreground font-mono">{team.credits}</td>
                   <td className="px-6 py-4">
                     {team.quizTrustScore !== undefined ? (
                       <Badge variant={team.quizTrustScore > 70 ? 'success' : team.quizTrustScore > 40 ? 'warning' : 'destructive'}>

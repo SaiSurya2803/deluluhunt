@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useAuthStore } from '@/store/useAuthStore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -13,7 +13,7 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white text-glow">TEAM PROFILE</h1>
+        <h1 className="text-3xl font-bold text-foreground text-glow">TEAM PROFILE</h1>
         <p className="text-foreground/60 mt-1">Manage your team details and view performance.</p>
       </div>
 
@@ -23,7 +23,7 @@ export default function ProfilePage() {
             <div className="w-24 h-24 mx-auto rounded-full bg-primary/20 flex items-center justify-center border-2 border-primary/50 mb-4">
               <Users className="w-10 h-10 text-primary" />
             </div>
-            <CardTitle className="text-2xl text-white">{team.name}</CardTitle>
+            <CardTitle className="text-2xl text-foreground">{team.name}</CardTitle>
             <Badge variant={team.isActive ? "success" : "destructive"} className="mt-2 mx-auto">
               {team.isActive ? 'ACTIVE' : 'DISABLED'}
             </Badge>
@@ -50,7 +50,7 @@ export default function ProfilePage() {
               </div>
               <div className="p-4 rounded-lg glass-panel /80 text-center border border-glass-border">
                 <p className="text-xs text-foreground/50 uppercase">Rounds</p>
-                <p className="text-2xl font-bold text-white mt-1">{team.roundsCompleted}/6</p>
+                <p className="text-2xl font-bold text-foreground mt-1">{team.roundsCompleted}/6</p>
               </div>
               <div className="p-4 rounded-lg glass-panel /80 text-center border border-glass-border">
                 <p className="text-xs text-foreground/50 uppercase">Quiz</p>
@@ -72,7 +72,7 @@ export default function ProfilePage() {
                 {team.members.map((member) => (
                   <div key={member.id} className={`flex justify-between items-center p-3 rounded-lg border ${currentMember?.id === member.id ? 'bg-primary/10 border-primary/30' : 'glass-panel backdrop-blur-lg border-glass-border'}`}>
                     <div>
-                      <div className="font-semibold text-white flex items-center">
+                      <div className="font-semibold text-foreground flex items-center">
                         {member.name}
                         {currentMember?.id === member.id && <Badge variant="outline" className="ml-2 text-[10px] text-primary border-primary">YOU</Badge>}
                       </div>

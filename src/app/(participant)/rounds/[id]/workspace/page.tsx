@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -135,7 +135,7 @@ export default function ChallengeWorkspacePage() {
     <div className="flex flex-col h-full space-y-4">
       <div className="flex justify-between items-center glass-panel /60 p-4 rounded-lg border border-glass-border">
         <div className="flex items-center gap-4">
-          <Link href={`/rounds/${round.id}`} className="text-foreground/60 hover:text-white">
+          <Link href={`/rounds/${round.id}`} className="text-foreground/60 hover:text-foreground">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
@@ -161,9 +161,9 @@ export default function ChallengeWorkspacePage() {
           <CardContent className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             <div className="prose prose-invert prose-sm">
               <p className="text-foreground/80 leading-relaxed">{round.description}</p>
-              <h4 className="text-white mt-4">Objective</h4>
+              <h4 className="text-foreground mt-4">Objective</h4>
               <p className="text-foreground/80">{round.objective}</p>
-              <h4 className="text-white mt-4">Requirements</h4>
+              <h4 className="text-foreground mt-4">Requirements</h4>
               <ul className="text-foreground/80">
                 {round.rules.map((rule, idx) => (
                   <li key={idx}>{rule}</li>

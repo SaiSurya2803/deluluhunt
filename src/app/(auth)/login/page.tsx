@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -93,7 +93,7 @@ export default function LoginPage() {
                 </div>
               )}
 
-              <Button type="submit" className="w-full text-white">
+              <Button type="submit" className="w-full text-foreground">
                 Access System
               </Button>
             </form>
@@ -103,7 +103,7 @@ export default function LoginPage() {
             <div className="space-y-4">
               <div className="text-center mb-6">
                 <p className="text-primary font-mono text-sm">Welcome back,</p>
-                <p className="text-xl font-bold text-white">{authenticatedTeam.name}</p>
+                <p className="text-xl font-bold text-foreground">{authenticatedTeam.name}</p>
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {authenticatedTeam.members.map(member => (

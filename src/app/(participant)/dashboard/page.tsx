@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -36,7 +36,7 @@ export default function DashboardPage() {
         className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
       >
         <div>
-          <h1 className="text-4xl font-sans font-semibold tracking-tight text-white mb-1">
+          <h1 className="text-4xl font-sans font-semibold tracking-tight text-foreground mb-1">
             Welcome, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">{team.name}</span>
           </h1>
           <p className="text-secondary text-sm font-medium tracking-wide uppercase">Ready for your next challenge?</p>
@@ -48,7 +48,7 @@ export default function DashboardPage() {
             </button>
           </Link>
           <Link href="/leaderboard">
-            <button className="h-10 px-6 rounded-full glass-panel text-white text-sm font-semibold hover:bg-white/5 transition-colors">
+            <button className="h-10 px-6 rounded-full glass-panel text-foreground text-sm font-semibold hover:bg-white/5 transition-colors">
               View Leaderboard
             </button>
           </Link>
@@ -62,8 +62,8 @@ export default function DashboardPage() {
             <Swords className="w-5 h-5 text-[#D8B4FE]" />
           </div>
           <div>
-            <div className="text-3xl font-dot text-white tracking-widest">{team.roundsCompleted} <span className="text-white/30 text-lg">/ 6</span></div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-semibold mt-1">Rounds Completed</div>
+            <div className="text-3xl font-dot text-foreground tracking-widest">{team.roundsCompleted} <span className="text-foreground/30 text-lg">/ 6</span></div>
+            <div className="text-[10px] text-foreground/50 uppercase tracking-widest font-semibold mt-1">Rounds Completed</div>
           </div>
         </motion.div>
 
@@ -72,8 +72,8 @@ export default function DashboardPage() {
             <Activity className="w-5 h-5 text-[#4F46E5]" />
           </div>
           <div>
-            <div className="text-3xl font-dot text-white tracking-widest">{team.score + (team.quizScore || 0)}</div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-semibold mt-1">Total Score</div>
+            <div className="text-3xl font-dot text-foreground tracking-widest">{team.score + (team.quizScore || 0)}</div>
+            <div className="text-[10px] text-foreground/50 uppercase tracking-widest font-semibold mt-1">Total Score</div>
           </div>
         </motion.div>
 
@@ -82,8 +82,8 @@ export default function DashboardPage() {
             <Coins className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <div className="text-3xl font-dot text-white tracking-widest">{team.credits}</div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-semibold mt-1">Credits Remaining</div>
+            <div className="text-3xl font-dot text-foreground tracking-widest">{team.credits}</div>
+            <div className="text-[10px] text-foreground/50 uppercase tracking-widest font-semibold mt-1">Credits Remaining</div>
           </div>
         </motion.div>
 
@@ -93,7 +93,7 @@ export default function DashboardPage() {
           </div>
           <div>
             <div className="mt-1"><Badge variant={team.quizStatus === 'COMPLETED' ? 'success' : 'warning'} className="bg-white/10 hover:bg-white/20 border-0">{team.quizStatus}</Badge></div>
-            <div className="text-[10px] text-white/50 uppercase tracking-widest font-semibold mt-2">Quiz Status</div>
+            <div className="text-[10px] text-foreground/50 uppercase tracking-widest font-semibold mt-2">Quiz Status</div>
           </div>
         </motion.div>
       </div>
@@ -121,7 +121,7 @@ export default function DashboardPage() {
         
         {/* Recent Activity (takes 3 cols) */}
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className="md:col-span-3 card-white-glow p-8 flex flex-col h-full">
-          <div className="text-lg font-semibold text-white mb-6">Recent Activity</div>
+          <div className="text-lg font-semibold text-foreground mb-6">Recent Activity</div>
           <div className="flex-1">
             {recentLogs.length > 0 ? (
               <div className="space-y-6">
@@ -133,18 +133,18 @@ export default function DashboardPage() {
                     )}
                     <div className="w-3 h-3 mt-1.5 rounded-full border border-white/30 bg-white/5 shadow-[0_0_8px_rgba(255,255,255,0.1)] shrink-0 z-10"></div>
                     <div>
-                      <p className="text-white text-sm font-medium">{log.action}</p>
-                      <p className="text-white/40 text-xs font-mono mt-1">{new Date(log.timestamp).toLocaleTimeString()}</p>
+                      <p className="text-foreground text-sm font-medium">{log.action}</p>
+                      <p className="text-foreground/40 text-xs font-mono mt-1">{new Date(log.timestamp).toLocaleTimeString()}</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-white/30 text-sm font-medium flex h-full items-center justify-center">No recent telemetry data.</p>
+              <p className="text-foreground/30 text-sm font-medium flex h-full items-center justify-center">No recent telemetry data.</p>
             )}
           </div>
           <div className="mt-8 pt-4 border-t border-white/5">
-            <Link href="/activity" className="text-xs text-white/50 hover:text-white uppercase tracking-widest font-semibold flex items-center gap-2 transition-colors w-max">
+            <Link href="/activity" className="text-xs text-foreground/50 hover:text-foreground uppercase tracking-widest font-semibold flex items-center gap-2 transition-colors w-max">
               View All Activity <ArrowRight size={14} />
             </Link>
           </div>
@@ -152,34 +152,34 @@ export default function DashboardPage() {
 
         {/* Quick Actions (takes 2 cols) */}
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.7 }} className="md:col-span-2 glass-panel p-8">
-          <div className="text-lg font-semibold text-white mb-6">Quick Actions</div>
+          <div className="text-lg font-semibold text-foreground mb-6">Quick Actions</div>
           <div className="grid grid-cols-2 gap-4">
             <Link href="/assets" className="bg-[#0B0C12] border border-white/5 p-6 rounded-[24px] flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-white/10 transition-all group shadow-inner">
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <Folder className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">View Assets</span>
+              <span className="text-xs font-semibold text-foreground/70 group-hover:text-foreground transition-colors">View Assets</span>
             </Link>
             
             <Link href="/clues" className="bg-[#0B0C12] border border-white/5 p-6 rounded-[24px] flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-white/10 transition-all group shadow-inner">
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#A855F7]/20 transition-colors">
                 <Key className="w-5 h-5 text-[#A855F7]" />
               </div>
-              <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">View Clues</span>
+              <span className="text-xs font-semibold text-foreground/70 group-hover:text-foreground transition-colors">View Clues</span>
             </Link>
             
             <Link href="/credits" className="bg-[#0B0C12] border border-white/5 p-6 rounded-[24px] flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-white/10 transition-all group shadow-inner">
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-success/20 transition-colors">
                 <Coins className="w-5 h-5 text-success" />
               </div>
-              <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">Get Credits</span>
+              <span className="text-xs font-semibold text-foreground/70 group-hover:text-foreground transition-colors">Get Credits</span>
             </Link>
             
             <Link href="/quiz/intro" className="bg-[#0B0C12] border border-white/5 p-6 rounded-[24px] flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-white/10 transition-all group shadow-inner">
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#4F46E5]/20 transition-colors">
                 <BrainCircuit className="w-5 h-5 text-[#4F46E5]" />
               </div>
-              <span className="text-xs font-semibold text-white/70 group-hover:text-white transition-colors">Quiz Round</span>
+              <span className="text-xs font-semibold text-foreground/70 group-hover:text-foreground transition-colors">Quiz Round</span>
             </Link>
           </div>
         </motion.div>

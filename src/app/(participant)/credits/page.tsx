@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -33,7 +33,7 @@ export default function CreditsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white text-glow">CREDIT CENTER</h1>
+        <h1 className="text-3xl font-bold text-foreground text-glow">CREDIT CENTER</h1>
         <p className="text-foreground/60 mt-1">Manage your team's credits and view transaction history.</p>
       </div>
 
@@ -54,7 +54,7 @@ export default function CreditsPage() {
             <CardTitle className="text-foreground/70 text-sm uppercase tracking-wider">Starting Balance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-white">{startingCredits}</div>
+            <div className="text-4xl font-bold text-foreground">{startingCredits}</div>
             <p className="text-foreground/50 mt-2 text-sm">Initial allocation</p>
           </CardContent>
         </Card>
@@ -88,7 +88,7 @@ export default function CreditsPage() {
                       {tx.amount > 0 ? <ArrowUpRight className="w-5 h-5" /> : <ArrowDownRight className="w-5 h-5" />}
                     </div>
                     <div>
-                      <p className="font-medium text-white">{tx.reason}</p>
+                      <p className="font-medium text-foreground">{tx.reason}</p>
                       <p className="text-xs text-foreground/50">{new Date(tx.timestamp).toLocaleString()}</p>
                     </div>
                   </div>

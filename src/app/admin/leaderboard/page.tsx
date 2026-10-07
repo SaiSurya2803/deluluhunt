@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -102,7 +102,7 @@ export default function AdminLeaderboardPage() {
                       className="border-b border-white/20/10 last:border-0 hover:glass-panel backdrop-blur-lg transition-colors"
                     >
                       <td className="px-6 py-4">{getRankIcon(entry.rank)}</td>
-                      <td className="px-6 py-4 font-bold text-white">
+                      <td className="px-6 py-4 font-bold text-foreground">
                         {entry.teamName}
                       </td>
                       <td className="px-6 py-4 font-mono text-primary text-lg">
@@ -137,7 +137,7 @@ export default function AdminLeaderboardPage() {
                             <Button size="sm" variant="ghost" onClick={() => setEditingId(null)} className="h-8 w-8 p-0 text-slate-400">
                               <X className="w-4 h-4" />
                             </Button>
-                            <Button size="sm" onClick={() => handleSaveScore(entry.teamId)} className="h-8 w-8 p-0 bg-success hover:bg-success/90 text-white">
+                            <Button size="sm" onClick={() => handleSaveScore(entry.teamId)} className="h-8 w-8 p-0 bg-success hover:bg-success/90 text-foreground">
                               <Check className="w-4 h-4" />
                             </Button>
                           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { DB } from '@/services/db';
@@ -58,7 +58,7 @@ export default function AdminAssetsPage() {
           <Button variant="outline" onClick={addAsset} className="glass-panel  text-slate-300 hover:glass-panel backdrop-blur-lg">
             <Plus className="w-4 h-4 mr-2" /> Add Asset
           </Button>
-          <Button onClick={saveAssets} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveAssets} className="bg-success text-foreground hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save All
           </Button>
         </div>
@@ -82,7 +82,7 @@ export default function AdminAssetsPage() {
                 <select 
                   value={asset.roundId}
                   onChange={(e) => updateAsset(asset.id, 'roundId', e.target.value)}
-                  className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-white"
+                  className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-foreground"
                 >
                   {rounds.map(r => (
                     <option key={r.id} value={r.id}>Round {r.roundNumber}: {r.title}</option>
@@ -95,7 +95,7 @@ export default function AdminAssetsPage() {
                 <Input 
                   value={asset.name} 
                   onChange={(e) => updateAsset(asset.id, 'name', e.target.value)} 
-                  className="glass-panel  border-white/20 text-white"
+                  className="glass-panel  border-white/20 text-foreground"
                 />
               </div>
 
@@ -104,7 +104,7 @@ export default function AdminAssetsPage() {
                 <textarea 
                   value={asset.description || ''} 
                   onChange={(e) => updateAsset(asset.id, 'description', e.target.value)} 
-                  className="w-full glass-panel  border border-white/20 text-white rounded-md p-2 text-sm min-h-[60px]"
+                  className="w-full glass-panel  border border-white/20 text-foreground rounded-md p-2 text-sm min-h-[60px]"
                 />
               </div>
 
@@ -114,7 +114,7 @@ export default function AdminAssetsPage() {
                   <select 
                     value={asset.type}
                     onChange={(e) => updateAsset(asset.id, 'type', e.target.value)}
-                    className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-white"
+                    className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-foreground"
                   >
                     <option value="PDF">PDF</option>
                     <option value="IMAGE">IMAGE</option>
@@ -143,7 +143,7 @@ export default function AdminAssetsPage() {
                 <Input 
                   value={asset.url} 
                   onChange={(e) => updateAsset(asset.id, 'url', e.target.value)} 
-                  className="glass-panel  border-white/20 text-white text-xs"
+                  className="glass-panel  border-white/20 text-foreground text-xs"
                 />
               </div>
 

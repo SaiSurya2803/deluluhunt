@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { DB } from '@/services/db';
@@ -66,7 +66,7 @@ export default function AdminQuizPage() {
           <Button variant="outline" onClick={addQuestion} className="glass-panel  text-slate-300 hover:glass-panel backdrop-blur-lg">
             <Plus className="w-4 h-4 mr-2" /> Add Question
           </Button>
-          <Button onClick={saveQuestions} className="bg-success text-white hover:bg-success/90">
+          <Button onClick={saveQuestions} className="bg-success text-foreground hover:bg-success/90">
             <Save className="w-4 h-4 mr-2" /> Save All
           </Button>
         </div>
@@ -93,7 +93,7 @@ export default function AdminQuizPage() {
                   <Input 
                     value={q.text} 
                     onChange={(e) => updateQuestion(q.id, 'text', e.target.value)} 
-                    className="glass-panel  border-white/20 text-white"
+                    className="glass-panel  border-white/20 text-foreground"
                   />
                 </div>
 
@@ -106,7 +106,7 @@ export default function AdminQuizPage() {
                       type="number" 
                       value={q.timer || 60} 
                       onChange={(e) => updateQuestion(q.id, 'timer', parseInt(e.target.value) || 0)}
-                      className="glass-panel  border-white/20 text-white"
+                      className="glass-panel  border-white/20 text-foreground"
                     />
                   </div>
                   <div className="space-y-2">
@@ -117,7 +117,7 @@ export default function AdminQuizPage() {
                       type="number" 
                       value={q.points || 10} 
                       onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
-                      className="glass-panel  border-white/20 text-white"
+                      className="glass-panel  border-white/20 text-foreground"
                     />
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export default function AdminQuizPage() {
                       <Input 
                         value={opt} 
                         onChange={(e) => updateOption(q.id, oIndex, e.target.value)}
-                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-white" : "glass-panel  border-white/20 text-white"}
+                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-foreground" : "glass-panel  border-white/20 text-foreground"}
                       />
                     </div>
                   ))}

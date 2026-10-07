@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -30,19 +30,19 @@ function LiveMonitorNode({ team }: { team: Team }) {
       <div className="flex glass-panel  relative">
         <div className="w-1/3 aspect-video bg-black relative border-r border-white/20/10 flex items-center justify-center">
           {camFrame ? <img src={camFrame} alt="cam" className="w-full h-full object-cover transform scale-x-[-1]" /> : <Video className="w-6 h-6 text-slate-300" />}
-          <div className="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded">CAM</div>
+          <div className="absolute bottom-1 left-1 bg-black/60 text-foreground text-[8px] px-1 rounded">CAM</div>
         </div>
         <div className="w-2/3 aspect-video bg-black relative flex items-center justify-center">
           {screenFrame ? <img src={screenFrame} alt="screen" className="w-full h-full object-cover" /> : <Monitor className="w-8 h-8 text-slate-300" />}
-          <div className="absolute bottom-1 right-1 bg-black/60 text-white text-[8px] px-1 rounded">SCR</div>
+          <div className="absolute bottom-1 right-1 bg-black/60 text-foreground text-[8px] px-1 rounded">SCR</div>
         </div>
         <div className="absolute top-2 left-2 flex items-center gap-1 z-10">
           <span className="w-2 h-2 rounded-full bg-danger animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]"></span>
-          <span className="text-[10px] uppercase font-bold text-white tracking-widest bg-black/40 px-1.5 py-0.5 rounded backdrop-blur-sm">LIVE</span>
+          <span className="text-[10px] uppercase font-bold text-foreground tracking-widest bg-black/40 px-1.5 py-0.5 rounded backdrop-blur-sm">LIVE</span>
         </div>
       </div>
       <CardContent className="p-3 glass-panel ">
-        <p className="font-bold text-sm text-white truncate">{team.name}</p>
+        <p className="font-bold text-sm text-foreground truncate">{team.name}</p>
         <div className="flex items-center justify-between mt-2">
           <SplitSquareHorizontal className="w-4 h-4 text-success" />
           <span className="text-xs font-medium text-success">Streams Active</span>
@@ -92,7 +92,7 @@ export default function ProctoringPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="text-xl font-semibold text-white tracking-tight">Event Log</h2>
+          <h2 className="text-xl font-semibold text-foreground tracking-tight">Event Log</h2>
           {events.length === 0 ? (
             <Card className="border-white/20/10 shadow-sm glass-panel ">
               <CardContent className="p-12 text-center text-slate-400">
@@ -114,7 +114,7 @@ export default function ProctoringPage() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-bold text-white">{team?.name || 'Unknown Team'}</span>
+                            <span className="font-bold text-foreground">{team?.name || 'Unknown Team'}</span>
                             <span className="text-xs text-slate-400 px-2 border border-white/20/10 rounded-md glass-panel backdrop-blur-lg">{member?.name || 'Unknown'}</span>
                             {getSeverityBadge(event.severity)}
                           </div>
@@ -124,7 +124,7 @@ export default function ProctoringPage() {
                       </div>
                       
                       {event.status === 'UNREVIEWED' ? (
-                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="glass-panel  border-white/20/10 text-slate-300 hover:text-white">
+                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="glass-panel  border-white/20/10 text-slate-300 hover:text-foreground">
                           <CheckCircle className="w-4 h-4 mr-2 text-success" /> Mark Reviewed
                         </Button>
                       ) : (
@@ -139,7 +139,7 @@ export default function ProctoringPage() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-white tracking-tight">Active Monitors</h2>
+          <h2 className="text-xl font-semibold text-foreground tracking-tight">Active Monitors</h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {Object.values(teams).filter(t => t.quizStatus === 'ACTIVE').map(team => (
               <LiveMonitorNode key={team.id} team={team} />

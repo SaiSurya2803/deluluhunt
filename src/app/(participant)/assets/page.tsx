@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -46,7 +46,7 @@ export default function AssetsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white text-glow">ASSET LIBRARY</h1>
+        <h1 className="text-3xl font-bold text-foreground text-glow">ASSET LIBRARY</h1>
         <p className="text-foreground/60 mt-1">Access resources provided for unlocked challenge rounds.</p>
       </div>
 

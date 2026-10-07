@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -28,7 +28,7 @@ export default function RoundsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white text-glow">CHALLENGE ROUNDS</h1>
+        <h1 className="text-3xl font-bold text-foreground text-glow">CHALLENGE ROUNDS</h1>
         <p className="text-foreground/60 mt-1">Complete rounds sequentially or as unlocked by the admin.</p>
       </div>
 
