@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { DB } from '@/services/db';
@@ -51,7 +51,7 @@ export default function AdminSubmissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
+      <div className="flex justify-between items-center pb-4 border-b border-foreground/20/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">GRADING & SUBMISSIONS</h1>
           <p className="text-slate-400 mt-1">Review team workspace answers and assign scores manually.</p>
@@ -60,7 +60,7 @@ export default function AdminSubmissionsPage() {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {submissions.length === 0 && (
-          <div className="col-span-full text-center p-12 glass-panel  border border-white/20/10 rounded-xl text-slate-400">
+          <div className="col-span-full text-center p-12 glass-panel  border border-foreground/20/10 rounded-xl text-slate-400">
             No submissions pending review.
           </div>
         )}
@@ -71,8 +71,8 @@ export default function AdminSubmissionsPage() {
           if (!team || !round) return null;
 
           return (
-            <Card key={sub.id} className="border-white/20/10 shadow-sm glass-panel  overflow-hidden flex flex-col">
-              <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 pb-4">
+            <Card key={sub.id} className="border-foreground/20/10 shadow-sm glass-panel  overflow-hidden flex flex-col">
+              <CardHeader className="glass-panel backdrop-blur-lg border-b border-foreground/20/10 pb-4">
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle className="text-lg text-slate-200">{team.name}</CardTitle>
@@ -98,7 +98,7 @@ export default function AdminSubmissionsPage() {
                 </div>
 
                 {sub.status === 'PENDING_REVIEW' && (
-                  <div className="pt-4 border-t border-white/20/10 flex items-center justify-between gap-4">
+                  <div className="pt-4 border-t border-foreground/20/10 flex items-center justify-between gap-4">
                     <div className="flex-1">
                       <p className="text-xs text-slate-400">Max Score: {round.maxScore}</p>
                     </div>
@@ -117,7 +117,7 @@ export default function AdminSubmissionsPage() {
                         max={round.maxScore}
                         min={0}
                         placeholder="Points" 
-                        className="w-24 text-center glass-panel  border-white/20"
+                        className="w-24 text-center glass-panel  border-foreground/20"
                         required
                       />
                       <Button type="submit" className="bg-success hover:bg-success/90">

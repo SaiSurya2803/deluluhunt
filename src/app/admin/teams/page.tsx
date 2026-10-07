@@ -142,7 +142,7 @@ export default function AdminTeamsPage() {
           </button>
           <button 
             onClick={downloadTemplate}
-            className="glass-panel  border border-white/20 hover:glass-panel backdrop-blur-lg text-slate-300 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
+            className="glass-panel  border border-foreground/20 hover:glass-panel backdrop-blur-lg text-slate-300 px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm inline-flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Template
@@ -160,10 +160,10 @@ export default function AdminTeamsPage() {
         </div>
       </div>
 
-      <Card className="border-white/20/10 shadow-sm glass-panel  overflow-hidden">
+      <Card className="border-foreground/20/10 shadow-sm glass-panel  overflow-hidden">
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-400 uppercase glass-panel backdrop-blur-lg border-b border-white/20/10">
+            <thead className="text-xs text-slate-400 uppercase glass-panel backdrop-blur-lg border-b border-foreground/20/10">
               <tr>
                 <th className="px-6 py-4">Team Name</th>
                 <th className="px-6 py-4">Email</th>
@@ -178,7 +178,7 @@ export default function AdminTeamsPage() {
             </thead>
             <tbody>
               {teams.map(team => (
-                <tr key={team.id} className="border-b border-white/20/10 hover:glass-panel backdrop-blur-lg transition-colors">
+                <tr key={team.id} className="border-b border-foreground/20/10 hover:glass-panel backdrop-blur-lg transition-colors">
                   <td className="px-6 py-4 font-bold text-foreground">{team.name}</td>
                   <td className="px-6 py-4 text-slate-300">{team.email}</td>
                   <td className="px-6 py-4">{team.members.length} / 4</td>

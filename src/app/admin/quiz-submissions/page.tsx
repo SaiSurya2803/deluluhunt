@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from 'react';
 import { DB } from '@/services/db';
@@ -34,7 +34,7 @@ export default function AdminQuizSubmissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
+      <div className="flex justify-between items-center pb-4 border-b border-foreground/20/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">QUIZ SUBMISSIONS</h1>
           <p className="text-slate-400 mt-1">Detailed breakdown of answers and time taken per team.</p>
@@ -43,7 +43,7 @@ export default function AdminQuizSubmissionsPage() {
 
       <div className="grid grid-cols-1 gap-6">
         {submissions.length === 0 && (
-          <div className="text-center p-12 glass-panel  border border-white/20/10 rounded-xl text-slate-400">
+          <div className="text-center p-12 glass-panel  border border-foreground/20/10 rounded-xl text-slate-400">
             No quiz submissions yet.
           </div>
         )}
@@ -56,8 +56,8 @@ export default function AdminQuizSubmissionsPage() {
           const totalTime = Object.values(sub.timeTaken || {}).reduce((acc, curr) => acc + curr, 0);
 
           return (
-            <Card key={sub.id} className="border-white/20/10 shadow-sm glass-panel  overflow-hidden">
-              <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 pb-4">
+            <Card key={sub.id} className="border-foreground/20/10 shadow-sm glass-panel  overflow-hidden">
+              <CardHeader className="glass-panel backdrop-blur-lg border-b border-foreground/20/10 pb-4">
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle className="text-xl text-slate-200">{team.name}</CardTitle>
@@ -78,7 +78,7 @@ export default function AdminQuizSubmissionsPage() {
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left">
-                    <thead className="text-xs text-slate-400 glass-panel backdrop-blur-lg/50 border-b border-white/20/10">
+                    <thead className="text-xs text-slate-400 glass-panel backdrop-blur-lg/50 border-b border-foreground/20/10">
                       <tr>
                         <th className="px-6 py-3 font-medium">Question</th>
                         <th className="px-6 py-3 font-medium">Team's Answer</th>

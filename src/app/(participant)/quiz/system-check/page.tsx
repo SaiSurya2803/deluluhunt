@@ -100,7 +100,7 @@ export default function SystemCheckPage() {
         <p className="text-foreground/60">Verifying your environment before starting the proctored assessment.</p>
       </div>
 
-      <Card className="border-white/20/10 shadow-sm mt-8">
+      <Card className="border-foreground/20/10 shadow-sm mt-8">
         <CardContent className="p-0">
           <CheckItem icon={Globe} title="Internet Connection" status={checks.internet} />
           <CheckItem icon={Monitor} title="Browser Compatibility" status={checks.browser} />

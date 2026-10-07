@@ -49,7 +49,7 @@ export default function ContentManagementPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
+      <div className="flex justify-between items-center pb-4 border-b border-foreground/20/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">PLATFORM MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Configure global settings and round configurations.</p>
@@ -64,8 +64,8 @@ export default function ContentManagementPage() {
         </div>
       </div>
 
-      <Card className="border-white/20/10 shadow-sm glass-panel overflow-hidden mb-6">
-        <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 pb-4">
+      <Card className="border-foreground/20/10 shadow-sm glass-panel overflow-hidden mb-6">
+        <CardHeader className="glass-panel backdrop-blur-lg border-b border-foreground/20/10 pb-4">
           <CardTitle className="text-lg text-slate-200 flex items-center">
              Global Settings
           </CardTitle>
@@ -77,7 +77,7 @@ export default function ContentManagementPage() {
               type="datetime-local"
               value={tournamentEndTime} 
               onChange={(e) => setTournamentEndTime(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-foreground"
+              className="bg-void/50 border-foreground/20/10 text-foreground"
             />
             <p className="text-xs text-slate-500">Global countdown timer for leaderboard.</p>
           </div>
@@ -87,7 +87,7 @@ export default function ContentManagementPage() {
               type="text"
               value={eventDate} 
               onChange={(e) => setEventDate(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-foreground"
+              className="bg-void/50 border-foreground/20/10 text-foreground"
               placeholder="e.g. OCT 28 2026"
             />
           </div>
@@ -97,7 +97,7 @@ export default function ContentManagementPage() {
               type="text"
               value={venue} 
               onChange={(e) => setVenue(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-foreground"
+              className="bg-void/50 border-foreground/20/10 text-foreground"
               placeholder="e.g. INNOVATEX HQ"
             />
           </div>
@@ -107,7 +107,7 @@ export default function ContentManagementPage() {
               type="text"
               value={registrationUrl} 
               onChange={(e) => setRegistrationUrl(e.target.value)}
-              className="bg-void/50 border-white/20/10 text-foreground"
+              className="bg-void/50 border-foreground/20/10 text-foreground"
               placeholder="e.g. /register or https://forms.gle/..."
             />
           </div>
@@ -116,7 +116,7 @@ export default function ContentManagementPage() {
             <textarea 
               value={rulesText}
               onChange={(e) => setRulesText(e.target.value)}
-              className="w-full h-32 bg-void/50 border border-white/20/10 rounded-md p-3 text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-danger"
+              className="w-full h-32 bg-void/50 border border-foreground/20/10 rounded-md p-3 text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-danger"
               placeholder="Enter the official hackathon rules here..."
             />
           </div>
@@ -126,14 +126,14 @@ export default function ContentManagementPage() {
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {rounds.length === 0 && <p className="text-slate-400 col-span-full text-center p-8">No rounds defined. Click Add Round.</p>}
         {rounds.map((round) => (
-          <Card key={round.id} className="border-white/20/10 shadow-sm glass-panel  overflow-hidden">
-            <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 flex flex-row items-center justify-between pb-4">
+          <Card key={round.id} className="border-foreground/20/10 shadow-sm glass-panel  overflow-hidden">
+            <CardHeader className="glass-panel backdrop-blur-lg border-b border-foreground/20/10 flex flex-row items-center justify-between pb-4">
               <CardTitle className="text-lg text-slate-200">Round {round.roundNumber}</CardTitle>
               <div className="flex items-center gap-2">
                 <select 
                   value={round.status}
                   onChange={(e) => updateRound(round.id, 'status', e.target.value)}
-                  className="glass-panel  border border-white/20 text-sm rounded px-2 py-1 text-slate-300"
+                  className="glass-panel  border border-foreground/20 text-sm rounded px-2 py-1 text-slate-300"
                 >
                   <option value="LOCKED">LOCKED</option>
                   <option value="UNLOCKED">UNLOCKED</option>
@@ -151,7 +151,7 @@ export default function ContentManagementPage() {
                 <Input 
                   value={round.title} 
                   onChange={(e) => updateRound(round.id, 'title', e.target.value)} 
-                  className="glass-panel  border-white/20 text-foreground"
+                  className="glass-panel  border-foreground/20 text-foreground"
                 />
               </div>
 
@@ -160,7 +160,7 @@ export default function ContentManagementPage() {
                 <textarea 
                   value={round.description} 
                   onChange={(e) => updateRound(round.id, 'description', e.target.value)} 
-                  className="w-full glass-panel  border border-white/20 text-foreground rounded-md p-2 text-sm min-h-[80px]"
+                  className="w-full glass-panel  border border-foreground/20 text-foreground rounded-md p-2 text-sm min-h-[80px]"
                 />
               </div>
               
@@ -169,7 +169,7 @@ export default function ContentManagementPage() {
                 <Input 
                   value={round.objective} 
                   onChange={(e) => updateRound(round.id, 'objective', e.target.value)} 
-                  className="glass-panel  border-white/20 text-foreground"
+                  className="glass-panel  border-foreground/20 text-foreground"
                 />
               </div>
 
@@ -180,7 +180,7 @@ export default function ContentManagementPage() {
                     type="number"
                     value={round.timeLimit || 0} 
                     onChange={(e) => updateRound(round.id, 'timeLimit', parseInt(e.target.value) || 0)} 
-                    className="glass-panel  border-white/20 text-foreground"
+                    className="glass-panel  border-foreground/20 text-foreground"
                   />
                 </div>
                 <div className="space-y-2">
@@ -189,7 +189,7 @@ export default function ContentManagementPage() {
                     type="number"
                     value={round.maxScore || 0} 
                     onChange={(e) => updateRound(round.id, 'maxScore', parseInt(e.target.value) || 0)} 
-                    className="glass-panel  border-white/20 text-foreground"
+                    className="glass-panel  border-foreground/20 text-foreground"
                   />
                 </div>
               </div>

@@ -57,7 +57,7 @@ export default function AdminQuizPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
+      <div className="flex justify-between items-center pb-4 border-b border-foreground/20/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">QUIZ MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Configure questions, set point values, and assign per-question timers.</p>
@@ -74,13 +74,13 @@ export default function AdminQuizPage() {
 
       <div className="space-y-6">
         {questions.length === 0 ? (
-          <div className="text-center p-12 glass-panel  border border-white/20/10 rounded-xl text-slate-400">
+          <div className="text-center p-12 glass-panel  border border-foreground/20/10 rounded-xl text-slate-400">
             No questions available. Click "Add Question" to start building the quiz.
           </div>
         ) : (
           questions.map((q, index) => (
-            <Card key={q.id} className="border-white/20/10 shadow-sm glass-panel  overflow-visible">
-              <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 flex flex-row items-center justify-between pb-4">
+            <Card key={q.id} className="border-foreground/20/10 shadow-sm glass-panel  overflow-visible">
+              <CardHeader className="glass-panel backdrop-blur-lg border-b border-foreground/20/10 flex flex-row items-center justify-between pb-4">
                 <CardTitle className="text-lg text-slate-200">Question {index + 1}</CardTitle>
                 <Button variant="ghost" size="sm" onClick={() => removeQuestion(q.id)} className="text-danger hover:bg-danger/10">
                   <Trash2 className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function AdminQuizPage() {
                   <Input 
                     value={q.text} 
                     onChange={(e) => updateQuestion(q.id, 'text', e.target.value)} 
-                    className="glass-panel  border-white/20 text-foreground"
+                    className="glass-panel  border-foreground/20 text-foreground"
                   />
                 </div>
 
@@ -106,7 +106,7 @@ export default function AdminQuizPage() {
                       type="number" 
                       value={q.timer || 60} 
                       onChange={(e) => updateQuestion(q.id, 'timer', parseInt(e.target.value) || 0)}
-                      className="glass-panel  border-white/20 text-foreground"
+                      className="glass-panel  border-foreground/20 text-foreground"
                     />
                   </div>
                   <div className="space-y-2">
@@ -117,7 +117,7 @@ export default function AdminQuizPage() {
                       type="number" 
                       value={q.points || 10} 
                       onChange={(e) => updateQuestion(q.id, 'points', parseInt(e.target.value) || 0)}
-                      className="glass-panel  border-white/20 text-foreground"
+                      className="glass-panel  border-foreground/20 text-foreground"
                     />
                   </div>
                 </div>
@@ -131,12 +131,12 @@ export default function AdminQuizPage() {
                         name={`correct-${q.id}`} 
                         checked={q.correctOptionIndex === oIndex}
                         onChange={() => updateQuestion(q.id, 'correctOptionIndex', oIndex)}
-                        className="w-5 h-5 text-primary border-white/20 cursor-pointer"
+                        className="w-5 h-5 text-primary border-foreground/20 cursor-pointer"
                       />
                       <Input 
                         value={opt} 
                         onChange={(e) => updateOption(q.id, oIndex, e.target.value)}
-                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-foreground" : "glass-panel  border-white/20 text-foreground"}
+                        className={q.correctOptionIndex === oIndex ? "border-success bg-success/5 text-foreground" : "glass-panel  border-foreground/20 text-foreground"}
                       />
                     </div>
                   ))}

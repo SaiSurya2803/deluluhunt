@@ -68,7 +68,7 @@ export default function LeaderboardPage() {
       {/* Top Banner Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Left Banner */}
-        <div className="bg-[#12141D] rounded-2xl p-6 flex items-center justify-between border border-white/5 shadow-inner relative overflow-hidden">
+        <div className="bg-card rounded-2xl p-6 flex items-center justify-between border border-foreground/5 shadow-inner relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[50px] rounded-full pointer-events-none"></div>
           <div className="flex items-center gap-4 relative z-10">
             <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(250,204,21,0.3)]">
@@ -85,7 +85,7 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Right Banner */}
-        <div className="bg-[#0B1512] rounded-2xl p-6 flex items-center justify-between border border-[#34C759]/20 shadow-inner relative overflow-hidden">
+        <div className="bg-card rounded-2xl p-6 flex items-center justify-between border border-[#34C759]/20 shadow-inner relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#34C759]/10 blur-[50px] rounded-full pointer-events-none"></div>
           <div className="text-sm text-foreground font-bold tracking-widest uppercase relative z-10">
             Race Ends In:
@@ -98,7 +98,7 @@ export default function LeaderboardPage() {
               { label: 'Seconds', val: String(timeLeft.seconds).padStart(2, '0') },
             ].map((t, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
-                <div className="bg-[#182C25] border border-[#34C759]/30 text-[#34C759] font-mono text-xl py-1.5 px-2 rounded-md shadow-inner">
+                <div className="bg-muted border border-[#34C759]/30 text-[#34C759] font-mono text-xl py-1.5 px-2 rounded-md shadow-inner">
                   {t.val}
                 </div>
                 <div className="text-[9px] text-foreground/40 uppercase font-semibold">{t.label}</div>
@@ -117,7 +117,7 @@ export default function LeaderboardPage() {
             <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex flex-col items-center relative z-10 w-28 md:w-40">
               <div className="mb-4 flex flex-col items-center text-center">
                 <div className="w-16 h-16 p-[2px] bg-gradient-to-b from-[#34C759] to-transparent mb-3 shadow-[0_0_20px_rgba(52,199,89,0.2)]" style={getHexagonStyle('')}>
-                  <div className="w-full h-full bg-[#12141D] flex items-center justify-center text-xl font-bold text-foreground uppercase" style={getHexagonStyle('')}>
+                  <div className="w-full h-full bg-card flex items-center justify-center text-xl font-bold text-foreground uppercase" style={getHexagonStyle('')}>
                     {top3[1].teamName.substring(0,2)}
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default function LeaderboardPage() {
             <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="flex flex-col items-center relative z-20 w-32 md:w-48 mb-8">
               <div className="mb-4 flex flex-col items-center text-center">
                 <div className="w-20 h-20 p-[2px] bg-gradient-to-b from-primary to-orange-500 mb-3 shadow-[0_0_30px_rgba(250,204,21,0.4)]" style={getHexagonStyle('')}>
-                  <div className="w-full h-full bg-[#12141D] flex items-center justify-center text-2xl font-bold text-foreground uppercase" style={getHexagonStyle('')}>
+                  <div className="w-full h-full bg-card flex items-center justify-center text-2xl font-bold text-foreground uppercase" style={getHexagonStyle('')}>
                     {top3[0].teamName.substring(0,2)}
                   </div>
                 </div>
@@ -159,14 +159,14 @@ export default function LeaderboardPage() {
             <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex flex-col items-center relative z-10 w-28 md:w-40">
               <div className="mb-4 flex flex-col items-center text-center">
                 <div className="w-16 h-16 p-[2px] bg-gradient-to-b from-[#34C759] to-transparent mb-3 shadow-[0_0_20px_rgba(52,199,89,0.2)]" style={getHexagonStyle('')}>
-                  <div className="w-full h-full bg-[#12141D] flex items-center justify-center text-xl font-bold text-foreground uppercase" style={getHexagonStyle('')}>
+                  <div className="w-full h-full bg-card flex items-center justify-center text-xl font-bold text-foreground uppercase" style={getHexagonStyle('')}>
                     {top3[2].teamName.substring(0,2)}
                   </div>
                 </div>
                 <div className="text-foreground font-semibold text-sm truncate w-full">{top3[2].teamName}</div>
                 <div className="text-[#34C759] font-mono font-bold mt-1 text-lg">{top3[2].score}</div>
               </div>
-              <div className="absolute top-28 w-8 h-8 bg-[#8B8D98] shadow-md text-foreground font-bold flex items-center justify-center z-20" style={getHexagonStyle('')}>
+              <div className="absolute top-28 w-8 h-8 bg-secondary shadow-md text-foreground font-bold flex items-center justify-center z-20" style={getHexagonStyle('')}>
                 3
               </div>
               <div className="w-full h-32 bg-gradient-to-b from-[#1E3B2E] to-[#0A120E] border-t border-[#34C759]/40 rounded-t-[50%] shadow-[inset_0_10px_20px_rgba(52,199,89,0.1)] relative">
@@ -206,12 +206,12 @@ export default function LeaderboardPage() {
               viewport={{ once: true }}
               key={entry.teamId} 
               className={cn(
-                "flex items-center px-6 py-4 rounded-2xl bg-[#0B0C10] border border-white/5 transition-transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.5)] group",
-                isCurrentTeam ? "bg-[#17181D] border-primary/30" : ""
+                "flex items-center px-6 py-4 rounded-2xl bg-muted border border-foreground/5 transition-transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.5)] group",
+                isCurrentTeam ? "bg-card border-primary/30" : ""
               )}
             >
               <div className="w-12 flex justify-center">
-                <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center text-xs font-bold text-foreground/50 group-hover:bg-white/10 transition-colors">
+                <div className="w-6 h-6 rounded-md bg-foreground/5 flex items-center justify-center text-xs font-bold text-foreground/50 group-hover:bg-foreground/10 transition-colors">
                   {entry.rank}
                 </div>
               </div>

@@ -110,7 +110,7 @@ export default function DeluluHome() {
 
   return (
     <div className="delulu-home">
-      <i className="glow" style={{ left: '-120px', top: '-120px', zIndex: 0 }}></i>
+      <i className="glow -left-[120px] -top-[120px] z-0"></i>
       
       {/* HEADER */}
       <header className="w nav">
@@ -130,9 +130,9 @@ export default function DeluluHome() {
 
       {/* HERO */}
       <section className="w hero">
-        <i className="d sq" style={{ left: '42%', top: '-6px' }}></i>
-        <i className="d sq wh" style={{ right: '-2%', top: '-2px' }}></i>
-        <i className="d tri" style={{ left: '-3%', bottom: '52px', transform: 'rotate(180deg) scale(.8)' }}></i>
+        <i className="d sq left-[42%] -top-[6px]"></i>
+        <i className="d sq wh -right-[2%] -top-[2px]"></i>
+        <i className="d tri -left-[3%] bottom-[52px] rotate-180 scale-90"></i>
         
         <div>
           <h1>Learn , Build , Innovate</h1>
@@ -142,7 +142,7 @@ export default function DeluluHome() {
           <a href="#sectors" className="btn g">View Problem Statement</a>
         </div>
         
-        <img className="mon" src="/hero_monitor.jpg" alt="3D Monitor" style={{ borderRadius: '12px' }} />
+        <img className="mon rounded-xl" src="/hero_monitor.jpg" alt="3D Monitor" />
       </section>
 
       {/* ABOUT */}
@@ -150,7 +150,7 @@ export default function DeluluHome() {
         <div className="ph">
           <i className="p1"></i>
           <i className="p2"></i>
-          <i className="d ring" style={{ right: '-8%', top: '-6%' }}></i>
+          <i className="d ring -right-[8%] -top-[6%]"></i>
         </div>
         <div>
           <h2>About <b>Delulu Hunt</b></h2>
@@ -170,7 +170,7 @@ export default function DeluluHome() {
 
       {/* PROBLEM SECTORS */}
       <section className="w ps" id="sectors">
-        <i className="glow" style={{ left: 'calc(50% - 50vw - 190px)', top: '-120px', zIndex: -1 }}></i>
+        <i className="glow left-[calc(50%-50vw-190px)] -top-[120px] -z-10"></i>
         <h2>Problem <b>Sector - Theme</b></h2>
         <small>sds</small>
         <div className="car">
@@ -208,8 +208,8 @@ export default function DeluluHome() {
 
       {/* SCHEDULE */}
       <section className="w sc" id="schedule">
-        <i className="d sq" style={{ left: '-4%', top: '72%' }}></i>
-        <i className="d ring" style={{ right: '6%', top: '74%' }}></i>
+        <i className="d sq -left-[4%] top-[72%]"></i>
+        <i className="d ring right-[6%] top-[74%]"></i>
         <h2>Hackathon <b>Schedule</b></h2>
         <p>  A thrilling journey of clues, challenges, teamwork, and surprises. Are you ready to find what’s hidden?</p>
         <div className="dt">

@@ -53,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="flex h-screen glass-panel backdrop-blur-lg overflow-hidden text-foreground font-sans">
       {/* Mobile Menu Toggle */}
-      <div className="md:hidden fixed top-0 left-0 w-full h-16 glass-panel  z-50 flex items-center justify-between px-4 border-b border-white/20/10 shadow-sm">
+      <div className="md:hidden fixed top-0 left-0 w-full h-16 glass-panel  z-50 flex items-center justify-between px-4 border-b border-foreground/20/10 shadow-sm">
         <div className="font-bold text-lg tracking-wider text-danger flex items-center">
           <ShieldAlert className="w-5 h-5 mr-2" /> ADMIN
         </div>
@@ -64,10 +64,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed md:static inset-y-0 left-0 z-40 w-64 glass-panel  border-r border-white/20/10 transform transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col shadow-lg md:shadow-none",
+        "fixed md:static inset-y-0 left-0 z-40 w-64 glass-panel  border-r border-foreground/20/10 transform transition-transform duration-300 ease-in-out md:translate-x-0 flex flex-col shadow-lg md:shadow-none",
         isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="h-16 flex items-center justify-center border-b border-white/20/10 hidden md:flex text-danger glass-panel backdrop-blur-lg/50">
+        <div className="h-16 flex items-center justify-center border-b border-foreground/20/10 hidden md:flex text-danger glass-panel backdrop-blur-lg/50">
           <ShieldAlert className="w-5 h-5 mr-2" />
           <Link href="/admin/dashboard" className="font-bold text-lg tracking-wider">CONTROL PANEL</Link>
         </div>
@@ -92,7 +92,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </div>
 
-        <div className="p-4 border-t border-white/20/10 glass-panel backdrop-blur-lg/50">
+        <div className="p-4 border-t border-foreground/20/10 glass-panel backdrop-blur-lg/50">
           <Button variant="ghost" className="w-full justify-start text-slate-300 hover:text-danger hover:bg-danger/10" onClick={handleLogout}>
             <LogOut className="w-5 h-5 mr-3" />
             Sign Out

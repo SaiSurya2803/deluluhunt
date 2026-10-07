@@ -284,12 +284,12 @@ export default function ActiveQuizPage() {
     <div className="flex flex-col h-screen -m-4 md:-m-8 relative">
       {/* Live Proctoring PIP */}
       <div className="absolute bottom-4 left-4 z-50 flex gap-2 pointer-events-none">
-        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/20/10 overflow-hidden relative shadow-lg">
+        <div className="w-32 h-24 bg-black rounded-lg border-2 border-foreground/20/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && videoStream) el.srcObject = videoStream; }}></video>
           <div className="absolute top-1 left-1 bg-danger text-foreground text-[8px] px-1 rounded animate-pulse">REC</div>
           <div className="absolute bottom-1 right-1 bg-black/60 text-foreground text-[8px] px-1 rounded">CAM</div>
         </div>
-        <div className="w-32 h-24 bg-black rounded-lg border-2 border-white/20/10 overflow-hidden relative shadow-lg">
+        <div className="w-32 h-24 bg-black rounded-lg border-2 border-foreground/20/10 overflow-hidden relative shadow-lg">
           <video autoPlay playsInline muted className="w-full h-full object-cover" ref={el => { if (el && screenStream) el.srcObject = screenStream; }}></video>
           <div className="absolute top-1 left-1 bg-danger text-foreground text-[8px] px-1 rounded animate-pulse">REC</div>
           <div className="absolute bottom-1 right-1 bg-black/60 text-foreground text-[8px] px-1 rounded">SCR</div>

@@ -49,7 +49,7 @@ export default function AdminAssetsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center pb-4 border-b border-white/20/10">
+      <div className="flex justify-between items-center pb-4 border-b border-foreground/20/10">
         <div>
           <h1 className="text-3xl font-bold text-danger tracking-tight">ASSETS MANAGEMENT</h1>
           <p className="text-slate-400 mt-1">Manage challenge resources, datasets, and file links.</p>
@@ -66,8 +66,8 @@ export default function AdminAssetsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {assets.map((asset, index) => (
-          <Card key={asset.id} className="border-white/20/10 shadow-sm glass-panel  overflow-visible">
-            <CardHeader className="glass-panel backdrop-blur-lg border-b border-white/20/10 flex flex-row items-center justify-between pb-4">
+          <Card key={asset.id} className="border-foreground/20/10 shadow-sm glass-panel  overflow-visible">
+            <CardHeader className="glass-panel backdrop-blur-lg border-b border-foreground/20/10 flex flex-row items-center justify-between pb-4">
               <CardTitle className="text-lg text-slate-200 flex items-center">
                 <FileArchive className="w-4 h-4 mr-2 text-primary" /> {asset.name}
               </CardTitle>
@@ -82,7 +82,7 @@ export default function AdminAssetsPage() {
                 <select 
                   value={asset.roundId}
                   onChange={(e) => updateAsset(asset.id, 'roundId', e.target.value)}
-                  className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-foreground"
+                  className="w-full glass-panel  border border-foreground/20 text-sm rounded-md px-3 py-2 text-foreground"
                 >
                   {rounds.map(r => (
                     <option key={r.id} value={r.id}>Round {r.roundNumber}: {r.title}</option>
@@ -95,7 +95,7 @@ export default function AdminAssetsPage() {
                 <Input 
                   value={asset.name} 
                   onChange={(e) => updateAsset(asset.id, 'name', e.target.value)} 
-                  className="glass-panel  border-white/20 text-foreground"
+                  className="glass-panel  border-foreground/20 text-foreground"
                 />
               </div>
 
@@ -104,7 +104,7 @@ export default function AdminAssetsPage() {
                 <textarea 
                   value={asset.description || ''} 
                   onChange={(e) => updateAsset(asset.id, 'description', e.target.value)} 
-                  className="w-full glass-panel  border border-white/20 text-foreground rounded-md p-2 text-sm min-h-[60px]"
+                  className="w-full glass-panel  border border-foreground/20 text-foreground rounded-md p-2 text-sm min-h-[60px]"
                 />
               </div>
 
@@ -114,7 +114,7 @@ export default function AdminAssetsPage() {
                   <select 
                     value={asset.type}
                     onChange={(e) => updateAsset(asset.id, 'type', e.target.value)}
-                    className="w-full glass-panel  border border-white/20 text-sm rounded-md px-3 py-2 text-foreground"
+                    className="w-full glass-panel  border border-foreground/20 text-sm rounded-md px-3 py-2 text-foreground"
                   >
                     <option value="PDF">PDF</option>
                     <option value="IMAGE">IMAGE</option>
@@ -143,7 +143,7 @@ export default function AdminAssetsPage() {
                 <Input 
                   value={asset.url} 
                   onChange={(e) => updateAsset(asset.id, 'url', e.target.value)} 
-                  className="glass-panel  border-white/20 text-foreground text-xs"
+                  className="glass-panel  border-foreground/20 text-foreground text-xs"
                 />
               </div>
 

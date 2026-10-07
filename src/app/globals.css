@@ -10,6 +10,9 @@
   --accent: #A855F7; /* Purple accent */
   --accent-blue: #4F46E5;
   
+  --card: #12141D; /* Default dark card */
+  --muted: #0B0C12; /* Default dark muted */
+  
   --glass-bg: linear-gradient(145deg, #17181d, #0b0c10);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-blur: blur(24px);
@@ -27,6 +30,9 @@
   --color-primary-hover: var(--primary-hover);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  
+  --color-card: var(--card);
+  --color-muted: var(--muted);
   
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
@@ -186,6 +192,9 @@ table tr:hover td {
 body.light-theme {
   --background: #f8f9fa;
   --foreground: #111827;
+  
+  --card: #ffffff;
+  --muted: #f3f4f6;
   
   --secondary: #4b5563;
   --glass-bg: linear-gradient(145deg, #ffffff, #f3f4f6);

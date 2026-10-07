@@ -26,9 +26,9 @@ function LiveMonitorNode({ team }: { team: Team }) {
   }, [team.id]);
 
   return (
-    <Card className="overflow-hidden border-white/20/10 shadow-sm glass-panel  hover:shadow-md transition-shadow">
+    <Card className="overflow-hidden border-foreground/20/10 shadow-sm glass-panel  hover:shadow-md transition-shadow">
       <div className="flex glass-panel  relative">
-        <div className="w-1/3 aspect-video bg-black relative border-r border-white/20/10 flex items-center justify-center">
+        <div className="w-1/3 aspect-video bg-black relative border-r border-foreground/20/10 flex items-center justify-center">
           {camFrame ? <img src={camFrame} alt="cam" className="w-full h-full object-cover transform scale-x-[-1]" /> : <Video className="w-6 h-6 text-slate-300" />}
           <div className="absolute bottom-1 left-1 bg-black/60 text-foreground text-[8px] px-1 rounded">CAM</div>
         </div>
@@ -94,7 +94,7 @@ export default function ProctoringPage() {
         <div className="lg:col-span-2 space-y-4">
           <h2 className="text-xl font-semibold text-foreground tracking-tight">Event Log</h2>
           {events.length === 0 ? (
-            <Card className="border-white/20/10 shadow-sm glass-panel ">
+            <Card className="border-foreground/20/10 shadow-sm glass-panel ">
               <CardContent className="p-12 text-center text-slate-400">
                 No proctoring events recorded.
               </CardContent>
@@ -106,7 +106,7 @@ export default function ProctoringPage() {
                 const member = team?.members.find(m => m.id === event.memberId);
                 
                 return (
-                  <Card key={event.id} className={cn("transition-colors border-white/20/10 shadow-sm", event.status === 'UNREVIEWED' ? 'bg-danger/5 border-l-4 border-l-danger' : 'glass-panel  opacity-70')}>
+                  <Card key={event.id} className={cn("transition-colors border-foreground/20/10 shadow-sm", event.status === 'UNREVIEWED' ? 'bg-danger/5 border-l-4 border-l-danger' : 'glass-panel  opacity-70')}>
                     <CardContent className="p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                       <div className="flex items-start gap-4">
                         <div className={`p-2 rounded-full ${event.status === 'UNREVIEWED' ? 'bg-danger/10 text-danger' : 'glass-panel backdrop-blur-lg text-slate-400'}`}>
@@ -115,7 +115,7 @@ export default function ProctoringPage() {
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <span className="font-bold text-foreground">{team?.name || 'Unknown Team'}</span>
-                            <span className="text-xs text-slate-400 px-2 border border-white/20/10 rounded-md glass-panel backdrop-blur-lg">{member?.name || 'Unknown'}</span>
+                            <span className="text-xs text-slate-400 px-2 border border-foreground/20/10 rounded-md glass-panel backdrop-blur-lg">{member?.name || 'Unknown'}</span>
                             {getSeverityBadge(event.severity)}
                           </div>
                           <p className="text-slate-300 font-medium">{event.event}</p>
@@ -124,7 +124,7 @@ export default function ProctoringPage() {
                       </div>
                       
                       {event.status === 'UNREVIEWED' ? (
-                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="glass-panel  border-white/20/10 text-slate-300 hover:text-foreground">
+                        <Button variant="outline" size="sm" onClick={() => markReviewed(event.id)} className="glass-panel  border-foreground/20/10 text-slate-300 hover:text-foreground">
                           <CheckCircle className="w-4 h-4 mr-2 text-success" /> Mark Reviewed
                         </Button>
                       ) : (
@@ -145,7 +145,7 @@ export default function ProctoringPage() {
               <LiveMonitorNode key={team.id} team={team} />
             ))}
             {Object.values(teams).filter(t => t.quizStatus === 'ACTIVE').length === 0 && (
-              <div className="col-span-full text-center p-8 text-slate-400 border border-white/20/10 glass-panel backdrop-blur-lg border-dashed rounded-xl">
+              <div className="col-span-full text-center p-8 text-slate-400 border border-foreground/20/10 glass-panel backdrop-blur-lg border-dashed rounded-xl">
                 No active participants streaming
               </div>
             )}
