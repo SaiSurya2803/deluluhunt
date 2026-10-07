@@ -171,71 +171,71 @@ html { scroll-behavior: smooth; }
   transform: scale(1.1);
 }
 
-.delulu-home.light-theme {
+.light-theme .delulu-home {
   --bg: #ffffff;
   --card: #f5f5f5;
   color-scheme: light;
   color: #151515;
 }
 
-.delulu-home.light-theme .theme-toggle {
+.light-theme .delulu-home .theme-toggle {
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.delulu-home.light-theme .r p,
-.delulu-home.light-theme .about p,
-.delulu-home.light-theme .c p,
-.delulu-home.light-theme details p,
-.delulu-home.light-theme .sc > p,
-.delulu-home.light-theme .pr small {
+.light-theme .delulu-home .r p,
+.light-theme .delulu-home .about p,
+.light-theme .delulu-home .c p,
+.light-theme .delulu-home details p,
+.light-theme .delulu-home .sc > p,
+.light-theme .delulu-home .pr small {
   color: #555555;
 }
 
-.delulu-home.light-theme .cta,
-.delulu-home.light-theme .btn.g {
+.light-theme .delulu-home .cta,
+.light-theme .delulu-home .btn.g {
   background: #f0f0f0;
   border-color: #ddd;
   color: #111;
 }
 
-.delulu-home.light-theme .cta b {
+.light-theme .delulu-home .cta b {
   color: #111;
 }
 
-.delulu-home.light-theme .t {
+.light-theme .delulu-home .t {
   background: #e0e0e0;
   color: #333;
 }
-.delulu-home.light-theme .t.on {
+.light-theme .delulu-home .t.on {
   background: var(--o);
   color: #fff;
 }
 
-.delulu-home.light-theme summary:after { color: #111; }
+.light-theme .delulu-home summary:after { color: #111; }
 
-.delulu-home.light-theme .c1,
-.delulu-home.light-theme .c2,
-.delulu-home.light-theme .c3,
-.delulu-home.light-theme .c4 {
+.light-theme .delulu-home .c1,
+.light-theme .delulu-home .c2,
+.light-theme .delulu-home .c3,
+.light-theme .delulu-home .c4 {
   background: var(--card);
   border-color: #ddd;
 }
 
-.delulu-home.light-theme .tl.g {
+.light-theme .delulu-home .tl.g {
   background: #e0e0e0;
   color: #111;
 }
 
-.delulu-home.light-theme .ph i {
+.light-theme .delulu-home .ph i {
   box-shadow: 0 8px 30px rgba(0,0,0,0.1);
 }
 
-.delulu-home.light-theme .out {
+.light-theme .delulu-home .out {
   -webkit-text-stroke: 1px var(--o);
   text-shadow: none;
 }
-.delulu-home.light-theme .glow {
+.light-theme .delulu-home .glow {
   opacity: 0.3;
 }
 

@@ -31,6 +31,8 @@ const playfair = Playfair_Display({
 
 import { DatabaseSyncProvider } from '@/components/DatabaseSyncProvider';
 
+import { ThemeProvider } from '@/components/ThemeProvider';
+
 export default function RootLayout({
   children,
 }: {
@@ -40,7 +42,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`min-h-screen bg-background text-foreground antialiased selection:bg-primary/30 ${spaceGrotesk.variable} ${inter.variable} ${dotGothic.variable} ${playfair.variable}`}>
         <DatabaseSyncProvider>
-          {children}
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
         </DatabaseSyncProvider>
       </body>
     </html>

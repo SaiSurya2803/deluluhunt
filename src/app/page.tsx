@@ -24,7 +24,6 @@ export default function DeluluHome() {
 
   const [timeLeft, setTimeLeft] = useState({ days: 31, hours: 16, mins: 20, secs: 50 });
   const [activeTab, setActiveTab] = useState('online'); // For schedule tabs
-  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -110,7 +109,7 @@ export default function DeluluHome() {
   if (!mounted || !dynConfig) return null;
 
   return (
-    <div className={`delulu-home ${!isDarkMode ? 'light-theme' : ''}`}>
+    <div className="delulu-home">
       <i className="glow" style={{ left: '-120px', top: '-120px', zIndex: 0 }}></i>
       
       {/* HEADER */}
@@ -380,15 +379,6 @@ export default function DeluluHome() {
     </p>
   </details>
 </section>
-
-      {/* THEME TOGGLE BUTTON */}
-      <button 
-        className="theme-toggle" 
-        onClick={() => setIsDarkMode(!isDarkMode)}
-        aria-label="Toggle Theme"
-      >
-        {isDarkMode ? '☀️' : '🌙'}
-      </button>
 
     </div>
   );
