@@ -120,11 +120,11 @@ export default function DeluluHome() {
           <small>by Innovatex</small>
         </a>
         <nav>
-          <a>About</a>
-          <a>Sectors</a>
-          <a>Schedule</a>
-          <a>Prizes</a>
-          <a>FAQs</a>
+          <a href="#about">About</a>
+          <a href="#sectors">Sectors</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#prizes">Prizes</a>
+          <a href="#faqs">FAQs</a>
         </nav>
         <Link href={dynConfig.REGISTRATION_URL} className="reg">Registration</Link>
       </header>
@@ -147,7 +147,7 @@ export default function DeluluHome() {
       </section>
 
       {/* ABOUT */}
-      <section className="w about">
+      <section className="w about" id="about">
         <div className="ph">
           <i className="p1"></i>
           <i className="p2"></i>
@@ -208,7 +208,7 @@ export default function DeluluHome() {
       </section>
 
       {/* SCHEDULE */}
-      <section className="w sc">
+      <section className="w sc" id="schedule">
         <i className="d sq" style={{ left: '-4%', top: '72%' }}></i>
         <i className="d ring" style={{ right: '6%', top: '74%' }}></i>
         <h2>Hackathon <b>Schedule</b></h2>
@@ -262,7 +262,7 @@ export default function DeluluHome() {
       </section>
 
       {/* PRIZES */}
-      <section className="w pz">
+      <section className="w pz" id="prizes">
         <div>
           <h2><b>Prize</b> &amp; More</h2>
           <div className="tiles">
@@ -291,7 +291,7 @@ export default function DeluluHome() {
       </section>
 
       {/* FAQS */}
-<section className="fq">
+<section className="fq" id="faqs">
   <h2 className="o">FAQs</h2>
 
   <details open>
