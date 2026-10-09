@@ -236,3 +236,19 @@ body.light-theme table td {
 body.light-theme table tr:hover td {
   background-color: rgba(0, 0, 0, 0.03) !important;
 }
+
+body.light-theme .card-purple-glow {
+  background: radial-gradient(circle at 80% 20%, rgba(216,180,254,0.4), transparent 60%), linear-gradient(145deg, #f3e8ff, #faf5ff);
+}
+body.light-theme .card-blue-glow {
+  background: radial-gradient(circle at 70% 30%, rgba(99,102,241,0.2), transparent 60%), linear-gradient(145deg, #e0e7ff, #eef2ff);
+}
+body.light-theme .card-green-glow {
+  background: radial-gradient(circle at 80% 80%, rgba(52,199,89,0.2), transparent 60%), linear-gradient(145deg, #dcfce7, #f0fdf4);
+}
+body.light-theme .card-yellow-glow {
+  background: radial-gradient(circle at 20% 80%, rgba(250,204,21,0.3), transparent 60%), linear-gradient(145deg, #fef9c3, #fefce8);
+}
+body.light-theme .card-white-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.05), transparent 60%), linear-gradient(145deg, #ffffff, #f3f4f6);
+}
