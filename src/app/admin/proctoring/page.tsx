@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from 'react';
 import { DB } from '@/services/db';
@@ -72,7 +72,7 @@ export default function ProctoringPage() {
   };
 
   const markReviewed = (id: string) => {
-    const updated = events.map(e => e.id === id ? { ...e, status: 'REVIEWED' as const } : e);
+    const updated = events.filter(e => e.id !== id);
     DB.setItem(DB.KEYS.PROCTORING_EVENTS, updated);
     setEvents(updated);
   };
