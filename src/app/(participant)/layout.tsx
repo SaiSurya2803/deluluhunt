@@ -82,7 +82,7 @@ export default function ParticipantLayout({ children }: { children: React.ReactN
       {/* Mobile Menu Toggle */}
       <div className="md:hidden fixed top-0 left-0 w-full h-16 glass-panel z-50 flex items-center justify-between px-4 border-b-0">
         <div className="flex items-center">
-          <img src="/logo.png" alt="INNOVATEX" className="h-8 w-auto object-contain" />
+          <div className="flex flex-col justify-center -space-y-1"><span className="text-foreground font-bold text-lg tracking-tight font-sans">InnovateX</span><span className="text-foreground/70 text-[8px] font-bold tracking-widest font-sans">DELULU HUNT</span></div>
         </div>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-foreground">
           {isMobileMenuOpen ? <X /> : <Menu />}
@@ -96,7 +96,7 @@ export default function ParticipantLayout({ children }: { children: React.ReactN
       )}>
         <div className="h-16 flex items-center justify-center border-b border-glass-border hidden md:flex">
           <Link href="/dashboard" className="flex items-center justify-center w-full h-full">
-            <img src="/logo.png" alt="INNOVATEX" className="h-10 w-auto object-contain" />
+            <div className="flex flex-col items-center justify-center -space-y-1"><span className="text-foreground font-bold text-2xl tracking-tight font-sans">InnovateX</span><span className="text-foreground/70 text-[10px] font-bold tracking-widest font-sans">DELULU HUNT</span></div>
           </Link>
         </div>
         

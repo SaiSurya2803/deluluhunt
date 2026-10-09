@@ -304,7 +304,7 @@ export default function ActiveQuizPage() {
       <div className="flex items-center justify-between p-4 glass-panel /90 border-b border-glass-border">
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center">
-            <img src="/logo.png" alt="INNOVATEX" className="h-8 w-auto object-contain mr-3" />
+            <div className="flex flex-col justify-center -space-y-1 mr-3"><span className="text-foreground font-bold text-lg tracking-tight font-sans">InnovateX</span><span className="text-foreground/70 text-[8px] font-bold tracking-widest font-sans">DELULU HUNT</span></div>
             <span className="font-bold text-xl text-primary text-glow">QUIZ</span>
           </div>
           <Badge variant="outline" className="border-primary text-primary">Q: {currentIndex + 1} / {questions.length}</Badge>
