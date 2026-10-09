@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
+  color-scheme: dark;
   --background: #151515;
   --foreground: #ffffff;
   
@@ -191,6 +192,7 @@ table tr:hover td {
    GLOBAL LIGHT THEME OVERRIDES
 -------------------------------------- */
 body.light-theme {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #151515;
   
@@ -279,4 +281,11 @@ body.light-theme .card-white-glow {
 body.light-theme .theme-toggle {
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+/* Native select option overrides */
+select option {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
 }
