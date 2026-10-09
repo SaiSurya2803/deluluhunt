@@ -253,3 +253,30 @@ body.light-theme .card-yellow-glow {
 body.light-theme .card-white-glow {
   background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.05), transparent 60%), linear-gradient(145deg, #ffffff, #f3f4f6);
 }
+
+/* --- THEME TOGGLE --- */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background 0.2s;
+}
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+body.light-theme .theme-toggle {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}

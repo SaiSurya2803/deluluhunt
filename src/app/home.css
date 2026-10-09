@@ -148,28 +148,7 @@ html { scroll-behavior: smooth; }
   .delulu-home .tiles .tl.x { height: 120px; }
 }
 
-/* --- THEME TOGGLE & LIGHT THEME OVERRIDES --- */
-.theme-toggle {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 2px solid var(--o);
-  color: var(--o);
-  font-size: 24px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  z-index: 100;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: transform 0.2s, background 0.2s;
-}
-.theme-toggle:hover {
-  transform: scale(1.1);
-}
+/* LIGHT THEME OVERRIDES */
 
 .light-theme .delulu-home {
   --bg: #ffffff;
@@ -178,10 +157,7 @@ html { scroll-behavior: smooth; }
   color: #151515;
 }
 
-.light-theme .delulu-home .theme-toggle {
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
+
 
 .light-theme .delulu-home .r p,
 .light-theme .delulu-home .about p,
@@ -238,4 +214,5 @@ html { scroll-behavior: smooth; }
 .light-theme .delulu-home .glow {
   opacity: 0.3;
 }
+
 
